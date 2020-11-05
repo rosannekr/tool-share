@@ -11,7 +11,7 @@ module.exports = {
           price: "2",
           isAvailable: true,
           ownerId: 1,
-          category: 4,
+          categoryId: 4,
         },
         {
           name: "tent",
@@ -27,7 +27,7 @@ module.exports = {
           price: "5",
           isAvailable: true,
           ownerId: 3,
-          category: 2,
+          categoryId: 2,
         },
       ],
       {}
