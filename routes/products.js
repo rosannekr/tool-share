@@ -40,29 +40,29 @@ router.post("/", function (req, res) {
     });
 });
 
-// Updates product listing
+// Update product 
 
-router.put("/:id", function (req, res) { 
+router.put("/:id", async function (req, res) {
+  const { id } = req.params;
+  try {
+    await models.Product.update(req.body, {
+      where: {
+        id,
+      },
+    });
+    res.send("Product updated");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
-try {
-const update = models.Product.update(req.body, {
-  where: {
-  id }
-})
 
-res.send(update);
-} catch (error) {
-res.status(500).send(error);
-}
+//Delete product
 
-})
-
-
-/* DELETE a user */
 router.delete("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
-    await models.User.destroy({
+    await models.Product.destroy({
       where: {
         id,
       },
