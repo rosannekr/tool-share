@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      PointPrice: {
+      pricePerDay: {
         type: Sequelize.INTEGER
       },
       isAvailable: {
