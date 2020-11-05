@@ -1,20 +1,17 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-
-return queryInterface.addColumn("Products","categoryId", {
-  type: Sequelize.INTEGER,
-  references: {
-    model: "Categories",
-    key: "id"
-  }
-}) 
-
+    return queryInterface.addColumn("Products", "categoryId", {
+      type: Sequelize.INTEGER,
+      references: {
+        model: "Categories",
+        key: "id",
+      },
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-
-    return queryInterface.removeColumn("Categories","categoryId");
-  }
+    return queryInterface.removeColumn("Products", "categoryId");
+  },
 };
