@@ -8,7 +8,7 @@ module.exports = {
         {
           name: "drill",
           description: "Powerful drill, works on batteries.",
-          PointPrice: "2",
+          pricePerDay: "2",
           isAvailable: true,
           ownerId: 1,
           categoryId: 4,
@@ -16,7 +16,7 @@ module.exports = {
         {
           name: "tent",
           description: "2-person tent for camping.",
-          PointPrice: "10",
+          pricePerDay: "10",
           isAvailable: true,
           ownerId: 2,
           categoryId: 5,
@@ -24,7 +24,7 @@ module.exports = {
         {
           name: "barbecue",
           description: "Charcoal BBQ. Cooking area: 40 cm.",
-          PointPrice: "5",
+          pricePerDay: "5",
           isAvailable: true,
           ownerId: 3,
           categoryId: 2,
