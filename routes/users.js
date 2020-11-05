@@ -5,7 +5,7 @@ var models = require("../models");
 /* GET all users */
 router.get("/", async function (req, res, next) {
   try {
-    const users = await models.Users.findAll();
+    const users = await models.User.findAll();
     res.send(users);
   } catch (error) {
     res.status(500).send(error);
@@ -16,12 +16,23 @@ router.get("/", async function (req, res, next) {
 router.get("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
-    const user = await models.Users.findOne({
+    const user = await models.User.findOne({
       where: {
         id,
       },
+      include: models.Product,
     });
     res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* GET all products that belong to a user */
+router.get("/users/:id/products", async function (req, res, next) {
+  try {
+    const users = await models.User.findAll();
+    res.send(users);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -31,7 +42,7 @@ router.get("/:id", async function (req, res, next) {
 router.post("/", async function (req, res, next) {
   const { name, username, password } = req.body;
   try {
-    const user = await models.Users.create({
+    const user = await models.User.create({
       name,
       username,
       password,
@@ -43,13 +54,25 @@ router.post("/", async function (req, res, next) {
 });
 
 /* UPDATE a user */
-router.put("/", async function (req, res, next) {});
+router.put("/:id", async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    await models.User.update(req.body, {
+      where: {
+        id,
+      },
+    });
+    res.send("User updated");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 /* DELETE a user */
 router.delete("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
-    await models.Users.destroy({
+    await models.User.destroy({
       where: {
         id,
       },
