@@ -29,10 +29,29 @@ router.get("/:id", async function (req, res, next) {
 });
 
 /* GET all products that belong to a user */
-router.get("/users/:id/products", async function (req, res, next) {
+router.get("/:id/products", async function (req, res, next) {
+  const { id } = req.params;
   try {
-    const users = await models.User.findAll();
-    res.send(users);
+    const user = await models.User.findOne({
+      where: {
+        id,
+      },
+    });
+
+    const products = await user.getProducts();
+
+    res.send(products);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// TODO
+/* GET all products a user has borrowed */
+router.get("/:id/borrowedproducts", async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    res.send();
   } catch (error) {
     res.status(500).send(error);
   }
