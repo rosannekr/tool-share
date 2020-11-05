@@ -12,6 +12,8 @@ module.exports = {
           isAvailable: true,
           ownerId: 1,
           categoryId: 4,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
         {
           name: "tent",
@@ -20,6 +22,8 @@ module.exports = {
           isAvailable: true,
           ownerId: 2,
           categoryId: 5,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
         {
           name: "barbecue",
@@ -28,6 +32,8 @@ module.exports = {
           isAvailable: true,
           ownerId: 3,
           categoryId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       ],
       {}
