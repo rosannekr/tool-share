@@ -12,51 +12,6 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-/* GET one user */
-router.get("/:id", async function (req, res, next) {
-  const { id } = req.params;
-  try {
-    const user = await models.User.findOne({
-      where: {
-        id,
-      },
-      include: models.Product,
-    });
-    res.send(user);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-/* GET all products that belong to a user */
-router.get("/:id/products", async function (req, res, next) {
-  const { id } = req.params;
-  try {
-    const user = await models.User.findOne({
-      where: {
-        id,
-      },
-    });
-
-    const products = await user.getProducts();
-
-    res.send(products);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-// TODO
-/* GET all products a user has borrowed */
-router.get("/:id/borrowedproducts", async function (req, res, next) {
-  const { id } = req.params;
-  try {
-    res.send();
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
 /* ADD a new user */
 router.post("/", async function (req, res, next) {
   const { name, username, password } = req.body;
@@ -65,6 +20,21 @@ router.post("/", async function (req, res, next) {
       name,
       username,
       password,
+    });
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* GET one user */
+router.get("/:id", async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    const user = await models.User.findOne({
+      where: {
+        id,
+      },
     });
     res.send(user);
   } catch (error) {
@@ -97,6 +67,65 @@ router.delete("/:id", async function (req, res, next) {
       },
     });
     res.send("User deleted");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* GET all products a user owns */
+router.get("/:id/products", async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    const user = await models.User.findOne({
+      where: {
+        id,
+      },
+      include: models.Product,
+    });
+    res.send(user.Products);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* GET all products a user has borrowed */
+router.get("/:id/borrowed", async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    const user = await models.User.findOne({
+      where: {
+        id,
+      },
+      include: ["Borrowed"],
+    });
+    res.send(user.Borrowed);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* ADD to borrowed products */
+router.post("/:id/borrowed", async function (req, res, next) {
+  const { id } = req.params;
+  const { productId } = req.body;
+
+  try {
+    // get the user
+    const user = await models.User.findOne({
+      where: {
+        id,
+      },
+    });
+    // get the product
+    const product = await models.Product.findOne({
+      where: {
+        id: productId,
+      },
+    });
+    // add borrowed product to user
+    await user.addBorrowed(product);
+
+    res.send("Product added");
   } catch (error) {
     res.status(500).send(error);
   }
