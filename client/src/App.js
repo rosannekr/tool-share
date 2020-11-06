@@ -7,18 +7,22 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App(props) {
   return (
     <div className="App">
-  
-
       <Router>
-      <SearchBar {...props} />
-      <Filter />
-    <Switch>
+        <SearchBar {...props} />
+        <Filter />
+        <Switch>
+          <Route
+            path="/search/:search"
+            render={(props) => <Search {...props} />}
+          />
+          <Route path="/searchBar" component={SearchBar} />
 
-    <Route path="/search/:search" render={(props) => <Search {...props} />} />
-    <Route path="/searchBar" component={SearchBar} />
-    <Route path="/filter" component={Filter} />
-
-    </Switch>
+          <Route
+            path="/searchBar"
+            render={(props) => <SearchBar {...props} hola="hola" />}
+          />
+          <Route path="/filter" component={Filter} />
+        </Switch>
       </Router>
     </div>
   );

@@ -1,41 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, useHistory,Link } from "react-router-dom";
+import {Link } from "react-router-dom";
 
-  function SearchBar() {
-  let history = useHistory();
+  function SearchBar(props) {
 
-  let [filteredItems, setFilteredItems] = useState([]);
-  let [searchWord, setSearchWord] = useState("");
+let [searchWord, setSearchWord] = useState("");
   
-
-  const search = () => {
-
-    let url = `/products/`;
-    if (searchWord) {
-      url += `search/${searchWord}`;
-    }
-
-    console.log(url)
-
-    fetch(url)
-      .then(response => response.json())
-      .then(response => {
-        setFilteredItems(response);
-      }) .catch((error) => {
-         console.log(error);
-       });
-      
-      ;
-
-    };
 
     const handleClick = (e) => {
       setSearchWord(e.target.value)
     }
-
-  useEffect(() => {
-
-  },[]);
 
   return (
     <div className="container ">
@@ -49,13 +22,12 @@ import { BrowserRouter, useHistory,Link } from "react-router-dom";
         />
        
          <Link to={`/search/${searchWord}`}>
-        <button className="btn underline mb-4" onClick={search}>
+        <button className="btn underline mb-4">
           search
         </button>
         </Link>
     
       </div>
-
 
     </div>
   );
