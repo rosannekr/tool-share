@@ -34,8 +34,8 @@ router.get("/:id", async function (req, res) {
 //Adds a new product
 
 router.post("/", function (req, res) {
-  const { name, pricePerDay,isAvailable,description, picture, ownerId, CategoryId } = req.body;
-  models.Product.create({ name, pricePerDay,isAvailable,description, picture, ownerId, CategoryId })
+  const { name, pricePerDay,isAvailable,description, picture, userId, categoryId } = req.body;
+  models.Product.create({ name, pricePerDay,isAvailable,description, picture, userId, categoryId })
     .then((data) => res.send(data))
     .catch((error) => {
       res.status(500).send(error);
