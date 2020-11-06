@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var models = require("../models")
+var models = require("../models");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 //GET all products 
 
@@ -32,13 +34,29 @@ router.get("/:id", async function (req, res) {
 //Adds a new product
 
 router.post("/", function (req, res) {
-  const { name, pricePerDay,isAvailable,description, picture, ownerId, CategoryId } = req.body;
-  models.Product.create({ name, pricePerDay,isAvailable,description, picture, ownerId, CategoryId })
+  const { name, pricePerDay,isAvailable,description, picture, userId, categoryId } = req.body;
+  models.Product.create({ name, pricePerDay,isAvailable,description, picture, userId, categoryId })
     .then((data) => res.send(data))
     .catch((error) => {
       res.status(500).send(error);
     });
 });
+
+//search products by name
+
+router.get("/search/:search", async function(req, res) {
+  let search = req.params.search;
+
+  search = search.toLowerCase();
+
+   try {
+      const products = await models.Product.findAll()({where: {name: {[Op.like]: '%' + search + '%'}}})
+      res.send(products);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
 
 // Update product 
 

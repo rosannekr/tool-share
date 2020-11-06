@@ -27,4 +27,22 @@ router.get("/:id", async function (req, res) {
   }
 });
 
+//Get all products that belong in a category (filter)
+
+router.get("/:id/products", async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    const category = await models.Category.findOne({
+      where: {
+        id,
+      },
+    });
+
+    const products = await category.getProducts();
+
+    res.send(products);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 module.exports = router;
