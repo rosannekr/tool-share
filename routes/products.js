@@ -1,19 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var models = require("../models");
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+const sequelize = require('sequelize');
+const { QueryTypes } = require('sequelize');
+const Op = sequelize.Op
 
-//GET all products 
-
-router.get("/", async function (req, res) {
-  try {
-    const products = await models.Product.findAll();
-    res.send(products);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
 
 //Get one product
 
@@ -46,18 +37,16 @@ router.post("/", function (req, res) {
 
 router.get("/search/:search", async function(req, res) {
   let search = req.params.search;
-
   search = search.toLowerCase();
 
-   try {
-      const products = await models.Product.findAll()({where: {name: {[Op.like]: '%' + search + '%'}}})
-      res.send(products);
-    } catch (error) {
+   models.sequelize.query(`SELECT * FROM Products WHERE name LIKE ?`,
+    { replacements: [`%${search}%`], type: sequelize.QueryTypes.SELECT })
+    .then((products) => res.send(products))
+    .catch((error) => {
       res.status(500).send(error);
-    }
-  });
-
-
+    })
+})
+  
 // Update product 
 
 router.put("/:id", async function (req, res) {
@@ -91,6 +80,18 @@ router.delete("/:id", async function (req, res, next) {
   }
 });
 
+//GET all products 
+
+router.get("/", async function (req, res) {
+  try {
+    const products = await models.Product.findAll();
+    res.send(products);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 
 module.exports = router;
+
+
