@@ -13,12 +13,12 @@ router.get("/:id/products", function (req, res) {
     where: {
       id,
     },
-    include: models.Product,
+    include: ["Borrowed"],
   })
     .then((user) => {
       user
         .getProducts()
-        .then((users) => res.send(users))
+        .then((products) => res.send(products))
         .catch((error) => {
           res.status(500).send(error);
         });
