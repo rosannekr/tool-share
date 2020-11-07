@@ -6,11 +6,13 @@ import Search from "./components/Search";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ProfilePage from "./components/ProfilePage";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);
+  let [user, setUser] = useState({});
 
   useEffect(() => {
     getProducts();
@@ -29,7 +31,8 @@ function App() {
 
   // function to pass down to login component
   // to be able to set state to true when logged in
-  const login = () => {
+  const login = (user) => {
+    setUser(user);
     setIsLoggedIn(true);
   };
 
@@ -67,6 +70,9 @@ function App() {
             exact
             render={(props) => <Home {...props} products={displayedProducts} />}
           />
+          <Route path="/user/:id">
+            <ProfilePage />
+          </Route>
         </Switch>
       </Router>
     </div>
