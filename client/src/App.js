@@ -1,11 +1,14 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import Filter from "./components/Filter";
-import SearchBar from "./components/SearchBar";
 import Search from "./components/Search";
+import Header from "./components/Header";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Filter from "./components/Filter";
+import SearchBar from "./components/SearchBar";
+import ProductPage from "./components/ProductPage";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -36,9 +39,9 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <SearchBar callback={(products) => setProducts(products)} />
-        <Filter callback={(products) => setProducts(products)} />
 
+        <Header callback={(products) => setProducts(products)}  />
+    
         <Switch>
           <Route path="/register">
             <Register />
@@ -56,6 +59,9 @@ function App() {
             )}
           />
           <Route path="/searchBar" component={SearchBar} />
+
+
+          <Route path="/product/:id" render={props => <ProductPage {...props} />} /> 
 
           <Route
             path="/searchBar"

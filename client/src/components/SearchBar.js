@@ -11,25 +11,25 @@ let [searchWord, setSearchWord] = useState("");
     }
 
   return (
-    <div className="container ">
-      <div className="d-flex justify-content-center">
+
+      <div className="d-flex justify-content-center mt-4">
         <input
           onChange={handleClick}
           value={searchWord}
           type="text"
           className="form-control search-form mb-5 text-center ml-5"
-          placeholder="Type something here..."
+          placeholder="Type to search..."
         />
        
          <Link to={`/search/${searchWord}`}>
-        <button className="btn underline mb-4">
-          search
+        <button className="btn underline mb-4 bg-dark">
+         <i className="fa fa-search text-light" aria-hidden="true"></i>
         </button>
         </Link>
     
       </div>
 
-    </div>
+
   );
 }
 
