@@ -6,6 +6,7 @@ import Search from "./components/Search";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import ProfilePage from "./components/ProfilePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -67,6 +68,9 @@ function App() {
             exact
             render={(props) => <Home {...props} products={displayedProducts} />}
           />
+          <Route path="/profile">
+            <ProfilePage />
+          </Route>
         </Switch>
       </Router>
     </div>
