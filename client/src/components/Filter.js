@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import {Link } from "react-router-dom";
 
-export default function Filter() {
+export default function Filter(props) {
   let [categories, setCategories] = useState("");
-  let [items, setItems] = useState([]);
 
   useEffect(() => {
     getCategories();
@@ -12,7 +12,7 @@ export default function Filter() {
     fetch(`/categories`)
       .then((response) => response.json())
       .then((response) => {
-        setCategories(response);
+      setCategories(response)
       });
   };
 
@@ -20,7 +20,7 @@ export default function Filter() {
     fetch(`categories/${id}/products`)
       .then((response) => response.json())
       .then((response) => {
-        response.length > 0 && setItems(response);
+        response.length > 0 && props.callback(response);
       });
   };
 
@@ -29,18 +29,13 @@ export default function Filter() {
       <ul>
         {categories &&
           categories.map((category) => (
-            <li
-              key={category.id}
+            <Link to="/" key={category.id}><li
               style={{ display: "inline" }}
               onClick={() => filterByCategory(category.id)}
             >
               {category.name}{" "}
-            </li>
+            </li></Link>
           ))}
-      </ul>
-
-      <ul>
-        {items && items.map((item) => <li key={item.id}>{item.name}</li>)}
       </ul>
     </div>
   );
