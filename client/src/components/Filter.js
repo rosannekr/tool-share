@@ -25,18 +25,16 @@ export default function Filter(props) {
   };
 
   return (
-    <div>
-      <ul>
+    <div className="container ">
+      <div className="text-center categories">
         {categories &&
           categories.map((category) => (
-            <Link to="/" key={category.id}><li
-              style={{ display: "inline" }}
-              onClick={() => filterByCategory(category.id)}
-            >
-              {category.name}{" "}
-            </li></Link>
+            <Link to="/" key={category.id}><p
+              onClick={() => filterByCategory(category.id)} >
+              {category.name}
+            </p></Link>
           ))}
-      </ul>
+      </div>
     </div>
   );
 }

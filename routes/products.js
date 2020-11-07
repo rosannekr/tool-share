@@ -15,6 +15,7 @@ router.get("/:id", async function (req, res) {
       where: {
         id,
       },
+      include: models.User,
     });
     res.send(product);
   } catch (error) {
