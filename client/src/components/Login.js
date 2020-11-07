@@ -12,9 +12,8 @@ function Login(props) {
     try {
       const result = await login(username, password);
       // result.data contains user info
-      console.log(result.data);
       // call login method to set logged in state in App component
-      props.login();
+      props.login(result.data);
       // redirect user to home page after login
       history.push("/");
     } catch (error) {
