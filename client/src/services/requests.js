@@ -9,3 +9,8 @@ export const register = async (name, username, password) => {
 export const login = async (username, password) => {
   return await axios.post("/users/login", { username, password });
 };
+
+// Get user
+export const getUser = async (id) => {
+  return await axios.get(`/users/${id}`);
+};

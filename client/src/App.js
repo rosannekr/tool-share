@@ -1,5 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Search from "./components/Search";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -8,12 +9,13 @@ import Login from "./components/Login";
 import Filter from "./components/Filter";
 import SearchBar from "./components/SearchBar";
 import ProductPage from "./components/ProductPage";
+import ProfilePage from "./components/ProfilePage";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);
+  let [user, setUser] = useState({});
 
   useEffect(() => {
     getProducts();
@@ -32,7 +34,8 @@ function App() {
 
   // function to pass down to login component
   // to be able to set state to true when logged in
-  const login = () => {
+  const login = (user) => {
+    setUser(user);
     setIsLoggedIn(true);
   };
 
@@ -73,6 +76,9 @@ function App() {
             exact
             render={(props) => <Home {...props} products={displayedProducts} />}
           />
+          <Route path="/user/:id">
+            <ProfilePage />
+          </Route>
         </Switch>
       </Router>
     </div>

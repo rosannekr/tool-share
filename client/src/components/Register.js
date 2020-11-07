@@ -21,28 +21,33 @@ function Register() {
   };
 
   return (
-    <div>
+    <div className="text-center">
       <h2>Sign Up</h2>
-      <form>
+      <form className="w-25 mx-auto mt-2">
         <input
+          className="form-control mb-1"
           type="text"
           placeholder="Name"
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
         <input
+          className="form-control mb-1"
           type="text"
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
         <input
+          className="form-control"
           type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <button onClick={handleClick}>Register</button>
+        <button className="btn btn-primary mt-2" onClick={handleClick}>
+          Register
+        </button>
       </form>
     </div>
   );
