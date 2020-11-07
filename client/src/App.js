@@ -4,10 +4,13 @@ import Filter from "./components/Filter";
 import SearchBar from "./components/SearchBar";
 import Search from "./components/Search";
 import Home from "./components/Home";
+import Register from "./components/Register";
+import Login from "./components/Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
+  let [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     getProducts();
@@ -17,24 +20,40 @@ function App() {
     fetch(`/products`)
       .then((response) => response.json())
       .then((response) => {
-        setDisplayedProducts(response)
+        setDisplayedProducts(response);
       });
   };
   let setProducts = (products) => {
-    setDisplayedProducts(products)
-  }
+    setDisplayedProducts(products);
+  };
+
+  // function to pass down to login component
+  // to be able to set state to true when logged in
+  const login = () => {
+    setIsLoggedIn(true);
+  };
 
   return (
     <div className="App">
       <Router>
-
-        <SearchBar callback = {(products) => setProducts(products)} />
-        <Filter callback = {(products) => setProducts(products)}/>
+        <SearchBar callback={(products) => setProducts(products)} />
+        <Filter callback={(products) => setProducts(products)} />
 
         <Switch>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login login={login} />
+          </Route>
           <Route
             path="/search/:q"
-            render={(props) => <Search {...props} callback = {(products) => setProducts(products)}/>}
+            render={(props) => (
+              <Search
+                {...props}
+                callback={(products) => setProducts(products)}
+              />
+            )}
           />
           <Route path="/searchBar" component={SearchBar} />
 
@@ -42,11 +61,12 @@ function App() {
             path="/searchBar"
             render={(props) => <SearchBar {...props} />}
           />
+          <Route path="/filter" render={(props) => <Filter {...props} />} />
           <Route
-            path="/filter"
-            render={(props) => <Filter {...props}  />}
+            path="/"
+            exact
+            render={(props) => <Home {...props} products={displayedProducts} />}
           />
-          <Route path="/" exact render={(props) => <Home {...props} products={displayedProducts}  />} />
         </Switch>
       </Router>
     </div>
