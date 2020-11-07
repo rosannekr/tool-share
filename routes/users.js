@@ -23,16 +23,27 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 router.post("/register", async (req, res) => {
   const { name, username, password } = req.body;
 
-  // hash password
-  const hash = await bcrypt.hash(password, saltRounds);
-
   try {
-    const user = await models.User.create({
-      name,
-      username,
-      password: hash,
+    // check if username already exists
+    const user = await models.User.findOne({
+      where: {
+        username,
+      },
     });
-    res.send(user);
+    // if not, create new user
+    if (!user) {
+      // hash password
+      const hash = await bcrypt.hash(password, saltRounds);
+
+      const user = await models.User.create({
+        name,
+        username,
+        password: hash,
+      });
+      res.send(user);
+    } else {
+      res.status(500).send("Username already exists");
+    }
   } catch (error) {
     res.status(500).send(error);
   }
