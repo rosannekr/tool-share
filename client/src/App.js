@@ -10,6 +10,7 @@ import Filter from "./components/Filter";
 import SearchBar from "./components/SearchBar";
 import ProductPage from "./components/ProductPage";
 import ProfilePage from "./components/ProfilePage";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
@@ -77,9 +78,9 @@ function App() {
             exact
             render={(props) => <Home {...props} products={displayedProducts} />}
           />
-          <Route path="/profile">
+          <PrivateRoute path="/profile">
             <ProfilePage />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Router>
     </div>

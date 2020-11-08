@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 
 /* Configuration */
 
@@ -28,11 +27,9 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    // if user is not authorized, remove token and redirect to login page
+    // if user is not authorized, remove token
     if (error.response.status === 401) {
       localStorage.removeItem("token");
-      console.log("redirect");
-      <Redirect to="/login" />;
     }
     return error;
   }
