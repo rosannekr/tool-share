@@ -1,7 +1,7 @@
 import React from 'react';
-import Filter from "./Filter";
 import SearchBar from "./SearchBar";
 import { useHistory } from "react-router-dom";
+import CategoryNav from './CategoryNav';
 
 export default function Header(props) {
        let history = useHistory();
@@ -12,7 +12,7 @@ export default function Header(props) {
         
         <div className="container">
         <SearchBar callback={(products) =>props.callback(products)} />
-        <Filter callback={(products) =>props.callback(products)}/>
+        <CategoryNav callback={(products) =>props.callback(products)}/>
         </div>
     )
        }

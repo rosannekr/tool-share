@@ -6,7 +6,8 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Filter from "./components/Filter";
+import Filters from "./components/Filters";
+import CategoryNav from "./components/CategoryNav";
 import SearchBar from "./components/SearchBar";
 import ProductPage from "./components/ProductPage";
 import ProfilePage from "./components/ProfilePage";
@@ -72,7 +73,8 @@ function App() {
             path="/searchBar"
             render={(props) => <SearchBar {...props} />}
           />
-          <Route path="/filter" render={(props) => <Filter {...props} />} />
+          <Route path="/filter" render={(props) => <CategoryNav {...props} />} />
+          <Route path="/category/:category" render={(props) => <Filters {...props} callback={(products) => setProducts(products)} />} />
           <Route
             path="/"
             exact

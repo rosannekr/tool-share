@@ -5,8 +5,8 @@ export default function ProductGrid(props) {
   return (
     <div className="container text-center grid">
       <div className="row mt-4 text-center">
-        {props.products.length > 0
-          ? props.products.map((item) => (
+
+        {props.products.length > 0 ? props.products.map((item) => (
               <div
                 className="card col-md-3 ml-2  rounded shadow itemCard"
                 key={item.id}

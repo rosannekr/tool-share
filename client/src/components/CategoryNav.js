@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Link } from "react-router-dom";
 
 export default function Filter(props) {
+
   let [categories, setCategories] = useState("");
 
   useEffect(() => {
@@ -16,21 +17,13 @@ export default function Filter(props) {
       });
   };
 
-  const filterByCategory = (id) => {
-    fetch(`categories/${id}/products`)
-      .then((response) => response.json())
-      .then((response) => {
-        response.length > 0 && props.callback(response);
-      });
-  };
-
   return (
     <div className="container ">
       <div className="text-center categories">
         {categories &&
           categories.map((category) => (
-            <Link to="/" key={category.id}><p
-              onClick={() => filterByCategory(category.id)} >
+            <Link to={`/category/${category.id}`} key={category.id}><p
+              >
               {category.name}
             </p></Link>
           ))}
