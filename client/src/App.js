@@ -11,11 +11,9 @@ import SearchBar from "./components/SearchBar";
 import ProductPage from "./components/ProductPage";
 import ProfilePage from "./components/ProfilePage";
 
-
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);
-  let [user, setUser] = useState({});
 
   useEffect(() => {
     getProducts();
@@ -34,15 +32,17 @@ function App() {
 
   // function to pass down to login component
   // to be able to set state to true when logged in
-  const login = (user) => {
-    setUser(user);
+  const login = () => {
     setIsLoggedIn(true);
   };
 
   return (
     <div className="App">
       <Router>
-        <Header callback={(products) => setProducts(products)} isLoggedIn={isLoggedIn} />
+        <Header
+          callback={(products) => setProducts(products)}
+          isLoggedIn={isLoggedIn}
+        />
 
         <Switch>
           <Route path="/register">

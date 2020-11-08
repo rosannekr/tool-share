@@ -1,6 +1,26 @@
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
+/* Configuration */
+
+// Do something before request is sent
+axios.interceptors.request.use(
+  (config) => {
+    // Grab token
+    const token = localStorage.getItem("token");
+
+    // Add header with token to every request
+    if (token != null) {
+      config.headers["x-access-token"] = token;
+    }
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
+
 // Intercept 401 unauthorized responses
 axios.interceptors.response.use(
   (response) => {
@@ -10,8 +30,8 @@ axios.interceptors.response.use(
   (error) => {
     // if user is not authorized, remove token and redirect to login page
     if (error.response.status === 401) {
+      localStorage.removeItem("token");
       console.log("redirect");
-
       <Redirect to="/login" />;
     }
     return error;
