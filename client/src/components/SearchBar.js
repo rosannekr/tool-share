@@ -12,8 +12,10 @@ let [searchWord, setSearchWord] = useState("");
 
   return (
 
-      <div className="d-flex justify-content-center mt-4">
+      <div className=" mt-4 header ml-4">
+        <div className=" d-flex justify-content-center">
         <input
+        style={{width: "750px"}}
           onChange={handleClick}
           value={searchWord}
           type="text"
@@ -22,11 +24,12 @@ let [searchWord, setSearchWord] = useState("");
         />
        
          <Link to={`/search/${searchWord}`}>
-        <button className="btn underline mb-4 bg-dark">
+        <button className="btn underline mb-5 bg-dark">
          <i className="fa fa-search text-light" aria-hidden="true"></i>
         </button>
         </Link>
-    
+        </div>
+        <p>Hi,<Link>username!</Link></p>
       </div>
 
 
