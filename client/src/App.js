@@ -12,6 +12,7 @@ import ProductPage from "./components/ProductPage";
 import ProfilePage from "./components/ProfilePage";
 
 
+
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);
