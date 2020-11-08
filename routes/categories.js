@@ -38,7 +38,7 @@ router.get("/:id/products", async function (req, res, next) {
       },
     });
 
-    const products = await category.getProducts();
+    const products = await category.getProducts({include: models.User});
 
     res.send(products);
   } catch (error) {

@@ -2,6 +2,8 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 export default function ProductGrid(props) {
+
+  
   return (
  
     <div className="container text-center grid">
@@ -10,12 +12,13 @@ export default function ProductGrid(props) {
           ? props.products.map((item) => (
 
               <div
-                className="card col-md-3 ml-2 mb-2 rounded shadow itemCard"
+                className="card col-md-3 ml-2  rounded shadow itemCard"
                 key={item.id}
               >
                    <Link to={"/product/" + item.id} style={{ textDecoration: 'none', color: 'black' }}>
+                     <p className="mt-1"><i className="fas fa-user-astronaut"></i> {item.User.name}</p>
                 <img
-                  className="card-img-top pt-3"
+                  className="card-img-top pt-1"
                   src="https://picsum.photos/150"
                   alt="Product image"
                 />

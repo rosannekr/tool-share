@@ -6,6 +6,55 @@ const { QueryTypes } = require('sequelize');
 const Op = sequelize.Op
 
 
+
+//GET all available products 
+
+router.get("/", async function (req, res) {
+  try {
+    const products = await models.Product.findAll({
+      where: {
+       isAvailable: 1
+     },
+      include: models.User,
+    });
+    res.send(products);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+//make product unavailable after being borrowed
+
+router.get("/:id/borrow", async function (req, res) {
+  const { id } = req.params;
+try{
+  const result = await models.Product.update(
+    { isAvailable: 0 }, 
+    { where: { id, }} 
+  )
+    res.send("Product is now unavailable");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
+//make product available after being returned
+
+router.get("/:id/return", async function (req, res) {
+  const { id } = req.params;
+try{
+  const result = await models.Product.update(
+    { isAvailable: 1 }, 
+    { where: { id, }} 
+  )
+    res.send("Product is now available");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
 //Get one product
 
 router.get("/:id", async function (req, res) {
@@ -36,17 +85,26 @@ router.post("/", function (req, res) {
 
 //search products by name
 
-router.get("/search/:search", async function(req, res) {
-  let search = req.params.search;
-  search = search.toLowerCase();
+router.get("/search/:search", async function (req, res) {
 
-   models.sequelize.query(`SELECT * FROM Products WHERE name LIKE ?`,
-    { replacements: [`%${search}%`], type: sequelize.QueryTypes.SELECT })
-    .then((products) => res.send(products))
-    .catch((error) => {
-      res.status(500).send(error);
-    })
-})
+let search = req.params.search;
+search = search.toLowerCase();
+
+  try {
+    const products = await models.Product.findAll({
+      where: {
+        name: {
+          [Op.like]: `%${search}%`
+        },
+      },
+      include: models.User,
+    });
+    res.send(products);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
   
 // Update product 
 
@@ -81,16 +139,7 @@ router.delete("/:id", async function (req, res, next) {
   }
 });
 
-//GET all products 
 
-router.get("/", async function (req, res) {
-  try {
-    const products = await models.Product.findAll();
-    res.send(products);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
 
 
 module.exports = router;

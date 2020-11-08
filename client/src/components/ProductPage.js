@@ -39,7 +39,27 @@ export default function ProductPage(props) {
         console.log(error);
       });
 
+     makeUnavailable();
+
   }
+
+  let makeUnavailable = () => {
+
+    fetch(`http://localhost:5000/products/${id}/borrow`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+
+    })
+      .then(response => {
+       console.log(response)
+      
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }
+
 
   return (
     <div className="container text-center item-page mt-5">
