@@ -5,7 +5,7 @@ export default function AddProduct(props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [categoryId, setCategoryId] = useState(null);
+  const [categoryId, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function AddProduct(props) {
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
         >
-          <option>Choose category</option>
+          <option value={0}>Choose category</option>
           {categories?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
