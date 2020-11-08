@@ -105,13 +105,14 @@ router.get("/profile", isLoggedIn, async (req, res) => {
 });
 
 // GET one user
-router.get("/:id", isLoggedIn, async function (req, res, next) {
+router.get("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
     const user = await models.User.findOne({
       where: {
         id,
       },
+      include: models.Product,
     });
     res.send(user);
   } catch (error) {

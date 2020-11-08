@@ -8,7 +8,8 @@ module.exports = {
         {
           name: "John",
           username: "john123",
-          password: "test",
+          password:
+            "$2b$10$zA3U2TyT9WA3mKuxlOHlo.em0h6vb5wvp12DG.iwC0hPshmgOXRLm",
           points: 20,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -16,7 +17,8 @@ module.exports = {
         {
           name: "Anne",
           username: "anne123",
-          password: "test",
+          password:
+            "$2b$10$zA3U2TyT9WA3mKuxlOHlo.em0h6vb5wvp12DG.iwC0hPshmgOXRLm",
           points: 10,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -24,7 +26,8 @@ module.exports = {
         {
           name: "Bob",
           username: "bob123",
-          password: "test",
+          password:
+            "$2b$10$zA3U2TyT9WA3mKuxlOHlo.em0h6vb5wvp12DG.iwC0hPshmgOXRLm",
           points: 30,
           createdAt: new Date(),
           updatedAt: new Date(),
