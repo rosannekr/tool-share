@@ -52,3 +52,25 @@ export const login = async (username, password) => {
 export const getProfile = async () => {
   return await axios.get("/users/profile");
 };
+
+// Get categories
+export const getCategories = async () => {
+  return await axios.get("/categories");
+};
+
+// Add a product
+export const addProduct = async (
+  userId,
+  name,
+  description,
+  pricePerDay,
+  categoryId
+) => {
+  return await axios.post("/products", {
+    userId,
+    name,
+    description,
+    pricePerDay,
+    categoryId,
+  });
+};
