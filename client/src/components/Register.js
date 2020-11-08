@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { register } from "../services/requests";
 
-function Register() {
+export default function Register() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,7 @@ function Register() {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center mt-5">
       <h2>Sign Up</h2>
       <form className="w-25 mx-auto mt-2">
         <input
@@ -52,5 +52,3 @@ function Register() {
     </div>
   );
 }
-
-export default Register;

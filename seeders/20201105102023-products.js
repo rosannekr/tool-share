@@ -35,6 +35,16 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          name: "raclette",
+          description: "For a delicious meal at home.",
+          pricePerDay: "5",
+          isAvailable: true,
+          userId: 3,
+          categoryId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );

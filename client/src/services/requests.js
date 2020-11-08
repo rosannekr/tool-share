@@ -1,5 +1,24 @@
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+
+/* Configuration */
+
+// Do something before request is sent
+axios.interceptors.request.use(
+  (config) => {
+    // Grab token
+    const token = localStorage.getItem("token");
+
+    // Add header with token to every request
+    if (token != null) {
+      config.headers["x-access-token"] = token;
+    }
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
 
 // Intercept 401 unauthorized responses
 axios.interceptors.response.use(
@@ -8,11 +27,9 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    // if user is not authorized, remove token and redirect to login page
+    // if user is not authorized, remove token
     if (error.response.status === 401) {
-      console.log("redirect");
-
-      <Redirect to="/login" />;
+      localStorage.removeItem("token");
     }
     return error;
   }
@@ -31,4 +48,26 @@ export const login = async (username, password) => {
 // Get user profile
 export const getProfile = async () => {
   return await axios.get("/users/profile");
+};
+
+// Get categories
+export const getCategories = async () => {
+  return await axios.get("/categories");
+};
+
+// Add a product
+export const addProduct = async (
+  userId,
+  name,
+  description,
+  pricePerDay,
+  categoryId
+) => {
+  return await axios.post("/products", {
+    userId,
+    name,
+    description,
+    pricePerDay,
+    categoryId,
+  });
 };
