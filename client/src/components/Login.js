@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { login } from "../services/requests";
 
-function Login(props) {
+export default function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -10,10 +10,12 @@ function Login(props) {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const result = await login(username, password);
-      // result.data contains user info
+      // send username & password to server
+      const res = await login(username, password);
+      // store token on user's device
+      localStorage.setItem("token", res.data.token);
       // call login method to set logged in state in App component
-      props.login(result.data);
+      props.login();
       // redirect user to home page after login
       history.push("/");
     } catch (error) {
@@ -22,7 +24,7 @@ function Login(props) {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center mt-5">
       <h2>Log In</h2>
       <form className="w-25 mx-auto mt-2">
         <input
@@ -46,5 +48,3 @@ function Login(props) {
     </div>
   );
 }
-
-export default Login;

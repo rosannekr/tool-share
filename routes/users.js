@@ -2,29 +2,46 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 
-const isLoggedIn = require("../guards/isLoggedIn");
-
+var jwt = require("jsonwebtoken");
+require("dotenv").config();
 var bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-// Import Passport configuration
-const passport = require("../config/passport");
+const isLoggedIn = require("../guards/isLoggedIn");
+
+const supersecret = process.env.SUPER_SECRET;
 
 // LOGIN
-// Using the passport.authenticate middleware with our local strategy.
-// passport.authenticate() is a middle ware provided by passport
-// and is configured (in config/passport.js)
-router.post("/login", passport.authenticate("local"), (req, res) => {
-  // If this function gets called, authentication was successful.
-  // `req.user` contains the authenticated user.
-  res.send(req.user);
-});
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
 
-// LOGOUT
-router.post("/logout", (req, res) => {
-  // Passport comes with a logout function, which removes user id from cookie
-  req.logout();
-  res.send("logged out");
+  try {
+    // check if there is a user with provided username
+    const user = await models.User.findOne({
+      where: {
+        username,
+      },
+    });
+
+    if (user) {
+      // verify password (by comparing the typed in password with hash stored in db)
+      const match = await bcrypt.compare(password, user.password);
+
+      if (match) {
+        // generate token with user id as payload and secret key
+        const token = jwt.sign({ userId: user.id }, supersecret);
+        // send token to the user
+        res.send({ message: "Login successful", token });
+      } else {
+        throw new Error("Incorrect password");
+      }
+    } else {
+      // throw error if user is not in the database
+      throw new Error("Invalid username");
+    }
+  } catch (error) {
+    res.status(401).send({ message: error.message });
+  }
 });
 
 // REGISTER
@@ -67,6 +84,26 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+// GET user info
+router.get("/profile", isLoggedIn, async (req, res) => {
+  // grab user id from decoded payload
+  const { userId } = req;
+
+  try {
+    // find user
+    const user = await models.User.findOne({
+      where: {
+        id: userId,
+      },
+      include: models.Product,
+    });
+
+    res.send(user);
+  } catch (error) {
+    res.status(401).send({ message: error.message });
+  }
+});
+
 // GET one user
 router.get("/:id", isLoggedIn, async function (req, res, next) {
   const { id } = req.params;
@@ -80,26 +117,6 @@ router.get("/:id", isLoggedIn, async function (req, res, next) {
   } catch (error) {
     res.status(500).send(error);
   }
-});
-
-// GET user profile
-router.get("/profile", async function (req, res, next) {
-  console.log("test");
-
-  console.log("in profile route", req.user);
-
-  res.send(req.user);
-  // const { id } = req.params;
-  // try {
-  //   const user = await models.User.findOne({
-  //     where: {
-  //       id,
-  //     },
-  //   });
-  //   res.send(user);
-  // } catch (error) {
-  //   res.status(500).send(error);
-  // }
 });
 
 // UPDATE a user
@@ -168,7 +185,7 @@ router.get("/:id/borrowed", async function (req, res, next) {
 router.post("/:id/borrowed", async function (req, res, next) {
   const { id } = req.params;
   const { productId } = req.body;
-  console.log(productId)
+  console.log(productId);
   try {
     // get the user
     const user = await models.User.findOne({
