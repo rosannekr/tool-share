@@ -72,7 +72,7 @@ export default function ProductPage(props) {
             <p className="card-text"></p>
             <p className="card-text text-secondary">{item.description}</p>
             <p className="card-text">
-              <small class="text-muted">added on {item.createdAt.substring(0,10)}</small>
+              <small className="text-muted">added on {item.createdAt.substring(0,10)}</small>
             </p>
             <button onClick={() => borrowItem(item.id)} className="btn btn-dark">Borrow it</button>
           </div>
