@@ -12,7 +12,6 @@ import ProductPage from "./components/ProductPage";
 import ProfilePage from "./components/ProfilePage";
 
 
-
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,9 +42,8 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <Header callback={(products) => setProducts(products)} isLoggedIn={isLoggedIn} />
 
-        <Header callback={(products) => setProducts(products)}  />
-    
         <Switch>
           <Route path="/register">
             <Register />
@@ -64,8 +62,10 @@ function App() {
           />
           <Route path="/searchBar" component={SearchBar} />
 
-
-          <Route path="/product/:id" render={props => <ProductPage {...props} />} /> 
+          <Route
+            path="/product/:id"
+            render={(props) => <ProductPage {...props} />}
+          />
 
           <Route
             path="/searchBar"

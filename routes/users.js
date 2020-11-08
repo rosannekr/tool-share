@@ -140,7 +140,7 @@ router.get("/:id/borrowed", async function (req, res, next) {
 router.post("/:id/borrowed", async function (req, res, next) {
   const { id } = req.params;
   const { productId } = req.body;
-
+  console.log(productId)
   try {
     // get the user
     const user = await models.User.findOne({
