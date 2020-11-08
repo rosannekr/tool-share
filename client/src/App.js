@@ -77,7 +77,7 @@ function App() {
             exact
             render={(props) => <Home {...props} products={displayedProducts} />}
           />
-          <Route path="/user/:id">
+          <Route path="/profile">
             <ProfilePage />
           </Route>
         </Switch>

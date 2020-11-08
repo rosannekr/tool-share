@@ -19,10 +19,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // setup for passport
+// sends session ID in cookie to client
 app.use(
   session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
 );
+// initialize passport in app
 app.use(passport.initialize());
+// tell passport to change the value of the user object
+// from the session ID to the actual user object
 app.use(passport.session());
 
 // setup for routes

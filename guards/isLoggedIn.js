@@ -20,7 +20,7 @@ const isLoggedIn = (req, res, next) => {
   }
   // if the user is not logged in, return a 401 with message, the client will route the
   // user based on the response.
-  return res.json("not authenticated");
+  return res.status(401).send("not authenticated");
 };
 
 module.exports = isLoggedIn;

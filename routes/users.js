@@ -2,7 +2,8 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 
-// Import functions for password encryption
+const isLoggedIn = require("../guards/isLoggedIn");
+
 var bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -17,6 +18,13 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
   // If this function gets called, authentication was successful.
   // `req.user` contains the authenticated user.
   res.send(req.user);
+});
+
+// LOGOUT
+router.post("/logout", (req, res) => {
+  // Passport comes with a logout function, which removes user id from cookie
+  req.logout();
+  res.send("logged out");
 });
 
 // REGISTER
@@ -60,7 +68,7 @@ router.get("/", async function (req, res, next) {
 });
 
 // GET one user
-router.get("/:id", async function (req, res, next) {
+router.get("/:id", isLoggedIn, async function (req, res, next) {
   const { id } = req.params;
   try {
     const user = await models.User.findOne({
@@ -72,6 +80,26 @@ router.get("/:id", async function (req, res, next) {
   } catch (error) {
     res.status(500).send(error);
   }
+});
+
+// GET user profile
+router.get("/profile", async function (req, res, next) {
+  console.log("test");
+
+  console.log("in profile route", req.user);
+
+  res.send(req.user);
+  // const { id } = req.params;
+  // try {
+  //   const user = await models.User.findOne({
+  //     where: {
+  //       id,
+  //     },
+  //   });
+  //   res.send(user);
+  // } catch (error) {
+  //   res.status(500).send(error);
+  // }
 });
 
 // UPDATE a user
