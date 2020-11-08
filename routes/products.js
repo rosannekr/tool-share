@@ -25,7 +25,7 @@ router.get("/", async function (req, res) {
 
 //make product unavailable after being borrowed
 
-router.get("/:id/borrow", async function (req, res) {
+router.put("/:id/borrow", async function (req, res) {
   const { id } = req.params;
 try{
   const result = await models.Product.update(
@@ -41,7 +41,7 @@ try{
 
 //make product available after being returned
 
-router.get("/:id/return", async function (req, res) {
+router.put("/:id/return", async function (req, res) {
   const { id } = req.params;
 try{
   const result = await models.Product.update(

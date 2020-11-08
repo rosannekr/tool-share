@@ -44,7 +44,7 @@ export default function ProductPage(props) {
   }
 
   let makeUnavailable = () => {
-
+    console.log(id)
     fetch(`http://localhost:5000/products/${id}/borrow`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
