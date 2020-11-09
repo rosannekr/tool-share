@@ -122,7 +122,7 @@ router.get("/:id", async function (req, res, next) {
 
 // UPDATE a user
 router.put("/:id", async function (req, res, next) {
-  const { id } = req.params;
+  const { id } = req.body;
   try {
     await models.User.update(req.body, {
       where: {
