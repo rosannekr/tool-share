@@ -17,6 +17,9 @@ module.exports = {
       isAvailable: {
         type: Sequelize.BOOLEAN
       },
+      NumOfDaysAvailable: {
+        type: Sequelize.INTEGER
+      },
       description: {
         type: Sequelize.STRING
       },

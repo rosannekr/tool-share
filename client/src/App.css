@@ -18,12 +18,20 @@
       max-width: 700px;
   }
 
-  search-form {
-    
+  .borrowForm {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+      align-items: baseline;
+  } 
+
+  select {
+      width: 300px;
   }
 
 
-.header {
+  .header {
     display: flex;
     justify-content: space-evenly;
     width: 1000px;

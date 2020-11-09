@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 export default function ProductPage(props) {
   let { id } = useParams();
   let [item, setItem] = useState("");
+  let [days, setDays] = useState("");
+  let [pointTotal, setPointTotal] = useState("");
+  let [hasEnoughPoints, setHasEnoughPoints] = useState(true);
 
   useEffect(() => {
     getOneProduct();
@@ -20,61 +23,100 @@ export default function ProductPage(props) {
   };
 
   let borrowItem = (productId) => {
+    let id = 3; //user id not shared yet between components
 
-    let id = 3 //user id not shared yet between components
+    if (item.User.points < pointTotal ) {
+      setHasEnoughPoints(false) }
 
+      else {
     fetch(`http://localhost:5000/users/${id}/borrowed`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         productId: productId,
-       
-      })
+      }),
     })
-      .then(response => {
-       console.log(response)
-      
+      .then((response) => {
+        console.log(response);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
-     makeUnavailable();
-
-  }
+    makeUnavailable();
+    deductPoints();
+      }
+  };
 
   let makeUnavailable = () => {
-    console.log(id)
+    console.log(id);
     fetch(`http://localhost:5000/products/${id}/borrow`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-
     })
-      .then(response => {
-       console.log(response)
-      
+      .then((response) => {
+        console.log(response);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
+  };
 
+  let handleInput = (e) => {
+    setHasEnoughPoints(true)
+    e.preventDefault();
+    setDays(e.target.value);
+    setPointTotal(e.target.value * item.pricePerDay)
+    
+  };
+
+  let deductPoints = () => {
+    
+    
   }
-
 
   return (
     <div className="container text-center item-page mt-5">
       {item && (
         <div className="card">
-        <p className="card-header">Item posted by <span className="text-primary">{item.User.name}</span></p>
+          <p className="card-header">
+            Item posted by{" "}
+            <span className="text-primary">{item.User.name}</span>
+          </p>
           <div className="card-body">
-     
-      <h5 className="card-title">{item.name} | {item.pricePerDay} points/day</h5>
+            <h5 className="card-title">
+              {item.name} | {item.pricePerDay} points/day
+            </h5>
             <p className="card-text"></p>
             <p className="card-text text-secondary">{item.description}</p>
             <p className="card-text">
-              <small className="text-muted">added on {item.createdAt.substring(0,10)}</small>
+              <small className="text-muted">
+                added on {item.createdAt.substring(0, 10)}
+              </small>
             </p>
-            <button onClick={() => borrowItem(item.id)} className="btn btn-dark">Borrow it</button>
+            {!hasEnoughPoints && <p className="bg-danger text-light">Sorry but you don't have enough points to borrow this item</p>}
+            <div className="borrowForm">
+              <p>Number of days: </p>
+            <form>
+              <select className="form-control"
+               value={days}
+               onChange={(e) => handleInput(e)}>
+                {Array.from(
+                  { length: item.NumOfDaysAvailable + 1 },
+                  (v, i) => i
+                ).map((item) => (
+                  <option value={item}>{item}</option>
+                ))}
+              </select>
+            </form>
+              <p>Points total: {!pointTotal ? "0" : pointTotal}</p>
+              <button
+                onClick={() => borrowItem(item.id)}
+                className="btn btn-dark"
+              >
+                Borrow it
+              </button>
+            </div>
           </div>
           <img
             className="card-img-bottom"
