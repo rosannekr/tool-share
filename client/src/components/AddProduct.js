@@ -20,7 +20,7 @@ export default function AddProduct(props) {
     e.preventDefault();
     try {
       // send product info to server
-      await addProduct(props.userId, name, description, price, categoryId);
+      await addProduct(name, description, price, categoryId);
     } catch (error) {
       console.log(error.message);
     }

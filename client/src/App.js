@@ -12,6 +12,7 @@ import SearchBar from "./components/SearchBar";
 import ProductPage from "./components/ProductPage";
 import ProfilePage from "./components/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
+import AddProduct from "./components/AddProduct";
 
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
@@ -38,12 +39,18 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+
   return (
     <div className="App">
       <Router>
         <Header
           callback={(products) => setProducts(products)}
           isLoggedIn={isLoggedIn}
+          logout={logout}
         />
 
         <Switch>
@@ -73,8 +80,19 @@ function App() {
             path="/searchBar"
             render={(props) => <SearchBar {...props} />}
           />
-          <Route path="/filter" render={(props) => <CategoryNav {...props} />} />
-          <Route path="/category/:category" render={(props) => <Filters {...props} callback={(products) => setProducts(products)} />} />
+          <Route
+            path="/filter"
+            render={(props) => <CategoryNav {...props} />}
+          />
+          <Route
+            path="/category/:category"
+            render={(props) => (
+              <Filters
+                {...props}
+                callback={(products) => setProducts(products)}
+              />
+            )}
+          />
           <Route
             path="/"
             exact
@@ -82,6 +100,9 @@ function App() {
           />
           <PrivateRoute path="/profile">
             <ProfilePage />
+          </PrivateRoute>
+          <PrivateRoute path="/products/upload">
+            <AddProduct />
           </PrivateRoute>
         </Switch>
       </Router>

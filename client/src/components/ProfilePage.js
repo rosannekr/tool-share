@@ -23,8 +23,7 @@ export default function ProfilePage(props) {
           <p>Name: {user.name}</p>
           <p>Points: {user.points || 0}</p>
           <h5>My Products:</h5>
-       <ProductGrid products={user.Products} /> 
-          <AddProduct userId={user.id} />
+          <ProductGrid products={user.Products} />
         </div>
       )}
     </div>

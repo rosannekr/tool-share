@@ -58,14 +58,12 @@ export const getCategories = async () => {
 
 // Add a product
 export const addProduct = async (
-  userId,
   name,
   description,
   pricePerDay,
   categoryId
 ) => {
   return await axios.post("/products", {
-    userId,
     name,
     description,
     pricePerDay,
