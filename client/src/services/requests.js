@@ -30,6 +30,7 @@ axios.interceptors.response.use(
     // if user is not authorized, remove token
     if (error.response.status === 401) {
       localStorage.removeItem("token");
+      // redirect to login page
     }
     return error;
   }
