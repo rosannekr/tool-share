@@ -18,7 +18,8 @@ export default function Filter(props) {
   };
 
   return (
-    <div className="container ">
+    <div className="container nav-categories">
+      {/* <p>See all</p> */}
       <div className="text-center categories">
         {categories &&
           categories.map((category) => (
