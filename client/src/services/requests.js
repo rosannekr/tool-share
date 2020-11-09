@@ -70,3 +70,10 @@ export const addProduct = async (
     categoryId,
   });
 };
+
+// Update product
+export const updateProduct = async (id, reqbody) => {
+  console.log(id, reqbody);
+
+  return await axios.put(`/products/${id}`, reqbody);
+};

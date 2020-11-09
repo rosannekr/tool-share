@@ -207,6 +207,13 @@ router.delete("/", isLoggedIn, async (req, res) => {
   // grab user id from decoded payload
   const { userId } = req;
   try {
+    // delete products this user owns
+    await models.Product.destroy({
+      where: {
+        UserId: userId,
+      },
+    });
+    // delete user
     await models.User.destroy({
       where: {
         id: userId,
