@@ -9,7 +9,6 @@ export default function ProductPage(props) {
   let [pointTotal, setPointTotal] = useState("");
   const [user, setUser] = useState({});
   let [hasEnoughPoints, setHasEnoughPoints] = useState(true);
-  const [user, setUser] = useState({});
 
   useEffect(() => {
     getOneProduct();
