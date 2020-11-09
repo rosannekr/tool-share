@@ -75,8 +75,8 @@ router.get("/:id", async function (req, res) {
 //Adds a new product
 
 router.post("/", function (req, res) {
-  const { name, pricePerDay,isAvailable,description, picture, userId, categoryId } = req.body;
-  models.Product.create({ name, pricePerDay,isAvailable,description, picture, userId, categoryId })
+  const { name, pricePerDay,isAvailable,description, picture, UserId, CategoryId } = req.body;
+  models.Product.create({ name, pricePerDay,isAvailable,description, picture, UserId, CategoryId })
     .then((data) => res.send(data))
     .catch((error) => {
       res.status(500).send(error);
