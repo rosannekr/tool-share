@@ -2,7 +2,7 @@
     margin-top: -30px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .grid {
@@ -25,7 +25,13 @@
 
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 1000px;
    
 }
+/* 
+.nav-categories {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+} */
