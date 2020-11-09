@@ -1,37 +1,12 @@
-.categories {
-    margin-top: -30px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
 .grid {
-    margin-right: -0px;
-  }
-  
-  .itemCard {
-      width: 500px;
-      margin-left: 0px;
-  }
-
-  .item-page {
-      max-width: 700px;
-  }
-
-  search-form {
-    
-  }
-
-
-.header {
-    display: flex;
-    justify-content: space-evenly;
-    width: 1000px;
-   
+  margin-right: -0px;
 }
-/* 
-.nav-categories {
-    display: flex;
-    justify-content: space-around;
-    align-items: baseline;
-} */
+
+.itemCard {
+  width: 500px;
+  margin-left: 0px;
+}
+
+.item-page {
+  max-width: 700px;
+}

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Filter(props) {
-
   let [categories, setCategories] = useState("");
 
   useEffect(() => {
@@ -13,22 +12,18 @@ export default function Filter(props) {
     fetch(`/categories`)
       .then((response) => response.json())
       .then((response) => {
-      setCategories(response)
+        setCategories(response);
       });
   };
 
   return (
-    <div className="container nav-categories">
-      {/* <p>See all</p> */}
-      <div className="text-center categories">
-        {categories &&
-          categories.map((category) => (
-            <Link to={`/category/${category.id}`} key={category.id}><p
-              >
-              {category.name}
-            </p></Link>
-          ))}
-      </div>
+    <div className="d-flex justify-content-around align-items-end border-bottom py-3">
+      {categories &&
+        categories.map((category) => (
+          <Link to={`/category/${category.id}`} key={category.id}>
+            {category.name}
+          </Link>
+        ))}
     </div>
   );
 }
