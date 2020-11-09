@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getProfile } from "../services/requests";
 import ProductGrid from "./ProductGrid";
-import AddProduct from "./AddProduct";
 
 export default function ProfilePage(props) {
   const [user, setUser] = useState({});
