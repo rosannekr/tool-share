@@ -1,26 +1,25 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function ProductGrid(props) {
-
   return (
-
-    <div className="container">
-     <div className="row mt-4 text-center">
-   
-      {props.products ? props.products.map((item) => (
-
+    <div className="container text-center">
+      <div className="row mt-4 justify-content-center">
+        {props.products
+          ? props.products.map((item) => (
               <div
-                className="card col-md-3 ml-2  rounded shadow itemCard"
+                className="card col-md-3 ml-2 mb-4 rounded shadow itemCard"
                 key={item.id}
               >
                 <Link
                   to={"/product/" + item.id}
                   style={{ textDecoration: "none", color: "black" }}
                 >
-                  { item.User && <p className="mt-1">
-                    <i className="fas fa-user-astronaut"></i> {item.User.name}
-                  </p>}
+                  {item.User && (
+                    <p className="mt-1">
+                      <i className="fas fa-user-astronaut"></i> {item.User.name}
+                    </p>
+                  )}
                   <img
                     className="card-img-top pt-1"
                     src="https://picsum.photos/150"

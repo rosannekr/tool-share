@@ -1,46 +1,33 @@
 .grid {
-
-    margin-right: -0px;
-  }
-  
-  .itemCard {
-      width: 500px;
-      margin-left: 0px;
-  }
-
-  .item-page {
-      max-width: 700px;
-  }
-
-  .borrowForm {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 20px;
-      align-items: baseline;
-  } 
-
-  select {
-      width: 300px;
-  }
-
   margin-right: -0px;
 }
-
 
 .itemCard {
   width: 500px;
   margin-left: 0px;
 }
 
+.item-page {
+  max-width: 700px;
+}
 
-  .header {
-    display: flex;
-    justify-content: space-evenly;
-    width: 1000px;
-   
+.borrowForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  align-items: baseline;
+}
+
+select {
+  width: 300px;
+}
+
+.itemCard {
+  width: 500px;
+  margin-left: 0px;
+}
 
 .item-page {
   max-width: 700px;
-
 }
