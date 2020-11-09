@@ -13,6 +13,7 @@ import ProductPage from "./components/ProductPage";
 import ProfilePage from "./components/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
 import AddProduct from "./components/AddProduct";
+import { userIsLoggedIn } from "./services/auth";
 
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
@@ -20,6 +21,7 @@ function App() {
 
   useEffect(() => {
     getProducts();
+    setIsLoggedIn(userIsLoggedIn());
   }, []);
 
   const getProducts = () => {
