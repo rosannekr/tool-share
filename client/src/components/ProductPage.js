@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { getProfile } from "../services/requests";
 
 export default function ProductPage(props) {
   let { id } = useParams();
   let [item, setItem] = useState("");
   let [days, setDays] = useState("");
   let [pointTotal, setPointTotal] = useState("");
+  const [user, setUser] = useState({});
   let [hasEnoughPoints, setHasEnoughPoints] = useState(true);
 
   useEffect(() => {
     getOneProduct();
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    const res = await getProfile();
+    setUser(res.data);
+  };
+
 
   let getOneProduct = () => {
     fetch(`/products/${id}`)
@@ -23,9 +32,9 @@ export default function ProductPage(props) {
   };
 
   let borrowItem = (productId) => {
-    let id = 3; //user id not shared yet between components
+    let id = user.id; 
 
-    if (item.User.points < pointTotal ) {
+    if (user.points < pointTotal ) {
       setHasEnoughPoints(false) }
 
       else {
@@ -71,7 +80,24 @@ export default function ProductPage(props) {
   };
 
   let deductPoints = () => {
-    
+
+    let id = user.id
+    let newPoints = user.points - pointTotal;
+
+    fetch(`http://localhost:5000/users/${id}/`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        points: newPoints
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     
   }
 
