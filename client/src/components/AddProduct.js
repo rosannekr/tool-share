@@ -1,12 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { getCategories, addProduct } from "../services/requests";
+import { getProfile } from "../services/requests";
+import axios from "axios";
 
 export default function AddProduct(props) {
+  const [userId, setUserId] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [pricePerDay, setPricePerDay] = useState(0);
   const [categoryId, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
+  const [NumOfDaysAvailable, setNumOfDaysAvailable] = useState(0);
+  const [picture, setPicture] = useState(null);
+
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const res = await getProfile();
+    setUserId(res.data.id);
+  };
+
+  const send = event => {
+
+    event.preventDefault();
+
+    const data = new FormData();
+    data.append("name", name);
+    data.append("description", description);
+    data.append("pricePerDay", pricePerDay);
+    data.append("CategoryId", categoryId);
+    data.append("NumOfDaysAvailable", NumOfDaysAvailable);
+    data.append("UserId", userId);
+    data.append("picture", picture);
+
+   axios.post("http://localhost:5000/products", data)
+   .then(res => console.log(res))
+   .catch(err => console.log(err))
+
+  } 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,11 +54,17 @@ export default function AddProduct(props) {
     e.preventDefault();
     try {
       // send product info to server
-      await addProduct(name, description, price, categoryId);
+      await addProduct(name, description, pricePerDay, categoryId, picture);
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  const fileSelectedHandler = event => {
+    setPicture(event.target.files[0])
+  }
+
+
 
   return (
     <div className="text-center mt-5">
@@ -47,8 +87,8 @@ export default function AddProduct(props) {
         <input
           className="form-control"
           type="number"
-          onChange={(e) => setPrice(e.target.value)}
-          value={price}
+          onChange={(e) => setPricePerDay(e.target.value)}
+          value={pricePerDay}
         />
         <select
           className="form-control"
@@ -62,7 +102,19 @@ export default function AddProduct(props) {
             </option>
           ))}
         </select>
-        <button className="btn btn-primary mt-2" onClick={handleClick}>
+
+
+        <input
+          className="form-control"
+          type="number"
+          onChange={(e) => setNumOfDaysAvailable(e.target.value)}
+          value={NumOfDaysAvailable}
+        />
+
+        <input type="file" onChange={fileSelectedHandler} />
+
+
+        <button className="btn btn-primary mt-2" onClick={send}>
           Add
         </button>
       </form>

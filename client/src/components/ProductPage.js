@@ -56,7 +56,7 @@ export default function ProductPage(props) {
   };
 
   let makeUnavailable = () => {
-    console.log(id);
+
     fetch(`http://localhost:5000/products/${id}/borrow`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -79,6 +79,8 @@ export default function ProductPage(props) {
   let deductPoints = () => {
     let id = user.id;
     let newPoints = user.points - pointTotal;
+    console.log(user.points)
+    console.log(newPoints)
 
     fetch(`http://localhost:5000/users/${id}/`, {
       method: "PUT",
