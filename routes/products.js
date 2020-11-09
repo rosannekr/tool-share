@@ -3,7 +3,10 @@ var router = express.Router();
 var models = require("../models");
 const sequelize = require('sequelize');
 const { QueryTypes } = require('sequelize');
-const Op = sequelize.Op
+const Op = sequelize.Op;
+const multer = require("multer");
+const fs = require("fs");
+
 
 
 
@@ -74,14 +77,38 @@ router.get("/:id", async function (req, res) {
 
 //Adds a new product
 
-router.post("/", function (req, res) {
-  const { name, pricePerDay,isAvailable,description, picture, UserId, CategoryId } = req.body;
-  models.Product.create({ name, pricePerDay,isAvailable,description, picture, UserId, CategoryId })
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './pictures')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+})
+const upload = multer({storage});
+
+
+router.post("/", upload.single("picture"), function (req, res) {
+  let picture = req.file.path;
+  let isAvailable = true;
+
+  const { name, pricePerDay, description, UserId, CategoryId, NumOfDaysAvailable } = req.body;
+
+  models.Product.create({ name, pricePerDay, isAvailable, description, UserId, CategoryId, picture, NumOfDaysAvailable })
     .then((data) => res.send(data))
     .catch((error) => {
       res.status(500).send(error);
     });
-});
+
+
+
+console.log(req.file.path)
+})
+
+
+
+
+
 
 //search products by name
 
