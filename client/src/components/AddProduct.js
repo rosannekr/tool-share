@@ -4,7 +4,7 @@ import { getProfile } from "../services/requests";
 import axios from "axios";
 
 export default function AddProduct(props) {
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(0);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [pricePerDay, setPricePerDay] = useState(0);
@@ -12,6 +12,8 @@ export default function AddProduct(props) {
   const [categories, setCategories] = useState([]);
   const [NumOfDaysAvailable, setNumOfDaysAvailable] = useState(0);
   const [picture, setPicture] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   
   useEffect(() => {
@@ -27,6 +29,8 @@ export default function AddProduct(props) {
 
     event.preventDefault();
 
+    setLoading(true)
+
     const data = new FormData();
     data.append("name", name);
     data.append("description", description);
@@ -37,7 +41,8 @@ export default function AddProduct(props) {
     data.append("picture", picture);
 
    axios.post("http://localhost:5000/products", data)
-   .then(res => console.log(res))
+   .then(res => setLoading(false))
+  .then (res =>  setLoaded(true))
    .catch(err => console.log(err))
 
   } 
@@ -68,6 +73,10 @@ export default function AddProduct(props) {
 
   return (
     <div className="text-center mt-5">
+     { loading && <div class="spinner-border text-success" role="status">
+  <span class="sr-only">Loading...</span>
+  </div> }
+  {loaded && <p className="text-success">Your product was correctly uploaded</p>}
       <h2>Add a new product</h2>
       <form className="w-25 mx-auto mt-2">
         <input
@@ -111,7 +120,7 @@ export default function AddProduct(props) {
           value={NumOfDaysAvailable}
         />
 
-        <input type="file" onChange={fileSelectedHandler} />
+        <input type="file" onChange={fileSelectedHandler} lang="en" className="form-control-file"/>
 
 
         <button className="btn btn-primary mt-2" onClick={send}>
