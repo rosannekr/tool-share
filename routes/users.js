@@ -147,12 +147,13 @@ router.get("/borrowed", isLoggedIn, async (req, res) => {
   }
 });
 
+// TODO put guard back
 // ADD to borrowed products
-router.post("/borrowed", isLoggedIn, async (req, res) => {
+router.post("/borrowed", async (req, res) => {
   // grab user id from decoded payload
-  const { userId } = req;
+  // const { userId } = req;
 
-  const { productId } = req.body;
+  const { userId, productId, startDate, endDate } = req.body;
 
   try {
     // get the user
@@ -169,6 +170,14 @@ router.post("/borrowed", isLoggedIn, async (req, res) => {
     });
     // add borrowed product to user
     await user.addBorrowed(product);
+    // await user.addBorrowed(product, { startDate, endDate });
+
+    // const result = await models.BorrowedProducts.create({
+    //   userId,
+    //   productId,
+    //   startDate,
+    //   endDate,
+    // });
 
     res.send("Product added");
   } catch (error) {

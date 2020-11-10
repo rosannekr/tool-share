@@ -56,6 +56,8 @@ export default function ProductPage(props) {
         },
         body: JSON.stringify({
           productId,
+          startDate,
+          endDate,
         }),
       })
         .then((response) => {
