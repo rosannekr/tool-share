@@ -3,7 +3,9 @@ import SearchBar from "./SearchBar";
 import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
 
+
 export default function Header(props) {
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light py-2">
