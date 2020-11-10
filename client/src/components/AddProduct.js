@@ -107,7 +107,7 @@ export default function AddProduct(props) {
 
       <form className="w-25 mx-auto mt-2">
         
-        <label className="mt-1">What is it?</label>
+      <label>What is it?</label>
         <input
           className="form-control mb-1 text-center"
           type="text"
