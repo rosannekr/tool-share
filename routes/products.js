@@ -1,23 +1,19 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var models = require("../models");
-const sequelize = require('sequelize');
-const { QueryTypes } = require('sequelize');
+const sequelize = require("sequelize");
+const { QueryTypes } = require("sequelize");
 const Op = sequelize.Op;
 const multer = require("multer");
-const fs = require("fs");
 
-
-
-
-//GET all available products 
+//GET all available products
 
 router.get("/", async function (req, res) {
   try {
     const products = await models.Product.findAll({
       where: {
-       isAvailable: 1
-     },
+        isAvailable: 1,
+      },
       include: models.User,
     });
     res.send(products);
@@ -30,33 +26,31 @@ router.get("/", async function (req, res) {
 
 router.put("/:id/borrow", async function (req, res) {
   const { id } = req.params;
-try{
-  const result = await models.Product.update(
-    { isAvailable: 0 }, 
-    { where: { id, }} 
-  )
+  try {
+    const result = await models.Product.update(
+      { isAvailable: 0 },
+      { where: { id } }
+    );
     res.send("Product is now unavailable");
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-
 //make product available after being returned
 
 router.put("/:id/return", async function (req, res) {
   const { id } = req.params;
-try{
-  const result = await models.Product.update(
-    { isAvailable: 1 }, 
-    { where: { id, }} 
-  )
+  try {
+    const result = await models.Product.update(
+      { isAvailable: 1 },
+      { where: { id } }
+    );
     res.send("Product is now available");
   } catch (error) {
     res.status(500).send(error);
   }
 });
-
 
 //Get one product
 
@@ -79,49 +73,56 @@ router.get("/:id", async function (req, res) {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './pictures')
+    cb(null, "./public/pictures");
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname)
-  }
-})
-const upload = multer({storage});
-
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage });
 
 router.post("/", upload.single("picture"), function (req, res) {
   let picture = req.file.path;
   let isAvailable = true;
 
-  const { name, pricePerDay, description, UserId, CategoryId, NumOfDaysAvailable } = req.body;
+  const {
+    name,
+    pricePerDay,
+    description,
+    UserId,
+    CategoryId,
+    NumOfDaysAvailable,
+  } = req.body;
 
-  models.Product.create({ name, pricePerDay, isAvailable, description, UserId, CategoryId, picture, NumOfDaysAvailable })
+  models.Product.create({
+    name,
+    pricePerDay,
+    isAvailable,
+    description,
+    UserId,
+    CategoryId,
+    picture,
+    NumOfDaysAvailable,
+  })
     .then((data) => res.send(data))
     .catch((error) => {
       res.status(500).send(error);
     });
 
-
-
-console.log(req.file.path)
-})
-
-
-
-
-
+  console.log(req.file.path);
+});
 
 //search products by name
 
 router.get("/search/:search", async function (req, res) {
-
-let search = req.params.search;
-search = search.toLowerCase();
+  let search = req.params.search;
+  search = search.toLowerCase();
 
   try {
     const products = await models.Product.findAll({
       where: {
         name: {
-          [Op.like]: `%${search}%`
+          [Op.like]: `%${search}%`,
         },
       },
       include: models.User,
@@ -132,8 +133,7 @@ search = search.toLowerCase();
   }
 });
 
-  
-// Update product 
+// Update product
 
 router.put("/:id", async function (req, res) {
   const { id } = req.params;
@@ -148,7 +148,6 @@ router.put("/:id", async function (req, res) {
     res.status(500).send(error.message);
   }
 });
-
 
 //Delete product
 
@@ -166,9 +165,4 @@ router.delete("/:id", async function (req, res, next) {
   }
 });
 
-
-
-
 module.exports = router;
-
-

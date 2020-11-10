@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
+
 export default function ProductGrid(props) {
   return (
     <div className="container text-center">
@@ -20,11 +21,7 @@ export default function ProductGrid(props) {
                       <i className="fas fa-user-astronaut"></i> {item.User.name}
                     </p>
                   )}
-                  <img
-                    className="card-img-top pt-1"
-                    src="https://picsum.photos/150"
-                    alt="Product image"
-                  />
+               <img className="img-fluid" src={`/../../../${item.picture.substring(7, item.picture.length)}`} />
 
                   <div className="card-body">
                     <h4 className="card-title">
@@ -38,6 +35,7 @@ export default function ProductGrid(props) {
               </div>
             ))
           : "No items matched your search"}
+         
       </div>
     </div>
   );

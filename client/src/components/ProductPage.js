@@ -155,11 +155,7 @@ export default function ProductPage(props) {
               </button>
             )}
           </div>
-          <img
-            className="card-img-bottom"
-            src="https://picsum.photos/600/700"
-            alt="Card image cap"
-          />
+          <img className="card-img-bottom" src={`/../../../${item.picture.substring(7, item.picture.length)}`} />
         </div>
       )}
     </div>
