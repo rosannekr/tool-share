@@ -45,6 +45,8 @@ export default function ProductPage(props) {
   };
 
   let borrowItem = (productId) => {
+    console.log(startDate, endDate);
+
     if (user.points < pointTotal) {
       setHasEnoughPoints(false);
     } else {
@@ -56,8 +58,8 @@ export default function ProductPage(props) {
         },
         body: JSON.stringify({
           productId,
-          startDate,
-          endDate,
+          startDate: startDate,
+          endDate: endDate,
         }),
       })
         .then((response) => {
