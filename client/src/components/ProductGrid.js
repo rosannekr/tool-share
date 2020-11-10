@@ -25,7 +25,7 @@ export default function ProductGrid(props) {
 
                   <div className="card-body">
                     <h4 className="card-title">
-                      {item.pricePerDay} points/day
+                      {item.pricePerDay} <i className=" text-muted fas fa-coins"></i>/day
                     </h4>
                     <h5 className="card-title">{item.name}</h5>
 
