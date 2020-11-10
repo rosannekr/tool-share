@@ -45,9 +45,10 @@ select {
   max-width: 700px;
 }
 
-.product-pic {
-  object-fit: cover;
-  width: 530px;
-  height: 530px;
-  padding: 0px;
+.product-form {
+display: flex;
+justify-content: center;
+gap: 20px
 }
+
+
