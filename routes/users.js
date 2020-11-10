@@ -74,7 +74,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// GET user info
+// GET current user
 router.get("/profile", isLoggedIn, async (req, res) => {
   // grab user id from decoded payload
   const { userId } = req;
@@ -112,7 +112,7 @@ router.get("/products", isLoggedIn, async (req, res) => {
   }
 });
 
-// UPDATE a user
+// UPDATE current user
 router.put("/profile", isLoggedIn, async (req, res) => {
   // grab user id from decoded payload
   const { userId } = req;
@@ -199,6 +199,22 @@ router.get("/:id", async function (req, res, next) {
     res.send(user);
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+// UPDATE a user
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await models.User.update(req.body, {
+      where: {
+        id,
+      },
+    });
+    res.send("User updated");
+  } catch (error) {
+    res.status(500).send(error.message);
   }
 });
 
