@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProfile, updateProduct } from "../services/requests";
 import DateRange from "./DateRange";
 
+
 export default function ProductPage(props) {
   let { id } = useParams();
   let [item, setItem] = useState("");

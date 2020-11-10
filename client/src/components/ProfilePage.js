@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getProfile } from "../services/requests";
-import ProductGrid from "./ProductGrid";
+import ProductList from "./ProductList";
+import BorrowedProductList from "./BorrowedProductList";
+import { Link } from "react-router-dom";
 
 export default function ProfilePage(props) {
   const [user, setUser] = useState({});
@@ -18,11 +20,21 @@ export default function ProfilePage(props) {
     <div className="text-center mt-5">
       {user && (
         <div>
-          <h2>My Profile</h2>
-          <p>Name: {user.name}</p>
-          <p>Points: {user.points || 0}</p>
-          <h5>My Products:</h5>
-          <ProductGrid products={user.Products} />
+          <h2>Hello {user.name}!</h2>
+          <div className="d-flex justify-content-center">
+            <p>
+              {" "}
+              You currently have {user.points || 0}{" "}
+              <i className="fas fa-coins"></i> |
+            </p>
+            <Link to="/">Add more</Link>
+          </div>
+
+          <div className="container d-flex justify-content-around mt-4">
+            <ProductList />
+
+            <BorrowedProductList />
+          </div>
         </div>
       )}
     </div>
