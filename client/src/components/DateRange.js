@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import { addDays } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function DateRange(props) {
-  const [startDate, setStartDate] = useState(null);
+  const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
 
   const handleChangeStart = (date) => {
@@ -40,6 +41,7 @@ export default function DateRange(props) {
           startDate={startDate}
           endDate={endDate}
           minDate={startDate}
+          maxDate={addDays(startDate, props.maxAvailableDays)}
           placeholderText="to"
         />
       </div>
