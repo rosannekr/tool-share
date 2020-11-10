@@ -45,8 +45,6 @@ export default function ProductPage(props) {
   };
 
   let borrowItem = (productId) => {
-    console.log(startDate, endDate);
-
     if (user.points < pointTotal) {
       setHasEnoughPoints(false);
     } else {
@@ -129,6 +127,7 @@ export default function ProductPage(props) {
                 added on {item.createdAt.substring(0, 10)}
               </small>
             </p>
+            <p>Max availability: {item.NumOfDaysAvailable} days</p>
 
             {!hasEnoughPoints && (
               <p className="bg-danger text-light">
@@ -141,6 +140,7 @@ export default function ProductPage(props) {
                 <DateRange
                   changeStartDate={setStartDate}
                   changeEndDate={setEndDate}
+                  maxAvailableDays={item.NumOfDaysAvailable}
                 />
                 <p>Points total: {pointTotal}</p>
                 <button
@@ -159,7 +159,10 @@ export default function ProductPage(props) {
               </button>
             )}
           </div>
-          <img className="card-img-bottom" src={`/../../../${item.picture.substring(7, item.picture.length)}`} />
+          <img
+            className="card-img-bottom"
+            src={`/../../../${item.picture.substring(7, item.picture.length)}`}
+          />
         </div>
       )}
     </div>
