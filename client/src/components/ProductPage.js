@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProfile, updateProduct } from "../services/requests";
+import DateRange from "./DateRange";
 
 export default function ProductPage(props) {
   let { id } = useParams();
   let [item, setItem] = useState("");
   let [days, setDays] = useState("");
-  let [pointTotal, setPointTotal] = useState("");
+  let [pointTotal, setPointTotal] = useState(0);
   const [user, setUser] = useState({});
   let [hasEnoughPoints, setHasEnoughPoints] = useState(true);
+  let [startDate, setStartDate] = useState(null);
+  let [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
     getOneProduct();
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      // difference in milliseconds divided by amount of milliseconds in a day
+      const daysDifference =
+        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+      setPointTotal(daysDifference * item.pricePerDay);
+    } else {
+      setPointTotal(0);
+    }
+  }, [startDate, endDate]);
 
   const fetchData = async () => {
     const res = await getProfile();
@@ -31,16 +45,17 @@ export default function ProductPage(props) {
   };
 
   let borrowItem = (productId) => {
-    let id = user.id;
-
     if (user.points < pointTotal) {
       setHasEnoughPoints(false);
     } else {
-      fetch(`http://localhost:5000/users/${id}/borrowed`, {
+      fetch(`/users/borrowed`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem("token"),
+        },
         body: JSON.stringify({
-          productId: productId,
+          productId,
         }),
       })
         .then((response) => {
@@ -55,18 +70,12 @@ export default function ProductPage(props) {
     }
   };
 
-  let makeUnavailable = () => {
-
-    fetch(`http://localhost:5000/products/${id}/borrow`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  let makeUnavailable = async () => {
+    try {
+      await updateProduct(item.id, { isAvailable: false });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   let handleInput = (e) => {
@@ -77,14 +86,14 @@ export default function ProductPage(props) {
   };
 
   let deductPoints = () => {
-    let id = user.id;
     let newPoints = user.points - pointTotal;
-    console.log(user.points)
-    console.log(newPoints)
 
-    fetch(`http://localhost:5000/users/${id}/`, {
+    fetch(`/users/profile/`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
       body: JSON.stringify({
         points: newPoints,
       }),
@@ -116,35 +125,25 @@ export default function ProductPage(props) {
                 added on {item.createdAt.substring(0, 10)}
               </small>
             </p>
+
             {!hasEnoughPoints && (
               <p className="bg-danger text-light">
                 Sorry but you don't have enough points to borrow this item
               </p>
             )}
-            {item.UserId !== user?.id ? (
-              <div className="borrowForm">
-                <p>Number of days: </p>
-                <form>
-                  <select
-                    className="form-control"
-                    value={days}
-                    onChange={(e) => handleInput(e)}
-                  >
-                    {Array.from(
-                      { length: item.NumOfDaysAvailable + 1 },
-                      (v, i) => i
-                    ).map((item) => (
-                      <option value={item}>{item}</option>
-                    ))}
-                  </select>
-                </form>
-                <p>Points total: {!pointTotal ? "0" : pointTotal}</p>
 
+            {item.UserId !== user?.id ? (
+              <div>
+                <DateRange
+                  changeStartDate={setStartDate}
+                  changeEndDate={setEndDate}
+                />
+                <p>Points total: {pointTotal}</p>
                 <button
                   onClick={() => borrowItem(item.id)}
                   className="btn btn-dark"
                 >
-                  Borrow it
+                  Reserve
                 </button>
               </div>
             ) : (
