@@ -18,6 +18,7 @@ import { userIsLoggedIn } from "./services/auth";
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
   useEffect(() => {
     getProducts();
