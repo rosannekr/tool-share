@@ -38,12 +38,7 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
     } catch (error) {
       console.log(error);
     }
-
-    // axios.put(`/products/${id}`, {name: productName, description: description, NumOfDaysAvailable: NumOfDaysAvailable})
-    // .then(res => {
-    //   console.log(res);
-    //   console.log(res.data);
-    // })
+    
     callback1(); 
     callback2(true);
   } 
