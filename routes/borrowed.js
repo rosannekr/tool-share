@@ -5,7 +5,7 @@ var models = require("../models");
 const isLoggedIn = require("../guards/isLoggedIn");
 
 // GET all borrowed products
-router.get("/borrowed", async function (req, res) {
+router.get("/", async function (req, res) {
   try {
     const borrowed = await models.BorrowedProduct.findAll();
     res.send(borrowed);
@@ -15,7 +15,7 @@ router.get("/borrowed", async function (req, res) {
 });
 
 // GET all reservations of product
-router.get("/borrowed/:id", async function (req, res) {
+router.get("/:id", async function (req, res) {
   const { id } = req.params;
   try {
     const borrowed = await models.BorrowedProduct.findAll({
@@ -30,7 +30,7 @@ router.get("/borrowed/:id", async function (req, res) {
 });
 
 // ADD to borrowed products
-router.post("/borrowed", isLoggedIn, async (req, res) => {
+router.post("/", isLoggedIn, async (req, res) => {
   // grab user id from decoded payload
   const { userId } = req;
 
