@@ -32,4 +32,43 @@ router.get("/requests", isLoggedIn, async function (req, res) {
   }
 });
 
+// DELETE a request
+router.delete("/requests/:id", async function (req, res) {
+  const { id } = req.params;
+
+  try {
+    await models.BorrowedProduct.destroy({
+      where: {
+        id,
+      },
+    });
+    res.send("Request deleted");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// UPDATE confirmed status of request
+router.put("/requests/:id", async function (req, res) {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  console.log(id, status);
+
+  try {
+    // delete user
+    await models.BorrowedProduct.update(
+      { confirmed: status },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+    res.send("Request updated");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;

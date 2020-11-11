@@ -46,7 +46,12 @@ export const login = async (username, password) => {
   return await axios.post("/users/login", { username, password });
 };
 
-// Get user profile
+// Get one user
+export const getUser = async (id) => {
+  return await axios.get(`/users/${id}`);
+};
+
+// Get profile of current user
 export const getProfile = async () => {
   return await axios.get("/users/profile");
 };
@@ -71,6 +76,11 @@ export const addProduct = async (
   });
 };
 
+// Get a product
+export const getProduct = async (id) => {
+  return await axios.get(`/products/${id}`);
+};
+
 // Update product
 export const updateProduct = async (id, reqbody) => {
   return await axios.put(`/products/${id}`, reqbody);
@@ -84,4 +94,14 @@ export const getReservations = async (ProductId) => {
 // Get all requests for current user
 export const getRequests = async () => {
   return await axios.get(`/requests`);
+};
+
+// Delete request
+export const deleteRequest = async (id) => {
+  return await axios.delete(`/requests/${id}`);
+};
+
+// Update request
+export const updateRequest = async (id, status) => {
+  return await axios.put(`/requests/${id}`, { status });
 };
