@@ -14,18 +14,34 @@ export default function Requests() {
     setRequests(res.data);
   };
 
-  const content = requests.map((request) => (
-    <RequestCard request={request} fetchData={fetchData} />
-  ));
+  const pending = requests
+    .filter((request) => !request.confirmed)
+    .map((request) => <RequestCard request={request} fetchData={fetchData} />);
+
+  const confirmed = requests
+    .filter((request) => request.confirmed)
+    .map((request) => <RequestCard request={request} fetchData={fetchData} />);
 
   return (
     <div className="container text-center mt-5">
-      <h2>My Requests</h2>
-      {requests.length ? (
-        <div className="d-inline-block">{content}</div>
-      ) : (
-        "You have no requests"
-      )}
+      <div className="d-inline-block">
+        <h2>My Requests</h2>
+        <hr className="mb-0" />
+        {pending.length ? (
+          <div>{pending}</div>
+        ) : (
+          <span className="d-inline-block mt-2">No pending requests</span>
+        )}
+        <div className="mt-5">
+          <h4>Confirmed</h4>
+          <hr className="mb-0" />
+          {confirmed.length ? (
+            <div>{confirmed}</div>
+          ) : (
+            <span className="d-inline-block mt-2">No confirmed requests</span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

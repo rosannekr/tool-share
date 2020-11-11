@@ -43,8 +43,12 @@ export default function RequestCard(props) {
   };
 
   return (
-    <div className="border p-3 d-flex justify-content-between">
-      <div className="text-left">
+    <div className="border-bottom p-3 d-flex justify-content-between">
+      <div
+        className={
+          props.request.confirmed ? "text-left text-secondary" : "text-left"
+        }
+      >
         <small>{new Date(props.request.createdAt).toLocaleDateString()}</small>
         <div>
           <span>{product.name} | </span>
