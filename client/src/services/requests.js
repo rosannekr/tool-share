@@ -73,7 +73,10 @@ export const addProduct = async (
 
 // Update product
 export const updateProduct = async (id, reqbody) => {
-  console.log(id, reqbody);
-
   return await axios.put(`/products/${id}`, reqbody);
+};
+
+// Get all reserved dates for this product
+export const getReservations = async (ProductId) => {
+  return await axios.get(`/borrowed/${ProductId}`);
 };

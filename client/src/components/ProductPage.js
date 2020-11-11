@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { getProfile, updateProduct } from "../services/requests";
 import DateRange from "./DateRange";
 
-
 export default function ProductPage(props) {
   let { id } = useParams();
   let [item, setItem] = useState("");
@@ -24,7 +23,10 @@ export default function ProductPage(props) {
       // difference in milliseconds divided by amount of milliseconds in a day
       const daysDifference =
         (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
-      setPointTotal(daysDifference * item.pricePerDay);
+      // make sure point total doesn't go below 0
+      const PointTotal =
+        daysDifference >= 0 ? daysDifference * item.pricePerDay : 0;
+      setPointTotal(PointTotal);
     } else {
       setPointTotal(0);
     }
@@ -49,7 +51,7 @@ export default function ProductPage(props) {
     if (user.points < pointTotal) {
       setHasEnoughPoints(false);
     } else {
-      fetch(`/users/borrowed`, {
+      fetch(`/borrowed`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +70,7 @@ export default function ProductPage(props) {
           console.log(error);
         });
 
-      makeUnavailable();
+      // makeUnavailable();
       deductPoints();
     }
   };
@@ -128,7 +130,6 @@ export default function ProductPage(props) {
                 added on {item.createdAt.substring(0, 10)}
               </small>
             </p>
-            <p>Max availability: {item.NumOfDaysAvailable} days</p>
 
             {!hasEnoughPoints && (
               <p className="bg-danger text-light">
@@ -138,7 +139,10 @@ export default function ProductPage(props) {
 
             {item.UserId !== user?.id ? (
               <div>
+                <h4>Select dates</h4>
+                <small>Max availability: {item.NumOfDaysAvailable} days</small>
                 <DateRange
+                  productId={item.id}
                   changeStartDate={setStartDate}
                   changeEndDate={setEndDate}
                   maxAvailableDays={item.NumOfDaysAvailable}
@@ -147,6 +151,7 @@ export default function ProductPage(props) {
                 <button
                   onClick={() => borrowItem(item.id)}
                   className="btn btn-dark"
+                  disabled={!(startDate && endDate) ? true : false}
                 >
                   Reserve
                 </button>
