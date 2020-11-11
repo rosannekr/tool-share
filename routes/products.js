@@ -137,6 +137,7 @@ router.get("/search/:search", async function (req, res) {
 
 router.put("/:id", async function (req, res) {
   const { id } = req.params;
+
   try {
     await models.Product.update(req.body, {
       where: {
@@ -148,6 +149,7 @@ router.put("/:id", async function (req, res) {
     res.status(500).send(error.message);
   }
 });
+
 
 //Delete product
 

@@ -22,6 +22,7 @@ router.get("/:id", async function (req, res) {
       where: {
         ProductId: id,
       },
+      include: models.Product,
     });
     res.send(borrowed);
   } catch (error) {
@@ -55,6 +56,22 @@ router.post("/", isLoggedIn, async (req, res) => {
     res.send("Product added");
   } catch (error) {
     res.status(500).send(error.message);
+  }
+});
+
+//return product
+
+router.delete("/:productId", async function (req, res, next) {
+  const { productId } = req.params;
+  try {
+    await models.BorrowedProduct.destroy({
+      where: {
+        productId,
+      },
+    });
+    res.send("Product deleted");
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 

@@ -9,12 +9,13 @@ export default function ProfilePage(props) {
 
   // Fetch user data when component mounts
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await getProfile();
-      setUser(res.data);
-    };
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    const res = await getProfile();
+    setUser(res.data);
+  };
 
   return (
     <div className="text-center mt-5">

@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getProfile } from "../services/requests";
 import SearchBar from "./SearchBar";
 import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
 
 export default function Header(props) {
+  const [user, setUser] = useState({});
+
+  // Fetch user data when component mounts
+  useEffect(() => {
+    fetchData();
+  }, [props.isLoggedIn]);
+
+  const fetchData = async () => {
+    const res = await getProfile();
+    setUser(res.data);
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light py-2">
@@ -13,6 +26,7 @@ export default function Header(props) {
 
         <div className="collapse navbar-collapse">
           <SearchBar callback={(products) => props.callback(products)} />
+  <p>{user && <Link to="/"><p className="mt-4">{user.points} <i className="fas fa-coins"></i></p></Link> }</p>
           {!props.isLoggedIn && (
             <ul className="navbar-nav">
               <li className="nav-item">
@@ -28,6 +42,7 @@ export default function Header(props) {
             </ul>
           )}
           {props.isLoggedIn && (
+       
             <ul className="navbar-nav">
               <li className="nav-item dropdown">
                 <button
