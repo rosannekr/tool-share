@@ -141,9 +141,9 @@ export default function AddProduct(props) {
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
         >
-          <option value={0}>Choose category</option>
+          <option className="text-center" value={0}></option>
           {categories?.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option key={category.id} value={category.id} className="text-center">
               {category.name}
             </option>
           ))}
