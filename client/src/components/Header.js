@@ -3,9 +3,7 @@ import SearchBar from "./SearchBar";
 import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
 
-
 export default function Header(props) {
-
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light py-2">
@@ -48,6 +46,9 @@ export default function Header(props) {
                   </Link>
                   <Link className="dropdown-item" to="/products/upload">
                     Add a product
+                  </Link>
+                  <Link className="dropdown-item" to="/requests">
+                    My requests
                   </Link>
                   <div className="dropdown-divider"></div>
                   <Link className="dropdown-item" to="/" onClick={props.logout}>

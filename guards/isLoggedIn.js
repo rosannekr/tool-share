@@ -9,8 +9,6 @@ function isLoggedIn(req, res, next) {
   if (!token) {
     res.status(401).send({ message: "Provide a token" });
   } else {
-    console.log("in guard");
-
     // check if token is valid
     jwt.verify(token, supersecret, function (err, decoded) {
       if (err) {

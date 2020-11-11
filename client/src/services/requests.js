@@ -80,3 +80,8 @@ export const updateProduct = async (id, reqbody) => {
 export const getReservations = async (ProductId) => {
   return await axios.get(`/borrowed/${ProductId}`);
 };
+
+// Get all requests for current user
+export const getRequests = async () => {
+  return await axios.get(`/requests`);
+};

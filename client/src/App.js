@@ -13,6 +13,7 @@ import ProductPage from "./components/ProductPage";
 import ProfilePage from "./components/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
 import AddProduct from "./components/AddProduct";
+import Requests from "./components/Requests";
 import { userIsLoggedIn } from "./services/auth";
 
 function App() {
@@ -106,6 +107,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/products/upload">
             <AddProduct />
+          </PrivateRoute>
+          <PrivateRoute path="/requests">
+            <Requests />
           </PrivateRoute>
         </Switch>
       </Router>

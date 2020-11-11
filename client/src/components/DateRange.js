@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { addDays, eachDayOfInterval, subDays } from "date-fns";
+import { addDays, eachDayOfInterval } from "date-fns";
 import { getReservations } from "../services/requests";
 import "react-datepicker/dist/react-datepicker.css";
 
