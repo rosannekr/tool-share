@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import {updateProduct} from "../services/requests";
 import axios from "axios";
 
-export default function EditPopUp({ handleClose, show, productId }) {
+export default function EditPopUp({ handleClose, show, productId, callback1, callback2 }) {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   let [item, setItem] = useState("");
-  const [name, setName] = useState("");
+  const [productName, setName] = useState("");
   const [description, setDescription] = useState("");
   const [NumOfDaysAvailable, setNumOfDaysAvailable] = useState(0);
 
@@ -28,14 +28,24 @@ export default function EditPopUp({ handleClose, show, productId }) {
     );
   };
 
-  let editProduct = async () => {
+  let editProducts = async (event) => {
+
+    event.preventDefault();
+    let id = item.id
 
     try {
-      let id = item.id
-      await updateProduct(id, {name, description, NumOfDaysAvailable});
+      await updateProduct(id, {name: productName, description: description, NumOfDaysAvailable: NumOfDaysAvailable});
     } catch (error) {
       console.log(error);
     }
+
+    // axios.put(`/products/${id}`, {name: productName, description: description, NumOfDaysAvailable: NumOfDaysAvailable})
+    // .then(res => {
+    //   console.log(res);
+    //   console.log(res.data);
+    // })
+    callback1(); 
+    callback2(true);
   } 
 
 
@@ -46,7 +56,7 @@ export default function EditPopUp({ handleClose, show, productId }) {
           <i class="fa fa-times mr-2 text-danger cursor" aria-hidden="true"></i>
         </p>
         <p></p>
-        <form>
+        <div className="form">
           <label>
             <i className="fas fa-edit"> </i> name
           </label>
@@ -55,7 +65,7 @@ export default function EditPopUp({ handleClose, show, productId }) {
             className="mb-3 mr-2 ml-2 text-center"
             placeholder={item && item.name}
             onChange={(e) => setName(e.target.value)}
-            value={name}
+            value={productName}
           />
           <label>
             <i className="fas fa-edit"> </i> description
@@ -78,8 +88,8 @@ export default function EditPopUp({ handleClose, show, productId }) {
             onChange={(e) => setNumOfDaysAvailable(e.target.value)}
             value={NumOfDaysAvailable}
           />
-          <button className="btn btn-dark btn-block" onChange={editProduct}>Update item</button>
-        </form>
+          <button className="btn btn-dark btn-block" onClick={editProducts}>Update item</button>
+        </div>
       </section>
     </div>
   );

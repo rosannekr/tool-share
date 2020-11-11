@@ -71,6 +71,7 @@ export const addProduct = async (
   });
 };
 
+
 // Update product
 export const updateProduct = async (id, reqbody) => {
   return await axios.put(`/products/${id}`, reqbody);
@@ -80,3 +81,4 @@ export const updateProduct = async (id, reqbody) => {
 export const getReservations = async (ProductId) => {
   return await axios.get(`/borrowed/${ProductId}`);
 };
+
