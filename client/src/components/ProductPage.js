@@ -137,7 +137,7 @@ export default function ProductPage(props) {
               </p>
             )}
 
-            {item.UserId !== user?.id ? (
+            {item.UserId !== user?.id && (
               <div>
                 <h4>Select dates</h4>
                 <small>Max availability: {item.NumOfDaysAvailable} days</small>
@@ -156,13 +156,6 @@ export default function ProductPage(props) {
                   Reserve
                 </button>
               </div>
-            ) : (
-              <button
-                onClick={() => updateProduct(item.id, { isAvailable: true })}
-                className="btn btn-dark"
-              >
-                Make available
-              </button>
             )}
           </div>
           <img

@@ -4,9 +4,7 @@ import SearchBar from "./SearchBar";
 import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
 
-
 export default function Header(props) {
-
   const [user, setUser] = useState({});
 
   // Fetch user data when component mounts
@@ -63,6 +61,9 @@ export default function Header(props) {
                   </Link>
                   <Link className="dropdown-item" to="/products/upload">
                     Add a product
+                  </Link>
+                  <Link className="dropdown-item" to="/requests">
+                    My requests
                   </Link>
                   <div className="dropdown-divider"></div>
                   <Link className="dropdown-item" to="/" onClick={props.logout}>
