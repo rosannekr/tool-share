@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { addDays } from "date-fns";
+import { addDays, eachDayOfInterval, subDays } from "date-fns";
+import { getReservations } from "../services/requests";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function DateRange(props) {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [excludedDates, setExcludedDates] = useState([]);
 
   const handleChangeStart = (date) => {
     setStartDate(date);
@@ -17,9 +19,30 @@ export default function DateRange(props) {
     props.changeEndDate(date);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch reserved dates
+        const res = await getReservations(props.productId);
+
+        // Map reservations to date intervals
+        const intervals = res.data.map((reservation) =>
+          eachDayOfInterval({
+            start: new Date(reservation.startDate),
+            end: new Date(reservation.endDate),
+          })
+        );
+        // Make reserved dates unavailable in calendar
+        setExcludedDates(intervals.flat());
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="my-2">
-      <h4>Select dates</h4>
       <div className="d-flex justify-content-center">
         <DatePicker
           selected={startDate}
@@ -30,6 +53,7 @@ export default function DateRange(props) {
           startDate={startDate}
           endDate={endDate}
           minDate={new Date()}
+          excludeDates={excludedDates}
           placeholderText="from"
         />
         <DatePicker
@@ -42,6 +66,7 @@ export default function DateRange(props) {
           endDate={endDate}
           minDate={startDate}
           maxDate={addDays(startDate, props.maxAvailableDays)}
+          excludeDates={excludedDates}
           placeholderText="to"
         />
       </div>

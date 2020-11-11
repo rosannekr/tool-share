@@ -147,35 +147,6 @@ router.get("/borrowed", isLoggedIn, async (req, res) => {
   }
 });
 
-// ADD to borrowed products
-router.post("/borrowed", isLoggedIn, async (req, res) => {
-  // grab user id from decoded payload
-  const { userId } = req;
-
-  const { productId, startDate, endDate } = req.body;
-
-  try {
-    // get the user
-    const user = await models.User.findOne({
-      where: {
-        id: userId,
-      },
-    });
-
-    // add borrowed product to user
-    await user.addBorrowed(productId, {
-      through: {
-        startDate,
-        endDate,
-      },
-    });
-
-    res.send("Product added");
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-});
-
 // GET all users
 router.get("/", async (req, res) => {
   try {
