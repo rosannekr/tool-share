@@ -3,6 +3,7 @@ import { getProfile } from "../services/requests";
 import SearchBar from "./SearchBar";
 import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
+import PaymentPopUp from "./PaymentPopUp";
 
 export default function Header(props) {
   const [user, setUser] = useState({});
@@ -20,21 +21,24 @@ export default function Header(props) {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light py-2">
-        <Link className="navbar-brand ml-4" to="/">
+        <Link className="navbar-brand ml-5" to="/">
           Home
         </Link>
 
-        <div className="collapse navbar-collapse">
+        <div className="py-3 collapse navbar-collapse">
           <SearchBar callback={(products) => props.callback(products)} />
-          <p>
-            {user && (
-              <Link to="/">
-                <p className="mt-4">
-                  {user.points} <i className="fas fa-coins"></i>
-                </p>
-              </Link>
-            )}
-          </p>
+
+          {user && (
+            <button
+              className="btn"
+              data-toggle="modal"
+              data-target="#addPointsModal"
+            >
+              {user.points} <i className="fas fa-coins"></i>
+            </button>
+          )}
+          <PaymentPopUp />
+
           {!props.isLoggedIn && (
             <ul className="navbar-nav">
               <li className="nav-item">
