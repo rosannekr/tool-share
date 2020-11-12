@@ -27,7 +27,6 @@ export default function PayPalCheckout(props) {
           const order = await actions.order.capture();
           setPaid(true);
           props.handleSuccess();
-          console.log(order);
         },
         onError: async (err) => {
           setError(err);

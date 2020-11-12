@@ -129,6 +129,37 @@ router.put("/profile", isLoggedIn, async (req, res) => {
   }
 });
 
+// UPDATE current user's points
+router.put("/points", isLoggedIn, async (req, res) => {
+  // grab user id from decoded payload
+  const { userId } = req;
+  // get amount of points to add or subtract
+  const { amount } = req.body;
+
+  try {
+    // find user
+    const user = await models.User.findOne({
+      where: {
+        id: userId,
+      },
+    });
+    // calculate new amount of points
+    const points = user.points + amount;
+    // update points in db
+    await models.User.update(
+      { points },
+      {
+        where: {
+          id: userId,
+        },
+      }
+    );
+    res.send("Points updated");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
 // GET all products a user has borrowed
 router.get("/borrowed", isLoggedIn, async (req, res) => {
   // grab user id from decoded payload
