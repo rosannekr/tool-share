@@ -93,3 +93,12 @@ close-button {
     flex-direction: column;
     justify-content: center;
   }
+
+  .brrwd {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+     justify-content: center;
+     align-items: flex-start;
+     gap: 10px;
+  }

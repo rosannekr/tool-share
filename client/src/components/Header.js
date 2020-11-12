@@ -7,6 +7,7 @@ import PaymentPopUp from "./PaymentPopUp";
 
 export default function Header(props) {
   const [user, setUser] = useState({});
+  //const [points, setPoints] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -15,6 +16,7 @@ export default function Header(props) {
   const fetchData = async () => {
     const res = await getProfile();
     setUser(res.data);
+   // setPoints(res.data.points)
   };
 
   const addPoints = (amount) => {
