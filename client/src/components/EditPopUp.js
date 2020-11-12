@@ -9,6 +9,7 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
   const [productName, setName] = useState("");
   const [description, setDescription] = useState("");
   const [NumOfDaysAvailable, setNumOfDaysAvailable] = useState(0);
+  const [pricePerDay, setPricePerDay] = useState(0);
 
   useEffect(() => {
     getOneProduct();
@@ -21,6 +22,7 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
         setName(response.data.name);
         setDescription(response.data.description);
         setNumOfDaysAvailable(response.data.NumOfDaysAvailable);
+        setPricePerDay(response.data.pricePerDay)
       },
       (error) => {
         console.log(error);
@@ -34,11 +36,11 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
     let id = item.id
 
     try {
-      await updateProduct(id, {name: productName, description: description, NumOfDaysAvailable: NumOfDaysAvailable});
+      await updateProduct(id, {name: productName, description: description, NumOfDaysAvailable: NumOfDaysAvailable, pricePerDay: pricePerDay});
     } catch (error) {
       console.log(error);
     }
-    
+
     callback1(); 
     callback2(true);
   } 
@@ -52,6 +54,7 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
         </p>
         <p></p>
         <div className="form">
+          <h5>Edit product</h5>
           <label>
             <i className="fas fa-edit"> </i> name
           </label>
@@ -83,6 +86,15 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
             onChange={(e) => setNumOfDaysAvailable(e.target.value)}
             value={NumOfDaysAvailable}
           />
+        <label> <i className="fas fa-edit"> </i> price (in <i className="fas fa-coins"></i>)
+          </label>
+        <input
+          className="mb-3 mr-2 ml-2 text-center"
+          placeholder={item && item.pricePerDay}
+          type="number"
+          onChange={(e) => setPricePerDay(e.target.value)}
+          value={pricePerDay}
+        />
           <button className="btn btn-dark btn-block" onClick={editProducts}>Update item</button>
         </div>
       </section>
