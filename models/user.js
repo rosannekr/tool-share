@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(models.Product, {
       through: models.BorrowedProduct,
       as: "Borrowed",
-      onDelete: "cascade",
     });
   };
 
