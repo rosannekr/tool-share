@@ -29,7 +29,7 @@ export default function BorrowedProductList(props) {
         <li class="list-group-item list-group-item-info d-flex justify-content-center">
           Borrowed stuff
         </li>
-        {items ? (
+        {items.length > 0 ? (
           items.map((item) => (
             <li className="list-group-item">
               <Link to={`/product/${item.id}`}>{item.name}</Link> |
