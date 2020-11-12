@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProfile, updateProduct } from "../services/requests";
 import DateRange from "./DateRange";
+import StarRatingComponent from 'react-star-rating-component';
 
 export default function ProductPage(props) {
   let { id } = useParams();
@@ -115,6 +116,13 @@ export default function ProductPage(props) {
             <h5 className="card-title">
               {item.name} | {item.pricePerDay} points/day
             </h5>
+            <StarRatingComponent 
+          name={item.id}
+          starCount={5}
+          value={3}
+          //^add average star rating here
+          editing={false}
+        />
             <p className="card-text"></p>
             <p className="card-text text-secondary">{item.description}</p>
             <p className="text-capitalize">Condition: {item.condition}</p>

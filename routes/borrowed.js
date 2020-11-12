@@ -5,6 +5,7 @@ var models = require("../models");
 const isLoggedIn = require("../guards/isLoggedIn");
 
 // GET all borrowed products
+
 router.get("/", async function (req, res) {
   try {
     const borrowed = await models.BorrowedProduct.findAll();
@@ -13,6 +14,7 @@ router.get("/", async function (req, res) {
     res.status(500).send(error);
   }
 });
+
 
 // GET all reservations of product
 router.get("/:id", async function (req, res) {
@@ -74,5 +76,21 @@ router.delete("/:productId", async function (req, res, next) {
     res.status(500).send(error);
   }
 });
+
+
+
+router.get("/user/:userId", async function (req, res, next) {
+  const { userId } = req.params;
+  try {
+    const [results, metadata] = await models.sequelize.query(`SELECT * FROM BorrowedProducts LEFT JOIN Products ON BorrowedProducts.productId = Products.id WHERE BorrowedProducts.userId = "${userId}" AND BorrowedProducts.confirmed = "1";`
+    );
+    res.send(results);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
+
 
 module.exports = router;
