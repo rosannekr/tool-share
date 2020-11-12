@@ -56,6 +56,11 @@ export const getProfile = async () => {
   return await axios.get("/users/profile");
 };
 
+// Update current user's info
+export const updateProfile = async (reqbody) => {
+  return await axios.put(`/users/profile`, reqbody);
+};
+
 // Get categories
 export const getCategories = async () => {
   return await axios.get("/categories");

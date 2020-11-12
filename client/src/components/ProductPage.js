@@ -75,14 +75,6 @@ export default function ProductPage(props) {
     }
   };
 
-  let makeUnavailable = async () => {
-    try {
-      await updateProduct(item.id, { isAvailable: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   let handleInput = (e) => {
     setHasEnoughPoints(true);
     e.preventDefault();
@@ -116,7 +108,7 @@ export default function ProductPage(props) {
       {item && (
         <div className="card">
           <p className="card-header">
-            Item posted by{" "}
+            Item posted by
             <span className="text-primary">{item.User.name}</span>
           </p>
           <div className="card-body">
@@ -125,6 +117,8 @@ export default function ProductPage(props) {
             </h5>
             <p className="card-text"></p>
             <p className="card-text text-secondary">{item.description}</p>
+            <p className="text-capitalize">Condition: {item.condition}</p>
+            <p>Rating: {item.rating} stars</p>
             <p className="card-text">
               <small className="text-muted">
                 added on {item.createdAt.substring(0, 10)}

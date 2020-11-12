@@ -17,7 +17,7 @@ export default function PayPalCheckout(props) {
                 description: "points",
                 amount: {
                   currency_code: "EUR",
-                  value: props.amount,
+                  value: props.amount * 0.5,
                 },
               },
             ],
@@ -38,6 +38,12 @@ export default function PayPalCheckout(props) {
   }, []);
 
   return (
-    <div>{paid ? <div>Payment successful</div> : <div ref={paypal}></div>}</div>
+    <div>
+      {paid ? (
+        <div>Payment successful, you just bought {props.amount} points!</div>
+      ) : (
+        <div ref={paypal}></div>
+      )}
+    </div>
   );
 }

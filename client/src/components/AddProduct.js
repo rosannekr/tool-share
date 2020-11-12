@@ -129,13 +129,25 @@ export default function AddProduct(props) {
         />
 
         <label>In which condition is it?</label>
-        <input
-          className="form-control mb-1 text-center"
-          type="text"
-          placeholder="product's condition"
-          onChange={(e) => setCondition(e.target.value)}
+        <select
+          className="form-control text-center"
           value={condition}
-        />
+          onChange={(e) => setCondition(e.target.value)}
+        >
+          <option className="text-center" value={0}></option>
+          <option className="text-center" value="new">
+            New
+          </option>
+          <option className="text-center" value="as good as new">
+            As good as new
+          </option>
+          <option className="text-center" value="good">
+            Good
+          </option>
+          <option className="text-center" value="acceptable">
+            Acceptable
+          </option>
+        </select>
 
         <label className="mt-2">
           What's its price (in <i className="fas fa-coins"></i>)?
