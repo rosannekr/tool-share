@@ -1,6 +1,12 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("BorrowedProducts", {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("BorrowedProducts", {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
       userId: {
         type: Sequelize.INTEGER,
         references: {
@@ -8,6 +14,7 @@ module.exports = {
           key: "id",
         },
         allowNull: false,
+        onDelete: "cascade",
       },
       productId: {
         type: Sequelize.INTEGER,
@@ -16,6 +23,19 @@ module.exports = {
           key: "id",
         },
         allowNull: false,
+        onDelete: "cascade",
+      },
+      startDate: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      endDate: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      confirmed: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

@@ -14,12 +14,11 @@ import ProfilePage from "./components/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
 import AddProduct from "./components/AddProduct";
 import Requests from "./components/Requests";
-import { userIsLoggedIn } from "./services/auth";
+import { userIsLoggedIn } from "./helpers/auth";
 
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);
-  
 
   useEffect(() => {
     getProducts();

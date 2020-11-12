@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       NumOfDaysAvailable: DataTypes.INTEGER,
       description: DataTypes.STRING,
       picture: DataTypes.STRING,
+      rating: DataTypes.INTEGER,
+      condition: DataTypes.STRING,
     },
     {}
   );
@@ -18,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     Product.belongsToMany(models.User, {
       through: models.BorrowedProduct,
       as: "Borrowers",
-      onDelete: "cascade",
     });
   };
   return Product;

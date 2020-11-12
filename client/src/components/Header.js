@@ -26,7 +26,15 @@ export default function Header(props) {
 
         <div className="collapse navbar-collapse">
           <SearchBar callback={(products) => props.callback(products)} />
-  <p>{user && <Link to="/"><p className="mt-4">{user.points} <i className="fas fa-coins"></i></p></Link> }</p>
+          <p>
+            {user && (
+              <Link to="/">
+                <p className="mt-4">
+                  {user.points} <i className="fas fa-coins"></i>
+                </p>
+              </Link>
+            )}
+          </p>
           {!props.isLoggedIn && (
             <ul className="navbar-nav">
               <li className="nav-item">
@@ -42,7 +50,6 @@ export default function Header(props) {
             </ul>
           )}
           {props.isLoggedIn && (
-       
             <ul className="navbar-nav">
               <li className="nav-item dropdown">
                 <button
@@ -59,11 +66,11 @@ export default function Header(props) {
                   <Link className="dropdown-item" to="/profile">
                     My profile
                   </Link>
-                  <Link className="dropdown-item" to="/products/upload">
-                    Add a product
-                  </Link>
                   <Link className="dropdown-item" to="/requests">
                     My requests
+                  </Link>
+                  <Link className="dropdown-item" to="/products/upload">
+                    Add product
                   </Link>
                   <div className="dropdown-divider"></div>
                   <Link className="dropdown-item" to="/" onClick={props.logout}>
