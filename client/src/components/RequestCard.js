@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { format } from "date-fns";
 import {
   getProduct,
   getUser,
@@ -42,22 +43,39 @@ export default function RequestCard(props) {
     props.fetchData();
   };
 
+  // Calculate how many days this will be borrowed
+  const daysDifference =
+    (new Date(props.request.endDate).getTime() -
+      new Date(props.request.startDate).getTime()) /
+    (1000 * 60 * 60 * 24);
+
+  const className = props.request.confirmed
+    ? "text-secondary border-bottom p-3 d-flex justify-content-between"
+    : "border-bottom p-3 d-flex justify-content-between";
+
   return (
-    <div className="border-bottom p-3 d-flex justify-content-between">
-      <div
-        className={
-          props.request.confirmed ? "text-left text-secondary" : "text-left"
-        }
-      >
+    <div className={className}>
+      <div className="mr-3" style={{ height: "20px" }}>
+        <div>{borrower.name}</div>
+        <img
+          src="https://picsum.photos/id/1005/50"
+          className="rounded-circle"
+        />
+      </div>
+
+      <div className="text-left">
         <small>{new Date(props.request.createdAt).toLocaleDateString()}</small>
         <div>
           <span>{product.name} | </span>
           <span>
-            {new Date(props.request.startDate).toDateString()} -{" "}
-            {new Date(props.request.endDate).toDateString()}
+            {format(new Date(props.request.startDate), "MMM dd")} -{" "}
+            {format(new Date(props.request.endDate), "MMM dd")}
           </span>
         </div>
-        <div>{borrower.name}</div>
+        <div>
+          {daysDifference * product.pricePerDay}
+          <i className="fas fa-coins ml-1"></i>
+        </div>
       </div>
       <div className="align-self-center ml-3">
         <button
