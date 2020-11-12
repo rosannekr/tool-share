@@ -84,6 +84,7 @@ const upload = multer({ storage });
 router.post("/", upload.single("picture"), function (req, res) {
   let picture = req.file.path;
   let isAvailable = true;
+  let rating = 0;
 
   const {
     name,
@@ -91,7 +92,9 @@ router.post("/", upload.single("picture"), function (req, res) {
     description,
     UserId,
     CategoryId,
+    condition,
     NumOfDaysAvailable,
+
   } = req.body;
 
   models.Product.create({
@@ -101,8 +104,10 @@ router.post("/", upload.single("picture"), function (req, res) {
     description,
     UserId,
     CategoryId,
+    condition,
     picture,
     NumOfDaysAvailable,
+    rating
   })
     .then((data) => res.send(data))
     .catch((error) => {

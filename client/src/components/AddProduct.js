@@ -8,6 +8,7 @@ export default function AddProduct(props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [user, setUser] = useState("");
+  const [condition, setCondition] = useState("");
   const [pricePerDay, setPricePerDay] = useState(0);
   const [categoryId, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
@@ -38,6 +39,7 @@ export default function AddProduct(props) {
     data.append("CategoryId", categoryId);
     data.append("NumOfDaysAvailable", NumOfDaysAvailable);
     data.append("UserId", userId);
+    data.append("condition", condition);
     data.append("picture", picture);
 
     axios
@@ -46,7 +48,7 @@ export default function AddProduct(props) {
       .then((res) => setLoaded(true))
       .catch((err) => console.log(err));
 
-      addPoints();
+    addPoints();
   };
 
   useEffect(() => {
@@ -103,15 +105,16 @@ export default function AddProduct(props) {
         <p className="text-success">Your product was correctly uploaded</p>
       )}
       <h3>Add a new product...</h3>
-      <p className="text-muted">...and get 20 free <i className="fas fa-coins"></i>!  </p>
+      <p className="text-muted">
+        ...and get 20 free <i className="fas fa-coins"></i>!{" "}
+      </p>
 
       <form className="w-25 mx-auto mt-2">
-        
-      <label>What is it?</label>
+        <label>What is it?</label>
         <input
           className="form-control mb-1 text-center"
           type="text"
-          placeholder="product name"
+          placeholder="product's name"
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
@@ -120,9 +123,18 @@ export default function AddProduct(props) {
         <input
           className="form-control text-center"
           type="text"
-          placeholder="description"
+          placeholder="product's description"
           onChange={(e) => setDescription(e.target.value)}
           value={description}
+        />
+
+        <label>In which condition is it?</label>
+        <input
+          className="form-control mb-1 text-center"
+          type="text"
+          placeholder="product's condition"
+          onChange={(e) => setCondition(e.target.value)}
+          value={condition}
         />
 
         <label className="mt-2">
@@ -143,7 +155,11 @@ export default function AddProduct(props) {
         >
           <option className="text-center" value={0}></option>
           {categories?.map((category) => (
-            <option key={category.id} value={category.id} className="text-center">
+            <option
+              key={category.id}
+              value={category.id}
+              className="text-center"
+            >
               {category.name}
             </option>
           ))}
