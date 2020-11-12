@@ -16,11 +16,15 @@ export default function Requests() {
 
   const pending = requests
     .filter((request) => !request.confirmed)
-    .map((request) => <RequestCard request={request} fetchData={fetchData} />);
+    .map((request) => (
+      <RequestCard key={request.id} request={request} fetchData={fetchData} />
+    ));
 
   const confirmed = requests
     .filter((request) => request.confirmed)
-    .map((request) => <RequestCard request={request} fetchData={fetchData} />);
+    .map((request) => (
+      <RequestCard key={request.id} request={request} fetchData={fetchData} />
+    ));
 
   return (
     <div className="container text-center mt-5">

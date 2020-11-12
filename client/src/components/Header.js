@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProfile, updateProfile } from "../services/requests";
+import { getProfile, updatePoints } from "../services/requests";
 import SearchBar from "./SearchBar";
 import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
@@ -12,14 +12,14 @@ export default function Header(props) {
     fetchData();
   }, [props.isLoggedIn]);
 
+  const addPoints = async (amount) => {
+    await updatePoints(+amount);
+    fetchData();
+  };
+
   const fetchData = async () => {
     const res = await getProfile();
     setUser(res.data);
-  };
-
-  const addPoints = (amount) => {
-    updateProfile({ points: +amount + user.points });
-    fetchData();
   };
 
   return (

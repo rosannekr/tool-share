@@ -85,7 +85,6 @@ export default function EditPopUp({
             value={description}
           />
           <label>
-            {" "}
             <i className="fas fa-edit"> </i> days product can be borrowed for
           </label>
           <input
@@ -97,8 +96,7 @@ export default function EditPopUp({
             min="1"
           />
           <label>
-            {" "}
-            <i className="fas fa-edit"> </i> price (in{" "}
+            <i className="fas fa-edit"> </i> price (in
             <i className="fas fa-coins"></i>)
           </label>
           <input

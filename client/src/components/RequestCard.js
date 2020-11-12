@@ -5,11 +5,20 @@ import {
   getUser,
   deleteRequest,
   updateRequest,
+  updatePoints,
 } from "../services/requests";
 
 export default function RequestCard(props) {
   const [product, setProduct] = useState({});
   const [borrower, setBorrower] = useState({});
+
+  // Calculate how many days this will be borrowed
+  const daysDifference =
+    (new Date(props.request.endDate).getTime() -
+      new Date(props.request.startDate).getTime()) /
+    (1000 * 60 * 60 * 24);
+  // Calculate total points
+  const points = Number(daysDifference * product.pricePerDay);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,18 +45,15 @@ export default function RequestCard(props) {
 
   const handleConfirm = async (id) => {
     try {
+      // set confirmed to true
       await updateRequest(id, 1);
+      // add points to user
+      await updatePoints(points);
     } catch (error) {
       console.log(error);
     }
     props.fetchData();
   };
-
-  // Calculate how many days this will be borrowed
-  const daysDifference =
-    (new Date(props.request.endDate).getTime() -
-      new Date(props.request.startDate).getTime()) /
-    (1000 * 60 * 60 * 24);
 
   const className = props.request.confirmed
     ? "text-secondary border-bottom p-3 d-flex justify-content-between"
@@ -73,7 +79,7 @@ export default function RequestCard(props) {
           </span>
         </div>
         <div>
-          {daysDifference * product.pricePerDay}
+          {points}
           <i className="fas fa-coins ml-1"></i>
         </div>
       </div>

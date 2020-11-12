@@ -12,6 +12,7 @@ export default function ProductPage(props) {
   let [hasEnoughPoints, setHasEnoughPoints] = useState(true);
   let [startDate, setStartDate] = useState(null);
   let [endDate, setEndDate] = useState(null);
+  let [reserved, setReserved] = useState(false);
 
   useEffect(() => {
     getOneProduct();
@@ -64,14 +65,17 @@ export default function ProductPage(props) {
         }),
       })
         .then((response) => {
-          console.log(response);
+          setReserved(true);
         })
         .catch((error) => {
           console.log(error);
         });
 
-      // makeUnavailable();
+      // Deduct points from borrower
       deductPoints();
+
+      // Add points to owner
+      addPoints();
     }
   };
 
@@ -103,12 +107,14 @@ export default function ProductPage(props) {
       });
   };
 
+  const addPoints = (pointTotal) => {};
+
   return (
     <div className="container text-center item-page mt-5">
       {item && (
         <div className="card">
           <p className="card-header">
-            Item posted by
+            <span className="mr-1">Item posted by</span>
             <span className="text-primary">{item.User.name}</span>
           </p>
           <div className="card-body">
@@ -131,7 +137,7 @@ export default function ProductPage(props) {
               </p>
             )}
 
-            {item.UserId !== user?.id && (
+            {item.UserId !== user?.id && !reserved && (
               <div>
                 <h4>Select dates</h4>
                 <small>Max availability: {item.NumOfDaysAvailable} days</small>
@@ -149,6 +155,11 @@ export default function ProductPage(props) {
                 >
                   Reserve
                 </button>
+              </div>
+            )}
+            {reserved && (
+              <div className="text-success">
+                Your request has been sent to the owner!
               </div>
             )}
           </div>

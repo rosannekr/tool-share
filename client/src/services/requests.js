@@ -46,7 +46,7 @@ export const login = async (username, password) => {
   return await axios.post("/users/login", { username, password });
 };
 
-// Get one user
+// Get other user
 export const getUser = async (id) => {
   return await axios.get(`/users/${id}`);
 };
@@ -59,6 +59,11 @@ export const getProfile = async () => {
 // Update current user's info
 export const updateProfile = async (reqbody) => {
   return await axios.put(`/users/profile`, reqbody);
+};
+
+// Update current user's points
+export const updatePoints = async (amount) => {
+  return await axios.put(`/users/points`, { amount });
 };
 
 // Get categories
