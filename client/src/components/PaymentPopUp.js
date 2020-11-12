@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import PayPalCheckout from "./PayPalCheckout";
 
-export default function PaymentPopUp() {
+export default function PaymentPopUp(props) {
   const [amount, setAmount] = useState(10);
   const [checkout, setCheckout] = useState(false);
   const [paid, setPaid] = useState(false);
 
   const handleSuccess = () => {
     setPaid(true);
+    props.addPoints(amount);
   };
 
   const handleClose = () => {
@@ -33,7 +34,7 @@ export default function PaymentPopUp() {
             ) : (
               <div>
                 <h4>Choose amount:</h4>
-                <div className="form-check form-check-inline">
+                <div className="form-check">
                   <input
                     onChange={(e) => setAmount(e.target.value)}
                     className="form-check-input"
@@ -44,10 +45,10 @@ export default function PaymentPopUp() {
                     checked={amount === "10"}
                   />
                   <label className="form-check-label" htmlFor="inlineCheckbox1">
-                    10
+                    10 points (€5)
                   </label>
                 </div>
-                <div className="form-check form-check-inline">
+                <div className="form-check">
                   <input
                     onChange={(e) => setAmount(e.target.value)}
                     className="form-check-input"
@@ -58,10 +59,10 @@ export default function PaymentPopUp() {
                     checked={amount === "20"}
                   />
                   <label className="form-check-label" htmlFor="inlineCheckbox2">
-                    20
+                    20 points (€10)
                   </label>
                 </div>
-                <div className="form-check form-check-inline">
+                <div className="form-check">
                   <input
                     onChange={(e) => setAmount(e.target.value)}
                     className="form-check-input"
@@ -72,7 +73,7 @@ export default function PaymentPopUp() {
                     checked={amount === "50"}
                   />
                   <label className="form-check-label" htmlFor="inlineCheckbox3">
-                    50
+                    50 points (€25)
                   </label>
                 </div>
               </div>

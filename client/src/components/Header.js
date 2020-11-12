@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProfile } from "../services/requests";
+import { getProfile, updateProfile } from "../services/requests";
 import SearchBar from "./SearchBar";
 import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
@@ -8,7 +8,6 @@ import PaymentPopUp from "./PaymentPopUp";
 export default function Header(props) {
   const [user, setUser] = useState({});
 
-  // Fetch user data when component mounts
   useEffect(() => {
     fetchData();
   }, [props.isLoggedIn]);
@@ -16,6 +15,11 @@ export default function Header(props) {
   const fetchData = async () => {
     const res = await getProfile();
     setUser(res.data);
+  };
+
+  const addPoints = (amount) => {
+    updateProfile({ points: +amount + user.points });
+    fetchData();
   };
 
   return (
@@ -37,7 +41,7 @@ export default function Header(props) {
               {user.points} <i className="fas fa-coins"></i>
             </button>
           )}
-          <PaymentPopUp />
+          <PaymentPopUp addPoints={addPoints} />
 
           {!props.isLoggedIn && (
             <ul className="navbar-nav">

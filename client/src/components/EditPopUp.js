@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {updateProduct} from "../services/requests";
+import { updateProduct } from "../services/requests";
 import axios from "axios";
 
-export default function EditPopUp({ handleClose, show, productId, callback1, callback2 }) {
+export default function EditPopUp({
+  handleClose,
+  show,
+  productId,
+  callback1,
+  callback2,
+}) {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   let [item, setItem] = useState("");
@@ -22,7 +28,7 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
         setName(response.data.name);
         setDescription(response.data.description);
         setNumOfDaysAvailable(response.data.NumOfDaysAvailable);
-        setPricePerDay(response.data.pricePerDay)
+        setPricePerDay(response.data.pricePerDay);
       },
       (error) => {
         console.log(error);
@@ -31,20 +37,23 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
   };
 
   let editProducts = async (event) => {
-
     event.preventDefault();
-    let id = item.id
+    let id = item.id;
 
     try {
-      await updateProduct(id, {name: productName, description: description, NumOfDaysAvailable: NumOfDaysAvailable, pricePerDay: pricePerDay});
+      await updateProduct(id, {
+        name: productName,
+        description: description,
+        NumOfDaysAvailable: NumOfDaysAvailable,
+        pricePerDay: pricePerDay,
+      });
     } catch (error) {
       console.log(error);
     }
 
-    callback1(); 
+    callback1();
     callback2(true);
-  } 
-
+  };
 
   return (
     <div className={showHideClassName}>
@@ -85,21 +94,26 @@ export default function EditPopUp({ handleClose, show, productId, callback1, cal
             placeholder={item && item.numOfDaysAvailable}
             onChange={(e) => setNumOfDaysAvailable(e.target.value)}
             value={NumOfDaysAvailable}
+            min="1"
           />
-        <label> <i className="fas fa-edit"> </i> price (in <i className="fas fa-coins"></i>)
+          <label>
+            {" "}
+            <i className="fas fa-edit"> </i> price (in{" "}
+            <i className="fas fa-coins"></i>)
           </label>
-        <input
-          className="mb-3 mr-2 ml-2 text-center"
-          placeholder={item && item.pricePerDay}
-          type="number"
-          onChange={(e) => setPricePerDay(e.target.value)}
-          value={pricePerDay}
-        />
-          <button className="btn btn-dark btn-block" onClick={editProducts}>Update item</button>
+          <input
+            className="mb-3 mr-2 ml-2 text-center"
+            placeholder={item && item.pricePerDay}
+            type="number"
+            onChange={(e) => setPricePerDay(e.target.value)}
+            value={pricePerDay}
+            min="0"
+          />
+          <button className="btn btn-dark btn-block" onClick={editProducts}>
+            Update item
+          </button>
         </div>
       </section>
     </div>
   );
 }
-
-
