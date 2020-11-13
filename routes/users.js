@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var models = require("../models");
+const multer = require("multer");
 
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -223,5 +224,7 @@ router.delete("/", isLoggedIn, async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+  
 
 module.exports = router;

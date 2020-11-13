@@ -63,10 +63,10 @@ export default function RequestCard(props) {
     <div className={className}>
       <div className="mr-3" style={{ height: "20px" }}>
         <div>{borrower.name}</div>
-        <img
-          src="https://picsum.photos/id/1005/50"
-          className="rounded-circle"
-        />
+       { borrower.picture && <img
+          src={`/../../../${borrower.picture.substring(7, borrower.picture.length)}`}
+          className="rounded-circle profile-pic-small"
+        />}
       </div>
 
       <div className="text-left">

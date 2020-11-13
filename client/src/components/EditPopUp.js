@@ -8,7 +8,9 @@ export default function EditPopUp({
   productId,
   callback1,
   callback2,
-}) {
+}) 
+
+{
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   let [item, setItem] = useState("");
