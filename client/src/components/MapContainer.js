@@ -2,7 +2,7 @@ import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const apiKey = "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8";
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 
 const BarcelonaBounds = {
@@ -65,5 +65,5 @@ function MapContainer(props) {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8",
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY
 })(MapContainer);
