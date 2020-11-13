@@ -4,6 +4,7 @@ import { getProfile, updateProduct } from "../services/requests";
 import DateRange from "./DateRange";
 import StarRatingComponent from "react-star-rating-component";
 import MapContainer from "./MapContainer";
+import axios from 'axios';
 
 export default function ProductPage(props) {
   let { id } = useParams();
@@ -15,10 +16,11 @@ export default function ProductPage(props) {
   let [startDate, setStartDate] = useState(null);
   let [endDate, setEndDate] = useState(null);
   let [reserved, setReserved] = useState(false);
-
+ 
   useEffect(() => {
     getOneProduct();
     fetchData();
+
   }, []);
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function ProductPage(props) {
         setItem(json);
       });
   };
+
 
   let borrowItem = (productId) => {
     if (user.points < pointTotal) {
