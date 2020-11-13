@@ -29,7 +29,8 @@ export default function BorrowedProductList(props) {
   };
 
   let onStarClick = (nextValue, prevValue, name) => {
-   
+   console.log(name)
+   console.log(nextValue)
    setRating(nextValue);
   }
 
