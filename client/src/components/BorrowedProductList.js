@@ -4,6 +4,7 @@ import { getProfile } from "../services/requests";
 import { format } from "date-fns";
 import StarRatingComponent from 'react-star-rating-component';
 
+
 export default function BorrowedProductList(props) {
   let [items, setItems] = useState("");
   let [userId, setUserId] = useState("");
