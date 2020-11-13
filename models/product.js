@@ -17,10 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Product.associate = function (models) {
     Product.belongsTo(models.Category);
     Product.belongsTo(models.User);
-    Product.belongsToMany(models.User, {
-      through: models.BorrowedProduct,
-      as: "Borrowers",
-    });
+    Product.hasMany(models.Request, { onDelete: "cascade" });
   };
   return Product;
 };

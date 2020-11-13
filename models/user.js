@@ -12,10 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   User.associate = function (models) {
     User.hasMany(models.Product, { onDelete: "cascade" });
-    User.belongsToMany(models.Product, {
-      through: models.BorrowedProduct,
-      as: "Borrowed",
-    });
+    User.hasMany(models.Request, { onDelete: "cascade" });
   };
 
   return User;
