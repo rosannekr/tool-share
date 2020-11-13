@@ -160,24 +160,6 @@ router.put("/points", isLoggedIn, async (req, res) => {
   }
 });
 
-// GET all products a user has borrowed
-router.get("/borrowed", isLoggedIn, async (req, res) => {
-  // grab user id from decoded payload
-  const { userId } = req;
-
-  try {
-    const user = await models.User.findOne({
-      where: {
-        id: userId,
-      },
-      include: ["Borrowed"],
-    });
-    res.send(user.Borrowed);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
 // GET all users
 router.get("/", async (req, res) => {
   try {

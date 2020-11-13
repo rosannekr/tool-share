@@ -54,7 +54,7 @@ export default function ProductPage(props) {
     if (user.points < pointTotal) {
       setHasEnoughPoints(false);
     } else {
-      fetch(`/borrowed`, {
+      fetch(`/requests`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -150,12 +150,12 @@ export default function ProductPage(props) {
             {item.UserId !== user?.id && !reserved && (
               <div>
                 <h4>Select dates</h4>
-                <small>Max availability: {item.NumOfDaysAvailable} days</small>
+                <small>Max availability: {item.numOfDaysAvailable} days</small>
                 <DateRange
                   productId={item.id}
                   changeStartDate={setStartDate}
                   changeEndDate={setEndDate}
-                  maxAvailableDays={item.NumOfDaysAvailable}
+                  maxAvailableDays={item.numOfDaysAvailable}
                 />
                 <p>Points total: {pointTotal}</p>
                 <button

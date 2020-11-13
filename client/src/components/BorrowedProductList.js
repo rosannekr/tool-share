@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getProfile } from "../services/requests";
 import { format } from "date-fns";
-import StarRatingComponent from 'react-star-rating-component';
+import StarRatingComponent from "react-star-rating-component";
 
 export default function BorrowedProductList(props) {
   let [items, setItems] = useState("");
@@ -21,7 +21,7 @@ export default function BorrowedProductList(props) {
 
   const getBorrowedProducts = () => {
     console.log(userId);
-    fetch(`http://localhost:5000/borrowed/user/${userId}`)
+    fetch(`http://localhost:5000/borrowed`)
       .then((response) => response.json())
       .then((response) => {
         setItems(response);
@@ -29,10 +29,10 @@ export default function BorrowedProductList(props) {
   };
 
   let onStarClick = (nextValue, prevValue, name) => {
-   console.log(name)
-   console.log(nextValue)
-   setRating(nextValue);
-  }
+    console.log(name);
+    console.log(nextValue);
+    setRating(nextValue);
+  };
 
   return (
     <div className="container">
@@ -54,12 +54,12 @@ export default function BorrowedProductList(props) {
               <p className="text-center mr-5 mt-2 brrwd">
                 Rate this product:
                 <span>
-                <StarRatingComponent 
-          name={item.id}
-          starCount={5}
-          value={item.rating}
-          onStarClick={onStarClick}
-        />
+                  <StarRatingComponent
+                    name={item.id}
+                    starCount={5}
+                    value={item.rating}
+                    onStarClick={onStarClick}
+                  />
                 </span>
               </p>
             </li>

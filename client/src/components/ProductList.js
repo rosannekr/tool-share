@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { updateProduct } from "../services/requests";
 import { Link } from "react-router-dom";
 import EditPopUp from "./EditPopUp";
-import { getProfile } from "../services/requests";
+import { getProfile, updateProduct } from "../services/requests";
 import axios from "axios";
 
 export default function ProductList(props) {
@@ -29,7 +28,6 @@ export default function ProductList(props) {
   const fetchData = async () => {
     const res = await getProfile();
     setUser(res.data);
-  
   };
 
   let makeAvailable = async (id) => {

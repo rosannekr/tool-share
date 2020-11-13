@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCategories, addProduct } from "../services/requests";
+import { getCategories } from "../services/requests";
 import { getProfile } from "../services/requests";
 import axios from "axios";
 
@@ -12,7 +12,7 @@ export default function AddProduct(props) {
   const [pricePerDay, setPricePerDay] = useState(0);
   const [categoryId, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
-  const [NumOfDaysAvailable, setNumOfDaysAvailable] = useState(0);
+  const [numOfDaysAvailable, setNumOfDaysAvailable] = useState(0);
   const [picture, setPicture] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -37,7 +37,7 @@ export default function AddProduct(props) {
     data.append("description", description);
     data.append("pricePerDay", pricePerDay);
     data.append("CategoryId", categoryId);
-    data.append("NumOfDaysAvailable", NumOfDaysAvailable);
+    data.append("numOfDaysAvailable", numOfDaysAvailable);
     data.append("UserId", userId);
     data.append("condition", condition);
     data.append("picture", picture);
@@ -58,16 +58,6 @@ export default function AddProduct(props) {
     };
     fetchData();
   }, []);
-
-  const handleClick = async (e) => {
-    e.preventDefault();
-    try {
-      // send product info to server
-      await addProduct(name, description, pricePerDay, categoryId, picture);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   const fileSelectedHandler = (event) => {
     setPicture(event.target.files[0]);
@@ -182,7 +172,7 @@ export default function AddProduct(props) {
           className="form-control text-center"
           type="number"
           onChange={(e) => setNumOfDaysAvailable(e.target.value)}
-          value={NumOfDaysAvailable}
+          value={numOfDaysAvailable}
         />
         <label className="mt-2">Upload a nice picture!</label>
         <input

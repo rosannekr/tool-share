@@ -14,10 +14,7 @@ module.exports = {
       pricePerDay: {
         type: Sequelize.INTEGER,
       },
-      isAvailable: {
-        type: Sequelize.BOOLEAN,
-      },
-      NumOfDaysAvailable: {
+      numOfDaysAvailable: {
         type: Sequelize.INTEGER,
       },
       description: {
@@ -28,9 +25,6 @@ module.exports = {
       },
       condition: {
         type: Sequelize.STRING,
-      },
-      rating: {
-        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

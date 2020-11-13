@@ -1,6 +1,6 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var models = require("../models")
+var models = require("../models");
 
 /* GET all categories */
 router.get("/", async function (req, res) {
@@ -28,7 +28,6 @@ router.get("/:id", async function (req, res) {
 });
 
 //Get all products that belong in a category (filter)
-
 router.get("/:id/products", async function (req, res, next) {
   const { id } = req.params;
   try {
@@ -36,16 +35,12 @@ router.get("/:id/products", async function (req, res, next) {
       where: {
         id,
       },
+      include: models.Product,
     });
 
-    const products = await category.getProducts({include: models.User});
-
-    res.send(products);
+    res.send(category.Products);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 module.exports = router;
-
-
-
