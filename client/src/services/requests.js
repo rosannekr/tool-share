@@ -72,19 +72,19 @@ export const getCategories = async () => {
 };
 
 // Add a product
-export const addProduct = async (
-  name,
-  description,
-  pricePerDay,
-  categoryId
-) => {
-  return await axios.post("/products", {
-    name,
-    description,
-    pricePerDay,
-    categoryId,
-  });
-};
+// export const addProduct = async (
+//   name,
+//   description,
+//   pricePerDay,
+//   categoryId
+// ) => {
+//   return await axios.post("/products", {
+//     name,
+//     description,
+//     pricePerDay,
+//     categoryId,
+//   });
+// };
 
 // Get a product
 export const getProduct = async (id) => {
@@ -96,14 +96,19 @@ export const updateProduct = async (id, reqbody) => {
   return await axios.put(`/products/${id}`, reqbody);
 };
 
-// Get all reserved dates for this product
-export const getReservations = async (ProductId) => {
-  return await axios.get(`/borrowed/${ProductId}`);
-};
-
 // Get all requests for current user
 export const getRequests = async () => {
   return await axios.get(`/requests`);
+};
+
+// Get all requests for a product
+export const getProductRequests = async (productId) => {
+  return await axios.get(`/products/${productId}/requests`);
+};
+
+// Add new request
+export const addRequest = async (productId, startDate, endDate) => {
+  return await axios.get(`/requests`, { productId, startDate, endDate });
 };
 
 // Delete request

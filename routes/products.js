@@ -11,42 +11,9 @@ const multer = require("multer");
 router.get("/", async function (req, res) {
   try {
     const products = await models.Product.findAll({
-      where: {
-        isAvailable: 1,
-      },
       include: models.User,
     });
     res.send(products);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-//make product unavailable after being borrowed
-
-router.put("/:id/borrow", async function (req, res) {
-  const { id } = req.params;
-  try {
-    const result = await models.Product.update(
-      { isAvailable: 0 },
-      { where: { id } }
-    );
-    res.send("Product is now unavailable");
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-//make product available after being returned
-
-router.put("/:id/return", async function (req, res) {
-  const { id } = req.params;
-  try {
-    const result = await models.Product.update(
-      { isAvailable: 1 },
-      { where: { id } }
-    );
-    res.send("Product is now available");
   } catch (error) {
     res.status(500).send(error);
   }
@@ -83,7 +50,6 @@ const upload = multer({ storage });
 
 router.post("/", upload.single("picture"), function (req, res) {
   let picture = req.file.path;
-  let isAvailable = true;
   let rating = 0;
 
   const {
@@ -93,21 +59,19 @@ router.post("/", upload.single("picture"), function (req, res) {
     UserId,
     CategoryId,
     condition,
-    NumOfDaysAvailable,
-
+    numOfDaysAvailable,
   } = req.body;
 
   models.Product.create({
     name,
     pricePerDay,
-    isAvailable,
     description,
     UserId,
     CategoryId,
     condition,
     picture,
-    NumOfDaysAvailable,
-    rating
+    numOfDaysAvailable,
+    rating,
   })
     .then((data) => res.send(data))
     .catch((error) => {
@@ -138,6 +102,22 @@ router.get("/search/:search", async function (req, res) {
   }
 });
 
+// GET all requests of product
+router.get("/:id/requests", async function (req, res) {
+  const { id } = req.params;
+  try {
+    const borrowed = await models.Request.findAll({
+      where: {
+        productId: id,
+      },
+      include: models.Product,
+    });
+    res.send(borrowed);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 // Update product
 
 router.put("/:id", async function (req, res) {
@@ -155,12 +135,16 @@ router.put("/:id", async function (req, res) {
   }
 });
 
-
 //Delete product
 
 router.delete("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
+    await models.Request.destroy({
+      where: {
+        ProductId: id,
+      },
+    });
     await models.Product.destroy({
       where: {
         id,

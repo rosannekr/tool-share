@@ -14,7 +14,7 @@ export default function EditPopUp({
   let [item, setItem] = useState("");
   const [productName, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [NumOfDaysAvailable, setNumOfDaysAvailable] = useState(0);
+  const [numOfDaysAvailable, setNumOfDaysAvailable] = useState(0);
   const [pricePerDay, setPricePerDay] = useState(0);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function EditPopUp({
         setItem(response.data);
         setName(response.data.name);
         setDescription(response.data.description);
-        setNumOfDaysAvailable(response.data.NumOfDaysAvailable);
+        setNumOfDaysAvailable(response.data.numOfDaysAvailable);
         setPricePerDay(response.data.pricePerDay);
       },
       (error) => {
@@ -44,7 +44,7 @@ export default function EditPopUp({
       await updateProduct(id, {
         name: productName,
         description: description,
-        NumOfDaysAvailable: NumOfDaysAvailable,
+        numOfDaysAvailable: numOfDaysAvailable,
         pricePerDay: pricePerDay,
       });
     } catch (error) {
@@ -92,7 +92,7 @@ export default function EditPopUp({
             className="mb-3 mr-2 ml-2 text-center"
             placeholder={item && item.numOfDaysAvailable}
             onChange={(e) => setNumOfDaysAvailable(e.target.value)}
-            value={NumOfDaysAvailable}
+            value={numOfDaysAvailable}
             min="1"
           />
           <label>

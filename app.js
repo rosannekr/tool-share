@@ -9,7 +9,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var productsRouter = require("./routes/products");
 var categoriesRouter = require("./routes/categories");
-var borrowedRouter = require("./routes/borrowed");
+var requestsRouter = require("./routes/requests");
 
 var app = express();
 
@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // setup for routes
 app.use("/", indexRouter);
-app.use("/borrowed", borrowedRouter);
+app.use("/requests", requestsRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
 app.use("/categories", categoriesRouter);
