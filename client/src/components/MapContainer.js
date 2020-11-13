@@ -51,7 +51,6 @@ function MapContainer(props)  {
   <Marker
   position = {location} />
   
-  
   </Map>
       
     );
@@ -59,6 +58,6 @@ function MapContainer(props)  {
 
 
 export default GoogleApiWrapper({
-  //apiKey: process.env.REACT_APP_GOOGLE_API_KEY
- apiKey: "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8"
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY 
+
 })(MapContainer);
