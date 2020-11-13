@@ -3,6 +3,7 @@ import { getProfile } from "../services/requests";
 import ProductList from "./ProductList";
 import BorrowedProductList from "./BorrowedProductList";
 import { Link } from "react-router-dom";
+import PaymentPopUp from "./PaymentPopUp";
 
 export default function ProfilePage(props) {
   const [user, setUser] = useState({});
