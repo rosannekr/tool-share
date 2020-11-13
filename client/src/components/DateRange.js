@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { addDays, eachDayOfInterval } from "date-fns";
-import { getReservations } from "../services/requests";
+import { getProductRequests } from "../services/requests";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function DateRange(props) {
@@ -23,7 +23,7 @@ export default function DateRange(props) {
     const fetchData = async () => {
       try {
         // Fetch reserved dates
-        const res = await getReservations(props.productId);
+        const res = await getProductRequests(props.productId);
 
         // Map reservations to date intervals
         const intervals = res.data.map((reservation) =>

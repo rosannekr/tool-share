@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Request.associate = function (models) {
-    Request.belongsTo(models.User);
-    Request.belongsTo(models.Product);
+    Request.belongsTo(models.User, { onDelete: "cascade" });
+    Request.belongsTo(models.Product, { onDelete: "cascade" });
   };
   return Request;
 };
