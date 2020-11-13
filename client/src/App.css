@@ -100,5 +100,41 @@ close-button {
     flex-direction: row;
      justify-content: center;
      align-items: flex-start;
-     gap: 10px;
   }
+
+.mainProfileDiv {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.profile-pic:hover {
+  opacity: 0.4;
+}
+
+.userInfo {
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+
+}
+
+.profile-pic {
+  align-self: center;
+  width: 100px; 
+  height: 100px;
+}
+
+.profile-pic-small {
+  align-self: center;
+  width: 60px; 
+  height: 60px;
+}
+
+.address-input {
+  width: 100px;
+}
+
+.address {
+  border-bottom: 1px dotted
+}
