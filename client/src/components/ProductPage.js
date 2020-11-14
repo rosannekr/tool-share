@@ -182,6 +182,7 @@ export default function ProductPage(props) {
           <img
             className="card-img-bottom"
             src={`/../../../${item.picture.substring(7, item.picture.length)}`}
+<<<<<<< HEAD
           />
           <div className="py-4">
             <h5>Reviews</h5>
@@ -196,6 +197,13 @@ export default function ProductPage(props) {
           <MapContainer address={item.User.address} />
         </div>
       )}
+=======
+          />  
+           <MapContainer address={item.User.address} />
+        </div>
+      )}
+   
+>>>>>>> 2737779... small changes
     </div>
   );
 }
