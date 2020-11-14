@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import StarRatingComponent from "react-star-rating-component";
 import { getBorrowedProducts, updateRequest } from "../services/requests";
+import axios from "axios";
 
 export default function BorrowedProductList(props) {
   let [requests, setRequests] = useState([]);
@@ -15,12 +16,16 @@ export default function BorrowedProductList(props) {
 
   const fetchData = async () => {
     try {
-      const resRequests = await getBorrowedProducts();
-      setRequests(resRequests.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+     // const resRequests = await getBorrowedProducts();
+      //setRequests(resRequests.data);
+
+      const { data } = await axios.get("/borrowed/" + props.id );
+      setRequests(data);
+        } catch (err) {
+          console.log(err);
+        }
+
+      };
 
   let onStarClick = (nextValue, prevValue, name) => {
     updateRating(name, nextValue);

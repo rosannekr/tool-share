@@ -75,7 +75,20 @@ export default function ProductPage(props) {
       timeout: 3500,
       progressBar: true,
     }).show();
+     
+  }
+
+
+  let getOneProduct = () => {
+    fetch(`/products/${id}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        setItem(json);
+      });
   };
+
 
   let borrowItem = (productId) => {
     if (user.points < pointTotal) {

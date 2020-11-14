@@ -108,7 +108,7 @@ export default function ProfilePage(props) {
           </div>
 
           <div className="container d-flex justify-content-around mt-4">
-            <ProductList /> <BorrowedProductList />
+            <ProductList /> <BorrowedProductList id={user.id} />
           </div>
         </div>
       )}
