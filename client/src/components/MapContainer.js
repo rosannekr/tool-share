@@ -2,7 +2,9 @@ import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import React, { useState, useEffect } from "react";
 import { getProfile } from "../services/requests";
 
+
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
+
 
 
 const BarcelonaBounds = {
