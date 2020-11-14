@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getProfile } from "../services/requests";
 import { format } from "date-fns";
 import StarRatingComponent from "react-star-rating-component";
 import { getBorrowedProducts, updateRequest } from "../services/requests";

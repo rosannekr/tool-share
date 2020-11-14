@@ -2,7 +2,7 @@ import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import React, { useState, useEffect } from "react";
 import { getProfile } from "../services/requests";
 
-const apiKey = REACT_APP_GOOGLE_API_KEY
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const BarcelonaBounds = {
   north: 41.470001,
@@ -34,24 +34,24 @@ function MapContainer(props) {
   //get coordinates in order to pass them to the map
 
   let getCoords = async () => {
-    
-    if (props.address) { 
+    if (props.address) {
+      let formatted = props.address;
 
-    let formatted = props.address
+      let address = formatted.split(" ").join("+");
 
-    let address = formatted.split(" ").join("+");
- 
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
-    .then(res => res.json())
-      .then(response => {
-        console.log(response)
-       setLatitude(response.results[0].geometry.location.lat);
-       setLongitude(response.results[0].geometry.location.lng);
-      })
-      .catch(err => console.log(err))
+      fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
+      )
+        .then((res) => res.json())
+        .then((response) => {
+          console.log(response);
+          setLatitude(response.results[0].geometry.location.lat);
+          setLongitude(response.results[0].geometry.location.lng);
+        })
+        .catch((err) => console.log(err));
     }
-  }
-   
+  };
+
   return (
     <div>
       <Map
@@ -71,5 +71,5 @@ function MapContainer(props) {
 }
 
 export default GoogleApiWrapper({
-  apiKey: REACT_APP_GOOGLE_API_KEY
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
 })(MapContainer);

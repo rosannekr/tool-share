@@ -113,13 +113,8 @@ export const getProductRequests = async (productId) => {
 
 //Get all products a user has borrowed
 
-<<<<<<< HEAD
 export const getBorrowedProducts = async () => {
   return await axios.get(`/borrowed`);
-=======
-export const getBorrowedProducts = async (userId) => {
-  return await axios.get(`/borrowed/${userId}`);
->>>>>>> 2737779... small changes
 };
 
 // Add new request
