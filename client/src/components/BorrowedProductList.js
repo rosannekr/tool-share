@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import { getProfile } from "../services/requests";
 import { format } from "date-fns";
 import StarRatingComponent from "react-star-rating-component";
-import { getBorrowedProducts } from "../services/requests";
+import { getBorrowedProducts, updateRequest } from "../services/requests";
 
 export default function BorrowedProductList(props) {
   let [requests, setRequests] = useState([]);
-  let [userId, setUserId] = useState("");
   let [rating, setRating] = useState("");
 
   useEffect(() => {
@@ -16,20 +15,21 @@ export default function BorrowedProductList(props) {
 
   const fetchData = async () => {
     try {
-      const resProfile = await getProfile();
       const resRequests = await getBorrowedProducts();
-      setUserId(resProfile.data.id);
       setRequests(resRequests.data);
-      console.log(resRequests.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   let onStarClick = (nextValue, prevValue, name) => {
-    console.log(name);
-    console.log(nextValue);
+    updateRating(name, nextValue);
     setRating(nextValue);
+  };
+
+  const updateRating = async (id, rating) => {
+    await updateRequest(id, { rating });
+    fetchData();
   };
 
   return (
