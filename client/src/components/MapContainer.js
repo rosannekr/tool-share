@@ -6,7 +6,6 @@ import { getProfile } from "../services/requests";
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
 
-
 const BarcelonaBounds = {
   north: 41.470001,
   south: 41.317271,
@@ -17,9 +16,7 @@ const BarcelonaBounds = {
 const mapStyles = {
   width: "670px",
   height: "500px",
-
 };
-
 
 function MapContainer(props) {
   let [latitude, setLatitude] = useState("41.3887489");
@@ -67,10 +64,8 @@ console.log(hola)
         center={{
           lat: latitude,
           lng: longitude,
-          defaultBounds: {BarcelonaBounds},
+          defaultBounds: { BarcelonaBounds },
         }}
-   
-       
       >
         <Marker position={{ lat: latitude, lng: longitude }} />
       </Map>
