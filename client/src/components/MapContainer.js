@@ -4,7 +4,6 @@ import axios from "axios";
 
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
-
 const BarcelonaBounds = {
   north: 41.470001,
   south: 41.317271,
@@ -15,9 +14,7 @@ const BarcelonaBounds = {
 const mapStyles = {
   width: "670px",
   height: "500px",
-
 };
-
 
 function MapContainer(props) {
   let [latitude, setLatitude] = useState("41.3887489");
@@ -51,10 +48,8 @@ function MapContainer(props) {
         center={{
           lat: latitude,
           lng: longitude,
-          defaultBounds: {BarcelonaBounds},
+          defaultBounds: { BarcelonaBounds },
         }}
-   
-       
       >
         <Marker position={{ lat: latitude, lng: longitude }} />
       </Map>
