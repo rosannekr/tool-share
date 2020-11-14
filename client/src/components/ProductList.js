@@ -28,6 +28,7 @@ export default function ProductList(props) {
   const fetchData = async () => {
     const res = await getProfile();
     setUser(res.data);
+  
   };
 
   let makeAvailable = async (id) => {
@@ -69,8 +70,8 @@ export default function ProductList(props) {
         <li class="list-group-item list-group-item-info d-flex justify-content-center">
           Owned stuff
         </li>
-        {user.Products ? (
-          user.Products.map((item) => (
+        {user.Products && user.Products.length > 0 ? (
+           user.Products.map((item) => (
             <li className="list-group-item">
               <Link to={`/product/${item.id}`}>{item.name}</Link> |
               {!item.isAvailable && (

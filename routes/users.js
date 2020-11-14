@@ -64,6 +64,7 @@ router.post("/register", async (req, res) => {
       const user = await models.User.create({
         name,
         username,
+        picture: "public/pictures/dog.png",
         password: hash,
       });
       res.send(user);
@@ -225,6 +226,35 @@ router.delete("/", isLoggedIn, async (req, res) => {
   }
 });
 
-  
+//update profile pic
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/pictures");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage });
+
+router.put("/:id/pic", upload.single("picture"), function (req, res) {
+  const { id } = req.params;
+
+ models.User.update({
+  picture: req.file.path,
+}, {
+  where: {id},
+})
+.then(function (result) {
+  console.log(result);   
+
+});
+
+})
+
+
+
+
 
 module.exports = router;

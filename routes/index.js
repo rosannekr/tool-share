@@ -5,9 +5,9 @@ var models = require("../models");
 const isLoggedIn = require("../guards/isLoggedIn");
 
 // GET all products a user has borrowed
-router.get("/borrowed", isLoggedIn, async (req, res) => {
+router.get("/borrowed/:userId", isLoggedIn, async (req, res) => {
   // grab user id from decoded payload
-  const { userId } = req;
+  const { userId } = req.params;
 
   try {
     const requests = await models.Request.findAll({

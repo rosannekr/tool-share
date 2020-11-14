@@ -1,8 +1,10 @@
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { getProfile } from "../services/requests";
 
-const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
+
 
 
 const BarcelonaBounds = {
@@ -22,26 +24,38 @@ const mapStyles = {
 function MapContainer(props) {
   let [latitude, setLatitude] = useState("41.3887489");
   let [longitude, setLongitude] = useState("2.139259");
+  let [userAddress, setUserAddress] = useState("");
 
   useEffect(() => {
+
+    fetchData();
     getCoords();
-  }, [latitude]);
+ 
+  }, [longitude]);
+
+  const fetchData = async () => {
+    const res = await getProfile();
+    setUserAddress(res.data.address);
+  
+  };
+
 
   //get coordinates in order to pass them to the map
 
   let getCoords = async () => {
-    let hola = "George Street 17 London"; // will be changed to product's owner address
-
+    let hola = props.address; 
+console.log(hola)
     let address = hola.split(" ").join("+");
 
  
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
     .then(res => res.json())
       .then(response => {
+        console.log(response)
        setLatitude(response.results[0].geometry.location.lat);
        setLongitude(response.results[0].geometry.location.lng);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   }
    
   return (
