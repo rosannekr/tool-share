@@ -6,6 +6,11 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 >>>>>>> 2737779... small changes
 
+import Noty from 'noty';  
+import "../../node_modules/noty/lib/noty.css";  
+import "../../node_modules/noty/lib/themes/relax.css";  
+
+
 export default function UpdatePicture({
   handleClose,
   show,
@@ -23,9 +28,25 @@ export default function UpdatePicture({
 
 >>>>>>> 2737779... small changes
 
+<<<<<<< HEAD
   let editPicture = () => {
     let id = userID;
     setLoading(true);
+=======
+let notification = (str) => {
+
+  new Noty({
+    text: str,
+    layout: "topRight",
+    theme: "relax",
+    type: "success",
+    timeout: 3500,
+    progressBar: true
+  }).show();
+   
+}
+
+>>>>>>> 86eebf3... added noty.js
 
 <<<<<<< HEAD
     const data = new FormData();
@@ -52,6 +73,7 @@ setLoading(true);
       .then((res) => setLoaded(true))
       .catch((err) => console.log(err));
 
+notification('your profile picture was updated correctly')
 callback1();
 callback2(true);
 

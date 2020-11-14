@@ -3,6 +3,10 @@ import { getCategories } from "../services/requests";
 import { getProfile } from "../services/requests";
 import axios from "axios";
 
+import Noty from 'noty';  
+import "../../node_modules/noty/lib/noty.css";  
+import "../../node_modules/noty/lib/themes/relax.css";  
+
 export default function AddProduct(props) {
   const [userId, setUserId] = useState(0);
   const [name, setName] = useState("");
@@ -27,6 +31,20 @@ export default function AddProduct(props) {
     setUserId(res.data.id);
   };
 
+
+  let notification = (str) => {
+
+    new Noty({
+      text: str,
+      layout: "topRight",
+      theme: "relax",
+      type: "success",
+      timeout: 3500,
+      progressBar: true
+    }).show();
+     
+  }
+
   const send = (event) => {
     event.preventDefault();
 
@@ -46,6 +64,7 @@ export default function AddProduct(props) {
       .post("http://localhost:5000/products", data)
       .then((res) => setLoading(false))
       .then((res) => setLoaded(true))
+      .then((res) => notification("your product was correctly uploaded"))
       .catch((err) => console.log(err));
 
     addPoints();
@@ -91,9 +110,9 @@ export default function AddProduct(props) {
           <span class="sr-only">Loading...</span>
         </div>
       )}
-      {loaded && (
+      {/* {loaded && (
         <p className="text-success">Your product was correctly uploaded</p>
-      )}
+      )} */}
       <h3>Add a new product...</h3>
       <p className="text-muted">
         ...and get 20 free <i className="fas fa-coins"></i>!{" "}

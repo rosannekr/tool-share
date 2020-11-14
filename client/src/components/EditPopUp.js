@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { updateProduct } from "../services/requests";
 import axios from "axios";
 
+import Noty from 'noty';  
+import "../../node_modules/noty/lib/noty.css";  
+import "../../node_modules/noty/lib/themes/relax.css";  
+
+
 export default function EditPopUp({
   handleClose,
   show,
@@ -22,6 +27,21 @@ export default function EditPopUp({
   useEffect(() => {
     getOneProduct();
   }, [productId]);
+
+
+
+  let notification = (str) => {
+
+    new Noty({
+      text: str,
+      layout: "topRight",
+      theme: "relax",
+      type: "success",
+      timeout: 3500,
+      progressBar: true
+    }).show();
+     
+  }
 
   let getOneProduct = () => {
     axios.get(`/products/${productId}`, {}).then(
@@ -49,6 +69,7 @@ export default function EditPopUp({
         numOfDaysAvailable: numOfDaysAvailable,
         pricePerDay: pricePerDay,
       });
+      notification("product was updated correctly")
     } catch (error) {
       console.log(error);
     }
