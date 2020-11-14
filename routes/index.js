@@ -5,25 +5,19 @@ var models = require("../models");
 const isLoggedIn = require("../guards/isLoggedIn");
 
 // GET all products a user has borrowed
-router.get("/borrowed/:userId", isLoggedIn, async (req, res) => {
+router.get("/borrowed", isLoggedIn, async (req, res) => {
   // grab user id from decoded payload
-  const { userId } = req.params;
+  const { userId } = req;
 
   try {
     const requests = await models.Request.findAll({
       where: {
         UserId: userId,
       },
-    });
-    const productIds = requests.map((request) => request.ProductId);
-
-    const products = await models.Product.findAll({
-      where: {
-        id: productIds,
-      },
+      include: models.Product,
     });
 
-    res.send(products);
+    res.send(requests);
   } catch (error) {
     res.status(500).send(error);
   }

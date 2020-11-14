@@ -5,30 +5,26 @@ import { format } from "date-fns";
 import StarRatingComponent from "react-star-rating-component";
 import { getBorrowedProducts } from "../services/requests";
 
-
 export default function BorrowedProductList(props) {
-  let [items, setItems] = useState("");
+  let [requests, setRequests] = useState([]);
   let [userId, setUserId] = useState("");
   let [rating, setRating] = useState("");
 
   useEffect(() => {
-    getBorrowedProducts();
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const res = await getProfile();
-    setUserId(res.data.id);
+    try {
+      const resProfile = await getProfile();
+      const resRequests = await getBorrowedProducts();
+      setUserId(resProfile.data.id);
+      setRequests(resRequests.data);
+      console.log(resRequests.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  // const getBorrowedProducts = async () => {
-  
-  //   try {
-  //     await getBorrowedProducts(userId);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   let onStarClick = (nextValue, prevValue, name) => {
     console.log(name);
@@ -39,27 +35,29 @@ export default function BorrowedProductList(props) {
   return (
     <div className="container">
       <ul className="list-group">
-        <li class="list-group-item list-group-item-info d-flex justify-content-center">
+        <li className="list-group-item list-group-item-info d-flex justify-content-center">
           Borrowed stuff
         </li>
-        {items && items.length > 0 ? (
-          items.map((item) => (
-            <li className="list-group-item ml-1 mt-1">
+        {requests && requests.length > 0 ? (
+          requests.map((request) => (
+            <li key={request.id} className="list-group-item ml-1 mt-1">
               <span>
-                <Link to={`/product/${item.id}`}>{item.name} |</Link>{" "}
+                <Link to={`/product/${request.Product.id}`}>
+                  {request.Product.name} |
+                </Link>
               </span>
-              <span>
-                {format(new Date(item.startDate), "MMM dd")} -{" "}
-                {format(new Date(item.endDate), "MMM dd")}{" "}
+              <span className="px-2">
+                {format(new Date(request.startDate), "MMM dd")} -{" "}
+                {format(new Date(request.endDate), "MMM dd")}{" "}
                 <i className="fa fa-calendar-check" aria-hidden="true"></i>
               </span>
               <p className="text-center mr-5 mt-2 brrwd">
                 Rate this product:
-                <span>
+                <span className="px-2">
                   <StarRatingComponent
-                    name={item.id}
+                    name={request.id}
                     starCount={5}
-                    value={item.rating}
+                    value={request.rating}
                     onStarClick={onStarClick}
                   />
                 </span>
@@ -68,9 +66,8 @@ export default function BorrowedProductList(props) {
           ))
         ) : (
           <li className="list-group-item">
-            {" "}
-            You have no borrowed items.{" "}
-            <Link to={`/`}>Do you need anything?</Link>{" "}
+            You have no borrowed items.
+            <Link to={`/`}>Do you need anything?</Link>
           </li>
         )}
       </ul>
