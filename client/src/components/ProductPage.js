@@ -179,10 +179,11 @@ export default function ProductPage(props) {
           <img
             className="card-img-bottom"
             src={`/../../../${item.picture.substring(7, item.picture.length)}`}
-          />
+          />  
+           <MapContainer address={item.User.address} />
         </div>
       )}
-      <MapContainer />
+   
     </div>
   );
 }

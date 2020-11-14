@@ -1,35 +1,41 @@
 import React, { useState, useEffect } from "react";
-
+import axios from 'axios';
 
 export default function UpdatePicture({
   handleClose,
   show,
-  userId,
+  userID,
   callback1,
   callback2,
 }) {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
-  const [picture, setPicture] = useState(false);
+  const [picture, setPicture] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
 
-  let editPicture= async (event) => {
+
+let editPicture = () => {
   
-console.log("hola")
+let id = userID
+setLoading(true);
 
-    // try {
-    //   await update(id, {
-        
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    const data = new FormData();
+    data.append("picture", picture);
 
-    callback1();
-    callback2(true);
-  };
+    axios
+      .put(`http://localhost:5000/users/${id}/pic`, data)
+      .then((res) => setLoading(false))
+      .then((res) => setLoaded(true))
+      .catch((err) => console.log(err));
 
+callback1();
+callback2(true);
 
+};
+
+ 
   const fileSelectedHandler = (event) => {
     setPicture(event.target.files[0]);
   };
@@ -41,14 +47,22 @@ console.log("hola")
           <i class="fa fa-times mr-2 text-danger cursor" aria-hidden="true"></i>
         </p>
       
-        <div className="form">
+        <div className="form text-center">
+        {loading && (
+        <div class="spinner-border text-success" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      )}
+      {loaded && (
+        <p className="text-success">Your product was correctly uploaded</p>
+      )}
           <h5>Upload a new picture</h5>
        
           <input
           type="file"
           onChange={fileSelectedHandler}
           lang="en"
-          className="form-control-file text-center"
+          className="form-control-file text-center ff mt-3 mb-3"
         />
         
           <button className="btn btn-dark btn-block" onClick={editPicture}>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getProfile } from "../services/requests";
 import { format } from "date-fns";
 import StarRatingComponent from "react-star-rating-component";
+import { getBorrowedProducts } from "../services/requests";
 
 
 export default function BorrowedProductList(props) {
@@ -13,21 +14,21 @@ export default function BorrowedProductList(props) {
   useEffect(() => {
     getBorrowedProducts();
     fetchData();
-  }, [userId]);
+  }, []);
 
   const fetchData = async () => {
     const res = await getProfile();
     setUserId(res.data.id);
   };
 
-  const getBorrowedProducts = () => {
-    console.log(userId);
-    fetch(`http://localhost:5000/borrowed`)
-      .then((response) => response.json())
-      .then((response) => {
-        setItems(response);
-      });
-  };
+  // const getBorrowedProducts = async () => {
+  
+  //   try {
+  //     await getBorrowedProducts(userId);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   let onStarClick = (nextValue, prevValue, name) => {
     console.log(name);
