@@ -2,10 +2,7 @@ import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import React, { useState, useEffect } from "react";
 import { getProfile } from "../services/requests";
 
-
-const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
-
-
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const BarcelonaBounds = {
   north: 41.470001,
@@ -17,9 +14,7 @@ const BarcelonaBounds = {
 const mapStyles = {
   width: "670px",
   height: "500px",
-
 };
-
 
 function MapContainer(props) {
   let [latitude, setLatitude] = useState("41.3887489");
@@ -27,37 +22,34 @@ function MapContainer(props) {
   let [userAddress, setUserAddress] = useState("");
 
   useEffect(() => {
-
     fetchData();
     getCoords();
- 
   }, [longitude]);
 
   const fetchData = async () => {
     const res = await getProfile();
     setUserAddress(res.data.address);
-  
   };
-
 
   //get coordinates in order to pass them to the map
 
   let getCoords = async () => {
-    let hola = props.address; 
-console.log(hola)
+    let hola = props.address;
+    console.log(hola);
     let address = hola.split(" ").join("+");
 
- 
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
-    .then(res => res.json())
-      .then(response => {
-        console.log(response)
-       setLatitude(response.results[0].geometry.location.lat);
-       setLongitude(response.results[0].geometry.location.lng);
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
+    )
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        setLatitude(response.results[0].geometry.location.lat);
+        setLongitude(response.results[0].geometry.location.lng);
       })
-      .catch(err => console.log(err))
-  }
-   
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
       <Map
@@ -67,10 +59,8 @@ console.log(hola)
         center={{
           lat: latitude,
           lng: longitude,
-          defaultBounds: {BarcelonaBounds},
+          defaultBounds: { BarcelonaBounds },
         }}
-   
-       
       >
         <Marker position={{ lat: latitude, lng: longitude }} />
       </Map>
@@ -79,5 +69,5 @@ console.log(hola)
 }
 
 export default GoogleApiWrapper({
-  apiKey: process.env.REACT_APP_GOOGLE_API_KEY
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
 })(MapContainer);

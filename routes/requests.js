@@ -70,17 +70,13 @@ router.delete("/:id", async function (req, res) {
 // UPDATE confirmed status of request
 router.put("/:id", async function (req, res) {
   const { id } = req.params;
-  const { status } = req.body;
 
   try {
-    await models.Request.update(
-      { confirmed: status },
-      {
-        where: {
-          id,
-        },
-      }
-    );
+    await models.Request.update(req.body, {
+      where: {
+        id,
+      },
+    });
     res.send("Request updated");
   } catch (error) {
     res.status(500).send(error);

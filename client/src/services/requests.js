@@ -108,8 +108,8 @@ export const getProductRequests = async (productId) => {
 
 //Get all products a user has borrowed
 
-export const getBorrowedProducts = async (userId) => {
-  return await axios.get(`/borrowed/${userId}`);
+export const getBorrowedProducts = async () => {
+  return await axios.get(`/borrowed`);
 };
 
 // Add new request
@@ -123,6 +123,6 @@ export const deleteRequest = async (id) => {
 };
 
 // Update request
-export const updateRequest = async (id, status) => {
-  return await axios.put(`/requests/${id}`, { status });
+export const updateRequest = async (id, reqbody) => {
+  return await axios.put(`/requests/${id}`, reqbody);
 };

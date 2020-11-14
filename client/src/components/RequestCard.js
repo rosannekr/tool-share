@@ -46,7 +46,7 @@ export default function RequestCard(props) {
   const handleConfirm = async (id) => {
     try {
       // set confirmed to true
-      await updateRequest(id, 1);
+      await updateRequest(id, { confirmed: true });
       // add points to user
       await updatePoints(points);
     } catch (error) {
@@ -63,10 +63,15 @@ export default function RequestCard(props) {
     <div className={className}>
       <div className="mr-3" style={{ height: "20px" }}>
         <div>{borrower.name}</div>
-       { borrower.picture && <img
-          src={`/../../../${borrower.picture.substring(7, borrower.picture.length)}`}
-          className="rounded-circle profile-pic-small"
-        />}
+        {borrower.picture && (
+          <img
+            src={`/../../../${borrower.picture.substring(
+              7,
+              borrower.picture.length
+            )}`}
+            className="rounded-circle profile-pic-small"
+          />
+        )}
       </div>
 
       <div className="text-left">
