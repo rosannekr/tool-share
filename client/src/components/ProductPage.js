@@ -10,6 +10,10 @@ import StarRatingComponent from "react-star-rating-component";
 import MapContainer from "./MapContainer";
 import ReviewCard from "./ReviewCard";
 
+import Noty from 'noty';  
+import "../../node_modules/noty/lib/noty.css";  
+import "../../node_modules/noty/lib/themes/relax.css";  
+
 export default function ProductPage(props) {
   let { id } = useParams();
   let [item, setItem] = useState("");
@@ -62,9 +66,42 @@ export default function ProductPage(props) {
     }
   }, [startDate, endDate]);
 
+<<<<<<< HEAD
+=======
+  let notification = (bool) => {
+
+    new Noty({
+      text: bool ? "Your request was sent to the owner" : "You do not have enought points",
+      layout: "topRight",
+      theme: "relax",
+      type: bool ? "success" : "error",
+      timeout: 3500,
+      progressBar: true
+    }).show();
+     
+  }
+
+  const fetchData = async () => {
+    const res = await getProfile();
+    setUser(res.data);
+  };
+
+  let getOneProduct = () => {
+    fetch(`/products/${id}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        setItem(json);
+      });
+  };
+
+
+>>>>>>> 86eebf3... added noty.js
   let borrowItem = (productId) => {
     if (user.points < pointTotal) {
-      setHasEnoughPoints(false);
+      notification(false)
+      //setHasEnoughPoints(false);
     } else {
       fetch(`/requests`, {
         method: "POST",
@@ -79,7 +116,8 @@ export default function ProductPage(props) {
         }),
       })
         .then((response) => {
-          setReserved(true);
+          notification(true)
+         // setReserved(true);
         })
         .catch((error) => {
           console.log(error);
@@ -147,11 +185,11 @@ export default function ProductPage(props) {
               </small>
             </p>
 
-            {!hasEnoughPoints && (
+            {/* {!hasEnoughPoints && (
               <p className="bg-danger text-light">
                 Sorry but you don't have enough points to borrow this item
               </p>
-            )}
+            )} */}
 
             {item.UserId !== user?.id && !reserved && (
               <div>
@@ -173,15 +211,16 @@ export default function ProductPage(props) {
                 </button>
               </div>
             )}
-            {reserved && (
+            {/* {reserved && (
               <div className="text-success">
                 Your request has been sent to the owner!
               </div>
-            )}
+            )} */}
           </div>
           <img
             className="card-img-bottom"
             src={`/../../../${item.picture.substring(7, item.picture.length)}`}
+<<<<<<< HEAD
           />
           <div className="py-4">
             <h5>Reviews</h5>
@@ -196,6 +235,13 @@ export default function ProductPage(props) {
           <MapContainer address={item.User.address} />
         </div>
       )}
+=======
+          />  
+           <MapContainer address={item.User.address} />
+        </div>
+      )}
+   
+>>>>>>> 2737779... small changes
     </div>
   );
 }

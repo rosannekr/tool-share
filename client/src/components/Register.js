@@ -2,11 +2,30 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { register } from "../services/requests";
 
+import Noty from 'noty';  
+import "../../node_modules/noty/lib/noty.css";  
+import "../../node_modules/noty/lib/themes/relax.css";  
+
+
 export default function Register() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+
+let notification = (str) => {
+
+  new Noty({
+    text: str,
+    layout: "topRight",
+    theme: "relax",
+    type: "success",
+    timeout: 3500,
+    progressBar: true
+  }).show();
+   
+}
+
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -15,8 +34,13 @@ export default function Register() {
       await register(name, username, password);
       // redirect user to login page after signing up
       history.push("/login");
+      notification("Account was created succesfully, please log in")
+      //notification("Account created succesfully!")
+     
     } catch (error) {
       console.log(error.message);
+     
+   
     }
   };
 

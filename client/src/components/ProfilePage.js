@@ -3,7 +3,6 @@ import { getProfile } from "../services/requests";
 import ProductList from "./ProductList";
 import BorrowedProductList from "./BorrowedProductList";
 import UpdatePicture from "./UpdatePicture";
-import { updateProfile } from "../services/requests";
 
 export default function ProfilePage(props) {
   const [user, setUser] = useState({});
@@ -15,7 +14,7 @@ export default function ProfilePage(props) {
   // Fetch user data when component mounts
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [update]);
 
   let showPopUp = () => {
     setShow(true);
