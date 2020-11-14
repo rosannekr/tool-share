@@ -1,57 +1,61 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getProfile, updateProduct } from "../services/requests";
+import {
+  getProfile,
+  getProduct,
+  getProductRequests,
+} from "../services/requests";
 import DateRange from "./DateRange";
 import StarRatingComponent from "react-star-rating-component";
 import MapContainer from "./MapContainer";
-import axios from 'axios';
 
 export default function ProductPage(props) {
   let { id } = useParams();
   let [item, setItem] = useState("");
-  let [days, setDays] = useState("");
   let [pointTotal, setPointTotal] = useState(0);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState("");
   let [hasEnoughPoints, setHasEnoughPoints] = useState(true);
   let [startDate, setStartDate] = useState(null);
   let [endDate, setEndDate] = useState(null);
   let [reserved, setReserved] = useState(false);
- 
-  useEffect(() => {
-    getOneProduct();
-    fetchData();
+  let [avgRating, setAvgRating] = useState(0);
 
+  useEffect(() => {
+    fetchData();
   }, []);
 
+  const fetchData = async () => {
+    // Get owner and product data
+    const res1 = await getProfile();
+    const res2 = await getProduct(id);
+    setUser(res1.data);
+    setItem(res2.data);
+
+    // Get all requests for this product
+    const res3 = await getProductRequests(id);
+    // Get all ratings, filter out nulls
+    const ratings = res3.data
+      .map((request) => request.rating)
+      .filter((rating) => rating);
+    // Calculate average rating
+    const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+    setAvgRating(Math.round(average));
+  };
+
   useEffect(() => {
+    // Calculate total price based on chosen dates
     if (startDate && endDate) {
-      // difference in milliseconds divided by amount of milliseconds in a day
       const daysDifference =
+        // difference in milliseconds divided by amount of milliseconds in a day
         (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
-      // make sure point total doesn't go below 0
       const PointTotal =
+        // make sure point total doesn't go below 0
         daysDifference >= 0 ? daysDifference * item.pricePerDay : 0;
       setPointTotal(PointTotal);
     } else {
       setPointTotal(0);
     }
   }, [startDate, endDate]);
-
-  const fetchData = async () => {
-    const res = await getProfile();
-    setUser(res.data);
-  };
-
-  let getOneProduct = () => {
-    fetch(`/products/${id}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        setItem(json);
-      });
-  };
-
 
   let borrowItem = (productId) => {
     if (user.points < pointTotal) {
@@ -76,19 +80,9 @@ export default function ProductPage(props) {
           console.log(error);
         });
 
-      // Deduct points from borrower
+      // Deduct points from borrower (points are added to owner when request is confirmed)
       deductPoints();
-
-      // Add points to owner
-      addPoints();
     }
-  };
-
-  let handleInput = (e) => {
-    setHasEnoughPoints(true);
-    e.preventDefault();
-    setDays(e.target.value);
-    setPointTotal(e.target.value * item.pricePerDay);
   };
 
   let deductPoints = () => {
@@ -112,15 +106,13 @@ export default function ProductPage(props) {
       });
   };
 
-  const addPoints = (pointTotal) => {};
-
   return (
     <div className="container text-center item-page mt-5">
       {item && (
         <div className="card">
           <p className="card-header">
             <span className="mr-1">Item posted by</span>
-            <span className="text-primary">{item.User.name}</span>
+            <span className="text-primary">{user.name}</span>
           </p>
           <div className="card-body">
             <h5 className="card-title">
@@ -130,14 +122,20 @@ export default function ProductPage(props) {
             <p className="card-text"></p>
             <p className="card-text text-secondary">{item.description}</p>
             <p className="text-capitalize">Condition: {item.condition}</p>
-            <p>Rating:</p>
-            <StarRatingComponent
-              name={item.id}
-              starCount={5}
-              value={3}
-              //^add average star rating here
-              editing={false}
-            />
+            <div className="d-flex justify-content-center">
+              <p className="mr-1">Rating:</p>
+              {avgRating ? (
+                <StarRatingComponent
+                  name={item.id}
+                  starCount={5}
+                  value={avgRating}
+                  editing={false}
+                />
+              ) : (
+                <span>no ratings yet</span>
+              )}
+            </div>
+
             <p className="card-text">
               <small className="text-muted">
                 added on {item.createdAt.substring(0, 10)}
@@ -179,11 +177,10 @@ export default function ProductPage(props) {
           <img
             className="card-img-bottom"
             src={`/../../../${item.picture.substring(7, item.picture.length)}`}
-          />  
-           <MapContainer address={item.User.address} />
+          />
+          <MapContainer address={item.User.address} />
         </div>
       )}
-   
     </div>
   );
 }
