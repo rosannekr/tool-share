@@ -10,9 +10,9 @@ import StarRatingComponent from "react-star-rating-component";
 import MapContainer from "./MapContainer";
 import ReviewCard from "./ReviewCard";
 
-import Noty from 'noty';  
-import "../../node_modules/noty/lib/noty.css";  
-import "../../node_modules/noty/lib/themes/relax.css";  
+import Noty from "noty";
+import "../../node_modules/noty/lib/noty.css";
+import "../../node_modules/noty/lib/themes/relax.css";
 
 export default function ProductPage(props) {
   let { id } = useParams();
@@ -39,8 +39,6 @@ export default function ProductPage(props) {
 
     // Get all requests for this product
     const res3 = await getProductRequests(id);
-    console.log(res3);
-
     setRequests(res3.data);
     // Get all ratings, filter out nulls
     const ratings = res3.data
@@ -66,41 +64,22 @@ export default function ProductPage(props) {
     }
   }, [startDate, endDate]);
 
-<<<<<<< HEAD
-=======
   let notification = (bool) => {
-
     new Noty({
-      text: bool ? "Your request was sent to the owner" : "You do not have enought points",
+      text: bool
+        ? "Your request was sent to the owner"
+        : "You do not have enought points",
       layout: "topRight",
       theme: "relax",
       type: bool ? "success" : "error",
       timeout: 3500,
-      progressBar: true
+      progressBar: true,
     }).show();
-     
-  }
-
-  const fetchData = async () => {
-    const res = await getProfile();
-    setUser(res.data);
   };
 
-  let getOneProduct = () => {
-    fetch(`/products/${id}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        setItem(json);
-      });
-  };
-
-
->>>>>>> 86eebf3... added noty.js
   let borrowItem = (productId) => {
     if (user.points < pointTotal) {
-      notification(false)
+      notification(false);
       //setHasEnoughPoints(false);
     } else {
       fetch(`/requests`, {
@@ -116,8 +95,8 @@ export default function ProductPage(props) {
         }),
       })
         .then((response) => {
-          notification(true)
-         // setReserved(true);
+          notification(true);
+          // setReserved(true);
         })
         .catch((error) => {
           console.log(error);
@@ -220,7 +199,6 @@ export default function ProductPage(props) {
           <img
             className="card-img-bottom"
             src={`/../../../${item.picture.substring(7, item.picture.length)}`}
-<<<<<<< HEAD
           />
           <div className="py-4">
             <h5>Reviews</h5>
@@ -235,13 +213,6 @@ export default function ProductPage(props) {
           <MapContainer address={item.User.address} />
         </div>
       )}
-=======
-          />  
-           <MapContainer address={item.User.address} />
-        </div>
-      )}
-   
->>>>>>> 2737779... small changes
     </div>
   );
 }

@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import axios from "axios";
-=======
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
->>>>>>> 2737779... small changes
 
-import Noty from 'noty';  
-import "../../node_modules/noty/lib/noty.css";  
-import "../../node_modules/noty/lib/themes/relax.css";  
-
+import Noty from "noty";
+import "../../node_modules/noty/lib/noty.css";
+import "../../node_modules/noty/lib/themes/relax.css";
 
 export default function UpdatePicture({
   handleClose,
@@ -23,32 +17,22 @@ export default function UpdatePicture({
   const [picture, setPicture] = useState("");
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
-<<<<<<< HEAD
-=======
 
->>>>>>> 2737779... small changes
+  let notification = (str) => {
+    new Noty({
+      text: str,
+      layout: "topRight",
+      theme: "relax",
+      type: "success",
+      timeout: 3500,
+      progressBar: true,
+    }).show();
+  };
 
-<<<<<<< HEAD
   let editPicture = () => {
     let id = userID;
     setLoading(true);
-=======
-let notification = (str) => {
 
-  new Noty({
-    text: str,
-    layout: "topRight",
-    theme: "relax",
-    type: "success",
-    timeout: 3500,
-    progressBar: true
-  }).show();
-   
-}
-
->>>>>>> 86eebf3... added noty.js
-
-<<<<<<< HEAD
     const data = new FormData();
     data.append("picture", picture);
 
@@ -57,32 +41,12 @@ let notification = (str) => {
       .then((res) => setLoading(false))
       .then((res) => setLoaded(true))
       .catch((err) => console.log(err));
-=======
-let editPicture = () => {
-  
-let id = userID
-setLoading(true);
 
-    const data = new FormData();
-    data.append("picture", picture);
->>>>>>> 2737779... small changes
+    notification("your profile picture was updated correctly");
+    callback1();
+    callback2(true);
+  };
 
-    axios
-      .put(`http://localhost:5000/users/${id}/pic`, data)
-      .then((res) => setLoading(false))
-      .then((res) => setLoaded(true))
-      .catch((err) => console.log(err));
-
-notification('your profile picture was updated correctly')
-callback1();
-callback2(true);
-
-<<<<<<< HEAD
-=======
-};
-
- 
->>>>>>> 2737779... small changes
   const fileSelectedHandler = (event) => {
     setPicture(event.target.files[0]);
   };
@@ -96,47 +60,25 @@ callback2(true);
             aria-hidden="true"
           ></i>
         </p>
-<<<<<<< HEAD
 
         <div className="form text-center">
           {loading && (
-            <div className="spinner-border text-success" role="status">
-              <span className="sr-only">Loading...</span>
+            <div class="spinner-border text-success" role="status">
+              <span class="sr-only">Loading...</span>
             </div>
           )}
           {loaded && (
             <p className="text-success">Your product was correctly uploaded</p>
           )}
-=======
-      
-        <div className="form text-center">
-        {loading && (
-        <div class="spinner-border text-success" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      )}
-      {loaded && (
-        <p className="text-success">Your product was correctly uploaded</p>
-      )}
->>>>>>> 2737779... small changes
           <h5>Upload a new picture</h5>
 
           <input
-<<<<<<< HEAD
             type="file"
             onChange={fileSelectedHandler}
             lang="en"
             className="form-control-file text-center ff mt-3 mb-3"
           />
 
-=======
-          type="file"
-          onChange={fileSelectedHandler}
-          lang="en"
-          className="form-control-file text-center ff mt-3 mb-3"
-        />
-        
->>>>>>> 2737779... small changes
           <button className="btn btn-dark btn-block" onClick={editPicture}>
             Update item
           </button>
