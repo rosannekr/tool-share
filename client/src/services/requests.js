@@ -101,6 +101,11 @@ export const getRequests = async () => {
   return await axios.get(`/requests`);
 };
 
+// Get one request
+export const getRequest = async (id) => {
+  return await axios.get(`/requests/${id}`);
+};
+
 // Get all requests for a product
 export const getProductRequests = async (productId) => {
   return await axios.get(`/products/${productId}/requests`);
