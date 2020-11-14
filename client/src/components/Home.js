@@ -1,8 +1,6 @@
-import React from 'react'
-import ProductGrid from './ProductGrid'
+import React from "react";
+import ProductGrid from "./ProductGrid";
 
 export default function Home(props) {
-    return (
-      <ProductGrid products={props.products} />
-    )
+  return <ProductGrid products={props.products} />;
 }
