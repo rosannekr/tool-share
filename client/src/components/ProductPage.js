@@ -186,9 +186,11 @@ export default function ProductPage(props) {
           <div className="py-4">
             <h5>Reviews</h5>
             <div>
-              {requests.map((request) => (
-                <ReviewCard key={request.id} request={request} />
-              ))}
+              {requests
+                .filter((request) => request.review)
+                .map((request) => (
+                  <ReviewCard key={request.id} request={request} />
+                ))}
             </div>
           </div>
           <MapContainer address={item.User.address} />
