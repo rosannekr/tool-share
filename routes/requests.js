@@ -30,6 +30,23 @@ router.get("/", isLoggedIn, async function (req, res) {
   }
 });
 
+// GET one request
+router.get("/:id", async function (req, res) {
+  const { id } = req.params;
+
+  try {
+    const request = await models.Request.findOne({
+      where: {
+        id,
+      },
+      include: models.User,
+    });
+    res.send(request);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 // ADD to requests
 router.post("/", isLoggedIn, async (req, res) => {
   // grab user id from decoded payload

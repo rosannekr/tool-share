@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       endDate: DataTypes.DATE,
       confirmed: DataTypes.BOOLEAN,
       rating: DataTypes.INTEGER,
+      review: DataTypes.STRING,
     },
     {}
   );

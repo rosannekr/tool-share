@@ -8,6 +8,7 @@ import {
 import DateRange from "./DateRange";
 import StarRatingComponent from "react-star-rating-component";
 import MapContainer from "./MapContainer";
+import ReviewCard from "./ReviewCard";
 
 export default function ProductPage(props) {
   let { id } = useParams();
@@ -18,6 +19,7 @@ export default function ProductPage(props) {
   let [startDate, setStartDate] = useState(null);
   let [endDate, setEndDate] = useState(null);
   let [reserved, setReserved] = useState(false);
+  let [requests, setRequests] = useState([]);
   let [avgRating, setAvgRating] = useState(0);
 
   useEffect(() => {
@@ -33,6 +35,9 @@ export default function ProductPage(props) {
 
     // Get all requests for this product
     const res3 = await getProductRequests(id);
+    console.log(res3);
+
+    setRequests(res3.data);
     // Get all ratings, filter out nulls
     const ratings = res3.data
       .map((request) => request.rating)
@@ -178,6 +183,14 @@ export default function ProductPage(props) {
             className="card-img-bottom"
             src={`/../../../${item.picture.substring(7, item.picture.length)}`}
           />
+          <div className="py-4">
+            <h5>Reviews</h5>
+            <div>
+              {requests.map((request) => (
+                <ReviewCard key={request.id} request={request} />
+              ))}
+            </div>
+          </div>
           <MapContainer address={item.User.address} />
         </div>
       )}
