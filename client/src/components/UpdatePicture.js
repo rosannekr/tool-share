@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-import axios from "axios";
-=======
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-
-import Noty from 'noty';  
-import "../../node_modules/noty/lib/noty.css";  
-import "../../node_modules/noty/lib/themes/relax.css";  
->>>>>>> d84629f... small updates
 
 import Noty from "noty";
 import "../../node_modules/noty/lib/noty.css";
@@ -27,7 +18,6 @@ export default function UpdatePicture({
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
-<<<<<<< HEAD
   let notification = (str) => {
     new Noty({
       text: str,
@@ -42,26 +32,6 @@ export default function UpdatePicture({
   let editPicture = () => {
     let id = userID;
     setLoading(true);
-=======
-let notification = (str) => {
-
-  new Noty({
-    text: str,
-    layout: "topRight",
-    theme: "relax",
-    type: "success",
-    timeout: 3500,
-    progressBar: true
-  }).show();
-   
-}
-
-
-let editPicture = () => {
-  
-let id = userID
-setLoading(true);
->>>>>>> d84629f... small updates
 
     const data = new FormData();
     data.append("picture", picture);
@@ -72,21 +42,11 @@ setLoading(true);
       .then((res) => setLoaded(true))
       .catch((err) => console.log(err));
 
-<<<<<<< HEAD
     notification("your profile picture was updated correctly");
     callback1();
     callback2(true);
   };
 
-=======
-notification('your profile picture was updated correctly')
-callback1();
-callback2(true);
-
-};
-
- 
->>>>>>> d84629f... small updates
   const fileSelectedHandler = (event) => {
     setPicture(event.target.files[0]);
   };
