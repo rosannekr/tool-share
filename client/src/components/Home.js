@@ -79,7 +79,6 @@ export default function Home(props) {
       else return 0;
     });
     setProducts(sortedProducts);
-    console.log(products[0]);
   };
 
   return (
