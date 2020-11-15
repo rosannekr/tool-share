@@ -1,37 +1,49 @@
 import React, { useState, useEffect } from "react";
 
-export default function Geolocation() {
-  const [location, setLocation] = useState("");
+export default function Geolocation(props) {
+  const [userLocation, setUserLocation] = useState({
+    latitude: null,
+    longitude: null,
+  });
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getLocation();
-  }, []);
+    getUserLocation();
+    if (props.products.length) setProducts(props.products);
+  }, [props.products]);
 
-  const getLocation = () => {
+  // Get user location
+
+  const getUserLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
-      setLocation({ latitude, longitude });
+      setUserLocation({ latitude, longitude });
     });
   };
 
-  const getCoords = async () => {
-    if (props.address) {
-      let formatted = props.address;
+  // Compare each product location to user's location
 
-      let address = formatted.split(" ").join("+");
-
-      fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
-      )
-        .then((res) => res.json())
-        .then((response) => {
-          console.log(response);
-          setLatitude(response.results[0].geometry.location.lat);
-          setLongitude(response.results[0].geometry.location.lng);
-        })
-        .catch((err) => console.log(err));
-    }
+  const getProductDistances = () => {
+    return products.map((product) => {
+      product.distanceToUser =
+        product.location.latitude -
+        userLocation.latitude +
+        (product.location.longitude - userLocation.longitude);
+      return product;
+    });
   };
 
-  return <div>distance</div>;
+  // Sort products by distance
+
+  const sortByDistance = () => {
+    const productsWithDistances = getProductDistances();
+    const sortedProducts = productsWithDistances.sort((a, b) => {
+      if (a.distanceToUser < b.distanceToUser) return -1;
+      if (a.distanceToUser > b.distanceToUser) return 1;
+      else return 0;
+    });
+    console.log(sortedProducts);
+  };
+
+  return <div></div>;
 }
