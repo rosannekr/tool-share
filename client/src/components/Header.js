@@ -21,7 +21,7 @@ export default function Header(props) {
   const fetchData = async () => {
     const res = await getProfile();
     setUser(res.data);
-   // setPoints(res.data.points)
+    // setPoints(res.data.points)
   };
 
   return (
@@ -31,7 +31,7 @@ export default function Header(props) {
           Home
         </Link>
 
-        <div className="py-3 collapse navbar-collapse">
+        <div className="collapse navbar-collapse">
           <SearchBar callback={(products) => props.callback(products)} />
 
           {user && (
