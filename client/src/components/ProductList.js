@@ -31,14 +31,6 @@ export default function ProductList(props) {
   
   };
 
-  let makeAvailable = async (id) => {
-    try {
-      await updateProduct(id, { isAvailable: true });
-    } catch (error) {
-      console.log(error);
-    }
-    returnProduct(id);
-  };
 
   let returnProduct = async (id) => {
     try {
@@ -74,17 +66,7 @@ export default function ProductList(props) {
            user.Products.map((item) => (
             <li className="list-group-item">
               <Link to={`/product/${item.id}`}>{item.name}</Link> |
-              {!item.isAvailable && (
-                <span className="ml-1">
-                  Mark as returned
-                  <i
-                    className="fa fa-check ml-2 mr-1 cursor"
-                    aria-hidden="true"
-                    onClick={(id) => makeAvailable(item.id)}
-                  ></i>{" "}
-                  |{" "}
-                </span>
-              )}
+             
               <span className="ml-1">
                 Edit
                 <i

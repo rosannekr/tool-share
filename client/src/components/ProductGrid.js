@@ -22,7 +22,7 @@ export default function ProductGrid(props) {
                     </p>
                   )}
                <img className="img-fluid" src={`/../../../${item.picture.substring(7, item.picture.length)}`} />
-
+           
                   <div className="card-body">
                     <h4 className="card-title">
                       {item.pricePerDay} <i className=" text-muted fas fa-coins"></i>/day

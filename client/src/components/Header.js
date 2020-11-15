@@ -27,7 +27,7 @@ export default function Header(props) {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light py-2">
-        <Link className="navbar-brand ml-5" to="/">
+        <Link className="navbar-brand ml-5" to="/home">
           Home
         </Link>
 
