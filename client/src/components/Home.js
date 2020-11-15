@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProductGrid from "./ProductGrid";
 
 export default function Home(props) {
+  const [sort, setSort] = useState("");
   const [products, setProducts] = useState([]);
   const [userLocation, setUserLocation] = useState({
     latitude: null,
@@ -30,8 +31,8 @@ export default function Home(props) {
   const getCoords = (address) => {
     const formattedAddress = address.split(" ").join("+");
 
-   //const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-   const apiKey = "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8"
+    //const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+    const apiKey = "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8";
 
     const location = {};
 
@@ -79,15 +80,35 @@ export default function Home(props) {
       else return 0;
     });
     setProducts(sortedProducts);
-    console.log(products[0]);
+  };
+
+  useEffect(() => {
+    if (sort === "distance") {
+      sortByDistance();
+    } else if (sort === "newest") {
+      setProducts(props.products.sort(sortByNewest));
+    }
+  }, [sort]);
+
+  const sortByNewest = (a, b) => {
+    if (a.id > b.id) return -1;
+    if (a.id < b.id) return 1;
+    else return 0;
   };
 
   return (
     <div>
-      <div className="border-bottom py-2 text-center">
-        <button className="btn btn-secondary" onClick={sortByDistance}>
-          Sort by distance
-        </button>
+      <div className="border-bottom p-2 ">
+        <select
+          className="form-control w-25"
+          id="sort"
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+        >
+          <option value="">Sort by</option>
+          <option value="newest">Newest</option>
+          <option value="distance">Distance</option>
+        </select>
       </div>
       <ProductGrid products={products} />
     </div>
