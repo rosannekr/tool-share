@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProductGrid from "./ProductGrid";
+import MapContainer from "./MapContainer";
 
 export default function Home(props) {
   const [products, setProducts] = useState([]);
