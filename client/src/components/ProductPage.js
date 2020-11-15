@@ -143,7 +143,7 @@ export default function ProductPage(props) {
 
   return (
     <div className="container text-center item-page mt-5">
-      {item && (
+      {(item && user) && (
         <div className="card">
           <p className="card-header">
             <span className="mr-1">Item posted by</span>

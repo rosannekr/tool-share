@@ -10,10 +10,12 @@ import Filters from "./components/Filters";
 import CategoryNav from "./components/CategoryNav";
 import SearchBar from "./components/SearchBar";
 import ProductPage from "./components/ProductPage";
+import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
 import AddProduct from "./components/AddProduct";
 import Requests from "./components/Requests";
+import HowItWorks from "./components/HowItWorks";
 import { userIsLoggedIn } from "./helpers/auth";
 
 function App() {
@@ -97,10 +99,25 @@ function App() {
             )}
           />
           <Route
-            path="/"
+            path="/home"
             exact
             render={(props) => <Home {...props} products={displayedProducts} />}
           />
+
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <LandingPage {...props} products={displayedProducts} />
+            )}
+          />
+
+          <Route
+            path="/how-it-works"
+            exact
+            render={(props) => <HowItWorks {...props} />}
+          />
+
           <PrivateRoute path="/profile">
             <ProfilePage />
           </PrivateRoute>

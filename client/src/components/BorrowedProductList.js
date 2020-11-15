@@ -16,16 +16,15 @@ export default function BorrowedProductList(props) {
 
   const fetchData = async () => {
     try {
-     // const resRequests = await getBorrowedProducts();
-      //setRequests(resRequests.data);
+     const resRequests = await getBorrowedProducts();
+      setRequests(resRequests.data);
 
-      const { data } = await axios.get("/borrowed/" + props.id );
-      setRequests(data);
         } catch (err) {
           console.log(err);
         }
 
-      };
+      
+    }
 
   let onStarClick = (nextValue, prevValue, name) => {
     updateRating(name, nextValue);

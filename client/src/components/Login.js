@@ -35,7 +35,7 @@ export default function Login(props) {
       // call login method to set logged in state in App component
       props.login();
       // redirect user to home page after login
-      history.push("/");
+      history.push("/home");
     } catch (error) {
       notification("Invalid username or password")
       console.log(error.message);
