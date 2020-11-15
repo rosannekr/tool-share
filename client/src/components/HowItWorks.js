@@ -44,21 +44,21 @@ export default function HowItWorks() {
 <div className="howToCardContainer">
 
 <div className="howToCard">
-<img className="img-fluid mb-2 stepPic mb-2" src="/../../../pictures/takephoto.png" />
+<img className="img-fluid stepPic mb-2" src="/../../../pictures/takephoto.png" />
 <h5>Upload your product</h5>
 <p className="w-50 text-center">Take a nice picture, tell us about it and choose for how long people can borrow it and even its cost in  <i className="fas fa-coins"></i> . </p>
 
 </div>
 
 <div className="howToCard">
-<img className="img-fluid  mb-2 stepPic mb-2" src="/../../../pictures/givr.jpg" />
+<img className="img-fluid stepPic mb-2" src="/../../../pictures/givr.jpg" />
 <h5>Lend your product</h5>
 <p className="w-50 text-center">Check your product's requests, meet your neighbor and give them your item</p>
 
 </div>
 
 <div className="howToCard">
-<img className="img-fluid mb-2 stepPic mb-2" src="/../../../pictures/thumbsup.jpg" />
+<img className="img-fluid stepPic mb-2" src="/../../../pictures/thumbsup.jpg" />
 <h5>Earn credit!</h5>
 <p className="w-50 text-center">With every product you upload you will earn <i className="fas fa-coins"></i> that you can use to borrow more stuff! </p>
 
