@@ -58,34 +58,30 @@ export default function ProductList(props) {
         callback1={hidePopUp}
         callback2={() => setUpdate(true)}
       />
-      <ul className="list-group">
-        <li class="list-group-item list-group-item-info d-flex justify-content-center">
-          Owned stuff
-        </li>
+           <ul className="px-0">
+  <li className="border list-none rounded-sm px-3 py-3 bg-indigo-500">Owned stuff</li>
         {user.Products && user.Products.length > 0 ? (
            user.Products.map((item) => (
-            <li className="list-group-item">
-              <Link to={`/product/${item.id}`}>{item.name}</Link> |
+            <li className="border list-none rounded-sm px-3 py-3" > <Link to={`/product/${item.id}`} className="font-bold">{item.name}</Link> |
              
-              <span className="ml-1">
-                Edit
-                <i
-                  className="fa fa-edit ml-2 mr-1 cursor"
-                  aria-hidden="true"
-                  onClick={(id) => showPopUp(item.id)}
-                ></i>
-                |
-              </span>
-              <span className="ml-1">
-                Delete
-                <i
-                  className="fa fa-times ml-2 cursor"
-                  aria-hidden="true"
-                  onClick={(id) => deleteItem(item.id)}
-                ></i>{" "}
-                |
-              </span>
-            </li>
+            <span className="ml-1">
+              Edit
+              <i
+                className="fa fa-edit ml-2 mr-1 cursor"
+                aria-hidden="true"
+                onClick={(id) => showPopUp(item.id)}
+              ></i>
+              |
+            </span>
+            <span className="ml-1">
+              Delete
+              <i
+                className="fa fa-times ml-2 cursor"
+                aria-hidden="true"
+                onClick={(id) => deleteItem(item.id)}
+              ></i>{" "}
+              |
+            </span></li>
           ))
         ) : (
           <li className="list-group-item">
@@ -98,6 +94,12 @@ export default function ProductList(props) {
           </li>
         )}
       </ul>
+
     </div>
+
+
+
+
+
   );
 }

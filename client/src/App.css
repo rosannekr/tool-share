@@ -102,30 +102,6 @@ close-button {
      align-items: flex-start;
   }
 
-.mainProfileDiv {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.profile-pic:hover {
-  opacity: 0.4;
-}
-
-.userInfo {
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-
-}
-
-.profile-pic {
-  align-self: center;
-  width: 100px; 
-  height: 100px;
-  object-fit: cover;
-}
-
 .profile-pic-small {
   align-self: center;
   width: 60px; 
@@ -134,24 +110,6 @@ justify-content: space-around;
 }
 
 
-.address {
-  border-bottom: 1px dotted
-}
-
-.ff {
-  margin-left: 150px;
-}
-
-.address-input {
-  background: none;
-  border: none;
-  border-bottom: 1px dotted #000000;
-  width: 250px;
-}
-.address-input:focus {
-  background: white;
-  border: 1px solid grey;
-}
 
 .centered {
   position: absolute;

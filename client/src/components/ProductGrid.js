@@ -1,42 +1,58 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 export default function ProductGrid(props) {
   return (
-    <div className="container text-center">
-      <div className="row mt-4 justify-content-center">
+    <div classNameName="container my-12 mx-auto px-4 md:px-12">
+      <div className="flex items-center flex-wrap mx-5 my-4 lg:-mx-4">
         {props.products
           ? props.products.map((item) => (
-              <div
-                className="card col-md-3 ml-2 mb-4 rounded shadow itemCard"
-                key={item.id}
-              >
+              <div className="my-1 px-1 text-center md:w-1/3 lg:my-4 lg:px-4 lg:w-1/3">
                 <Link
                   to={"/product/" + item.id}
                   style={{ textDecoration: "none", color: "black" }}
                 >
-                  {item.User && (
-                    <p className="mt-1">
-                      <i className="fas fa-user-astronaut"></i> {item.User.name}
-                    </p>
-                  )}
-                  <img
-                    className="img-fluid"
-                    src={`/../../../${item.picture.substring(
-                      7,
-                      item.picture.length
-                    )}`}
-                  />
+                  <article className="overflow-hidden w-11/12 text-center rounded-lg shadow-lg">
+                    <img
+                      alt="Placeholder"
+                      className="block h-auto w-full object-cover"
+                      src={`/../../../${item.picture.substring(
+                        7,
+                        item.picture.length
+                      )}`}
+                    />
 
-                  <div className="card-body">
-                    <h4 className="card-title">
-                      {item.pricePerDay}{" "}
-                      <i className=" text-muted fas fa-coins"></i>/day
-                    </h4>
-                    <h5 className="card-title">{item.name}</h5>
-
-                    <p className="card-text ">{item.description}</p>
-                  </div>
+                    <header className="text-center leading-tight p-2 md:p-4">
+                      <p
+                        className="no-underline text-xl font-bold text-center text-indigo-800"
+                        href="#"
+                      >
+                        {item.name}
+                      </p>
+                    </header>
+                     <p classNameName="text-center">{item.description}</p> 
+                    <footer className="flex items-center justify-between leading-none p-2 md:p-4">
+                      <div
+                        className="flex items-center no-underline hover:underline text-black"
+                        href="#"
+                      >
+                        <img
+                          alt="Placeholder"
+                          className="block rounded-full h-8 w-8 object-cover"
+                          src={`/../../../${item.User.picture.substring(
+                            7,
+                            item.User.picture.length
+                          )}`}
+                        />
+                        <p className="ml-2 text-sm">{item.User.name}</p>
+                      </div>
+                      <p className="text-grey-darker text-sm">
+                        {item.pricePerDay}{" "}
+                        <i className=" mr-1 text-indigo-800 fas fa-coins"></i>
+                        /day
+                      </p>
+                    </footer>
+                  </article>
                 </Link>
               </div>
             ))

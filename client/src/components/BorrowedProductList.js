@@ -45,14 +45,12 @@ export default function BorrowedProductList(props) {
 
   return (
     <div className="container">
-      <ul className="list-group">
-        <li className="list-group-item list-group-item-info d-flex justify-content-center">
-          Borrowed stuff
-        </li>
+   <ul className="px-0">
+  <li className="border list-none rounded-sm px-3 py-3 bg-indigo-500">Borrowed stuff</li>
         {requests && requests.length > 0 ? (
           requests.map((request) => (
-            <li key={request.id} className="list-group-item ml-1 mt-1">
-              <span>
+            <li key={request.id} className="border list-none rounded-sm px-3 py-3">
+              <span className="font-bold">
                 <Link to={`/product/${request.Product.id}`}>
                   {request.Product.name} |
                 </Link>

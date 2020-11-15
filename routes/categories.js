@@ -31,14 +31,15 @@ router.get("/:id", async function (req, res) {
 router.get("/:id/products", async function (req, res, next) {
   const { id } = req.params;
   try {
-    const category = await models.Category.findOne({
+    const category = await models.Product.findAll({
       where: {
-        id,
+        categoryId : id
       },
-      include: models.Product,
+      include: models.User,
+      
     });
 
-    res.send(category.Products);
+    res.send(category);
   } catch (error) {
     res.status(500).send(error);
   }

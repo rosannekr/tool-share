@@ -61,7 +61,8 @@ export default function ProfilePage(props) {
   };
 
   return (
-    <div className="text-center mt-5 ">
+    <div className="text-center mt-4 ">
+
       <UpdatePicture
         show={show}
         handleClose={hidePopUp}
@@ -72,11 +73,11 @@ export default function ProfilePage(props) {
 
       {user && (
         <div>
-          <div className="mainProfileDiv">
+          <div className="mainProfileDiv py-4 flex justify-center gap-4 bg-indigo-100">
             {user.picture && (
               <img
                 onClick={showPopUp}
-                className="rounded-circle cursor mr-3 profile-pic"
+                className="rounded-full cursor w-32 h-32 self-center object-fit hover:opacity-75"
                 src={`/../../../${user.picture.substring(
                   7,
                   user.picture.length
@@ -85,14 +86,14 @@ export default function ProfilePage(props) {
               />
             )}
 
-            <div className="userInfo">
-              <h2>Hi there, {user.name}!</h2>
+            <div className=" flex flex-col justify-around">
+              <h2 className="title">Hi there, {user.name}!</h2>
               {!user.address ? 
                 <p>let us know the location of your products!</p> : <p>your products location:</p>
               }
-              <div>
+              <div className="flex">
                 <input
-                  className="cursor text-center address-input"
+                  className="cursor text-center border-b-2 border-black border-dotted w-100 bg-indigo-100"
                   type="text"
                   defaultValue={address}
                   onChange={(e) => setAddress(e.target.value)}
@@ -106,12 +107,13 @@ export default function ProfilePage(props) {
               </div>
             </div>
           </div>
-
-          <div className="container d-flex justify-content-around mt-4">
+            <h3 className="text-2xl text-black font-bold mt-5">- Your dashboard -</h3>
+          <div className="container flex justify-around mt-4">
             <ProductList /> <BorrowedProductList id={user.id} />
           </div>
         </div>
       )}
+
     </div>
   );
 }
