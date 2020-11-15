@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Geolocation from "./Geolocation";
 import ProductGrid from "./ProductGrid";
 
 export default function Home(props) {
@@ -31,7 +30,7 @@ export default function Home(props) {
   const getCoords = (address) => {
     const formattedAddress = address.split(" ").join("+");
 
-    const apiKey = "AIzaSyBQLZcLztSN1YicHUo_7TxlfPsPLwASlzE";
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
     const location = {};
 
@@ -60,7 +59,6 @@ export default function Home(props) {
   // Compare each product location to user's location
 
   const getProductDistances = () => {
-    console.log(userLocation);
     return products.map((product) => {
       product.distanceToUser =
         product.location.latitude -
@@ -84,8 +82,11 @@ export default function Home(props) {
 
   return (
     <div>
-      <button onClick={sortByDistance}>Show nearby items</button>
-      {/* <Geolocation products={products} /> */}
+      <div className="border-bottom py-2 text-center">
+        <button className="btn btn-secondary" onClick={sortByDistance}>
+          Sort by distance
+        </button>
+      </div>
       <ProductGrid products={products} />
     </div>
   );
