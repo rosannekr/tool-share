@@ -30,7 +30,8 @@ export default function Home(props) {
   const getCoords = (address) => {
     const formattedAddress = address.split(" ").join("+");
 
-    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+   //const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+   const apiKey = "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8"
 
     const location = {};
 

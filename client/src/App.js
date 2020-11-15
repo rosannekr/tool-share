@@ -17,6 +17,7 @@ import AddProduct from "./components/AddProduct";
 import Requests from "./components/Requests";
 import HowItWorks from "./components/HowItWorks";
 import { userIsLoggedIn } from "./helpers/auth";
+import "./main.css";
 
 function App() {
   let [displayedProducts, setDisplayedProducts] = useState("");
