@@ -12,6 +12,7 @@
 /build
 
 # misc
+/src/main.css
 .env
 .DS_Store
 .env.local
