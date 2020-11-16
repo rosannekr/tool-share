@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Chat from "./components/Chat";
 import Filters from "./components/Filters";
 import CategoryNav from "./components/CategoryNav";
 import SearchBar from "./components/SearchBar";
@@ -118,6 +119,10 @@ function App() {
             exact
             render={(props) => <HowItWorks {...props} />}
           />
+
+<PrivateRoute path="/chat/:sender/:receiver">
+            <Chat />
+          </PrivateRoute>
 
           <PrivateRoute path="/profile">
             <ProfilePage />
