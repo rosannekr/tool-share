@@ -56,12 +56,12 @@ export default function RequestCard(props) {
   };
 
   const className = props.request.confirmed
-    ? "text-secondary border-bottom p-3 d-flex justify-content-between"
-    : "border-bottom p-3 d-flex justify-content-between";
+    ? "text-gray-600 p-3 d-flex justify-content-between"
+    : "p-3 d-flex justify-content-between";
 
   return (
     <div className={className}>
-      <div className="mr-3" style={{ height: "20px" }}>
+      <div className="mr-3">
         <div>{borrower.name}</div>
         {borrower.picture && (
           <img
@@ -69,7 +69,8 @@ export default function RequestCard(props) {
               7,
               borrower.picture.length
             )}`}
-            className="rounded-circle profile-pic-small"
+            // className="rounded-circle profile-pic-small"
+            className="w-16 h-16 rounded-full object-cover"
           />
         )}
       </div>

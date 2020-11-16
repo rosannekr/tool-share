@@ -37,10 +37,10 @@ export default function Requests() {
           <span className="d-inline-block mt-2">No pending requests</span>
         )}
         <div className="mt-5">
-          <h4>Confirmed</h4>
-          <hr className="mb-0" />
+          <h4 className="">Confirmed</h4>
+
           {confirmed.length ? (
-            <div>{confirmed}</div>
+            <div className="divide-y divide-gray-400">{confirmed}</div>
           ) : (
             <span className="d-inline-block mt-2">No confirmed requests</span>
           )}
