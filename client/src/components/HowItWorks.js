@@ -4,10 +4,10 @@ export default function HowItWorks() {
     return (
         <div className="container mt-4 mb-5">
 
-            <div className="picTextContainer">
-            <img className="img-fluid w-50 mb-2" src="/../../../pictures/neighbors-balcony.jpg" />
-            <div className="text-container">
-                <h1 className="mt-3">Buy less, borrow more!</h1>
+            <div className="flex flex-row justify-center gap-2">
+            <img className="w-full w-50 mb-2" src="/../../../pictures/neighbors-balcony.jpg" />
+            <div className="align-center">
+                <h1 className="mt-3 title">Buy less, borrow more!</h1>
                 <h4>From tools and camping equipment to household items and baby or party stuff, "toolshare" helps you borrow stuff from people in your neighborhood. Stop wasting money on something you only need to use once, and who knows, maybe you'll make new friends in the process!</h4>     
             </div>
             </div>
