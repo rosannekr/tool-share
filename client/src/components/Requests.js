@@ -27,24 +27,20 @@ export default function Requests() {
     ));
 
   return (
-    <div className="container text-center mt-5">
-      <div className="d-inline-block">
-        <h2>My Requests</h2>
-        <hr className="mb-0" />
-        {pending.length ? (
-          <div>{pending}</div>
+    <div className="w-2/5 mx-auto pt-8">
+      <h2 className="font-medium text-2xl mb-3 text-center">My Requests</h2>
+      {pending.length ? (
+        <div>{pending}</div>
+      ) : (
+        <span className="inline-block mt-2">No pending requests</span>
+      )}
+      <div className="mt-5">
+        <h4 className="font-medium text-xl mb-3 text-center">Confirmed</h4>
+        {confirmed.length ? (
+          <div>{confirmed}</div>
         ) : (
-          <span className="d-inline-block mt-2">No pending requests</span>
+          <span className="inline-block mt-2">No confirmed requests</span>
         )}
-        <div className="mt-5">
-          <h4 className="">Confirmed</h4>
-
-          {confirmed.length ? (
-            <div className="divide-y divide-gray-400">{confirmed}</div>
-          ) : (
-            <span className="d-inline-block mt-2">No confirmed requests</span>
-          )}
-        </div>
       </div>
     </div>
   );

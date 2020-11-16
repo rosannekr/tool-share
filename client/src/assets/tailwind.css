@@ -6,10 +6,19 @@
 
 @layer components {
   .btn {
-    @apply font-semibold px-4 py-2 rounded bg-indigo-700 text-white;
+    @apply font-semibold px-4 py-2 rounded;
+  }
+  .btn-primary {
+    @apply bg-indigo-700 text-white;
   }
   .btn:hover {
-    @apply bg-indigo-800 text-white;
+    @apply bg-indigo-800;
+  }
+  .btn-outline {
+    @apply bg-transparent text-indigo-700 border border-indigo-700;
+  }
+  .btn-outline:hover {
+    @apply bg-indigo-700 text-white border-transparent;
   }
   .title {
     @apply font-serif text-4xl text-indigo-800;
