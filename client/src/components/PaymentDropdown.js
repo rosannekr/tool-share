@@ -84,13 +84,13 @@ export default function PaymentDropdown(props) {
           </div>
           <div className="">
             {paid ? (
-              <button onClick={handleClose} className="btn btn-primary w-100">
+              <button onClick={handleClose} className="btn btn-primary w-full">
                 Close
               </button>
             ) : (
               <button
                 onClick={() => setCheckout(!checkout)}
-                className="btn btn-primary w-100"
+                className="btn btn-primary w-full"
               >
                 {checkout ? <span>Go back</span> : <span>Buy</span>}
               </button>
