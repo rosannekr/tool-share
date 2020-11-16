@@ -97,9 +97,9 @@ export default function ProductGrid(props) {
 
   return (
     <div>
-      <div className="p-2">
+      <div className="p-2 ml-3">
         <select
-          className="form-control w-25"
+          className="w-40 border p-2 rounded-full focus:outline-none"
           id="sort"
           value={sort}
           onChange={(e) => setSort(e.target.value)}
