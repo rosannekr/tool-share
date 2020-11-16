@@ -92,25 +92,22 @@ export default function RequestCard(props) {
         </div>
 
         <div className="self-center">
-          {!props.request.confirmed && (
-            <div>
+          <div>
+            {!props.request.confirmed && (
               <button
                 onClick={() => handleConfirm(props.request.id)}
                 className="btn btn-primary mr-2"
               >
                 Accept
               </button>
-              <button
-                className="btn btn-outline"
-                onClick={() => handleDelete(props.request.id)}
-              >
-                Cancel
-              </button>
-            </div>
-          )}
-          {props.request.confirmed && (
-            <button className="btn btn-primary mr-2">Confirm pickup</button>
-          )}
+            )}
+            <button
+              className="btn btn-outline"
+              onClick={() => handleDelete(props.request.id)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>
