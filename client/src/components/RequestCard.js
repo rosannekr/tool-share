@@ -56,7 +56,7 @@ export default function RequestCard(props) {
   };
 
   return (
-    <div className={props.request.confirmed ? "opacity-50" : null}>
+    <div className="mb-2">
       <div className="p-3 flex justify-between shadow rounded">
         <div className="flex">
           <div className="mr-3 text-center">
@@ -93,24 +93,24 @@ export default function RequestCard(props) {
 
         <div className="self-center">
           {!props.request.confirmed && (
-            <button
-              onClick={() => handleConfirm(props.request.id)}
-              className={
-                props.request.confirmed
-                  ? "btn btn-primary mr-2 cursor-default"
-                  : "btn btn-primary mr-2"
-              }
-              disabled={props.request.confirmed ? true : false}
-            >
-              Confirm
-            </button>
+            <div>
+              <button
+                onClick={() => handleConfirm(props.request.id)}
+                className="btn btn-primary mr-2"
+              >
+                Accept
+              </button>
+              <button
+                className="btn btn-outline"
+                onClick={() => handleDelete(props.request.id)}
+              >
+                Cancel
+              </button>
+            </div>
           )}
-          <button
-            className="btn btn-outline"
-            onClick={() => handleDelete(props.request.id)}
-          >
-            Cancel
-          </button>
+          {props.request.confirmed && (
+            <button className="btn btn-primary mr-2">Confirm pickup</button>
+          )}
         </div>
       </div>
     </div>

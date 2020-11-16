@@ -17,7 +17,7 @@ export default function Filter(props) {
   };
 
   return (
-    <div className="d-flex justify-content-around align-items-end border-bottom py-3">
+    <div className="flex justify-around border py-2">
       {categories &&
         categories.map((category) => (
           <Link to={`/category/${category.id}`} key={category.id}>
