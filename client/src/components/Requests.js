@@ -27,15 +27,15 @@ export default function Requests() {
     ));
 
   return (
-    <div className="w-2/5 mx-auto pt-8">
-      <h2 className="font-medium text-2xl mb-3 text-center">My Requests</h2>
+    <div className="w-full md:w-3/4 lg:w-2/5 mx-auto pt-8">
+      <h2 className="font-medium text-3xl mb-3 text-center">My Requests</h2>
       {pending.length ? (
         <div>{pending}</div>
       ) : (
         <span className="inline-block mt-2">No pending requests</span>
       )}
       <div className="mt-5">
-        <h4 className="font-medium text-xl mb-3 text-center">Confirmed</h4>
+        <h4 className="font-medium text-2xl mb-3 text-center">Confirmed</h4>
         {confirmed.length ? (
           <div>{confirmed}</div>
         ) : (

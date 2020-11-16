@@ -97,7 +97,7 @@ export default function RequestCard(props) {
               onClick={() => handleConfirm(props.request.id)}
               className={
                 props.request.confirmed
-                  ? "btn btn-primary mr-2 cursor-not-allowed"
+                  ? "btn btn-primary mr-2 cursor-default"
                   : "btn btn-primary mr-2"
               }
               disabled={props.request.confirmed ? true : false}

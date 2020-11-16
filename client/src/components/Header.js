@@ -3,7 +3,8 @@ import { getProfile, updatePoints } from "../services/requests";
 import SearchBar from "./SearchBar";
 import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
-import PaymentPopUp from "./PaymentPopUp";
+import PaymentDropdown from "./PaymentDropdown";
+import AccountDropdown from "./AccountDropdown";
 
 export default function Header(props) {
   const [user, setUser] = useState({});
@@ -26,70 +27,39 @@ export default function Header(props) {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light py-2">
-        <Link className="navbar-brand ml-5" to="/home">
+      <nav className="py-2 px-4 flex justify-between items-center w-screen bg-indigo-700 text-white">
+        <Link
+          className="px-5 text-lg font-semibold hover:text-gray-400"
+          to="/home"
+        >
           Home
         </Link>
 
-        <div className="collapse navbar-collapse">
-          <SearchBar callback={(products) => props.callback(products)} />
+        <SearchBar callback={(products) => props.callback(products)} />
 
+        <div className="flex items-center">
           {user && (
-            <button
-              className="btn"
-              data-toggle="modal"
-              data-target="#addPointsModal"
-            >
-              {user.points} <i className="fas fa-coins"></i>
-            </button>
+            <PaymentDropdown points={user.points} addPoints={addPoints} />
           )}
-          <PaymentPopUp addPoints={addPoints} />
 
           {!props.isLoggedIn && (
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Log In
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">
-                  Sign Up
-                </Link>
-              </li>
-            </ul>
+            <div className="flex">
+              <Link
+                className="btn btn-primary hover:bg-white hover:text-indigo-700"
+                to="/login"
+              >
+                Log In
+              </Link>
+
+              <Link
+                className="btn btn-primary hover:bg-white hover:text-indigo-700 ml-2"
+                to="/register"
+              >
+                Sign Up
+              </Link>
+            </div>
           )}
-          {props.isLoggedIn && (
-            <ul className="navbar-nav">
-              <li className="nav-item dropdown">
-                <button
-                  className="nav-link dropdown-toggle btn"
-                  id="navbarDropdown"
-                  data-toggle="dropdown"
-                >
-                  My account
-                </button>
-                <div
-                  className="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="navbarDropdown"
-                >
-                  <Link className="dropdown-item" to="/profile">
-                    My profile
-                  </Link>
-                  <Link className="dropdown-item" to="/requests">
-                    My requests
-                  </Link>
-                  <Link className="dropdown-item" to="/products/upload">
-                    Add product
-                  </Link>
-                  <div className="dropdown-divider"></div>
-                  <Link className="dropdown-item" to="/" onClick={props.logout}>
-                    Log out
-                  </Link>
-                </div>
-              </li>
-            </ul>
-          )}
+          {props.isLoggedIn && <AccountDropdown logout={props.logout} />}
         </div>
       </nav>
 

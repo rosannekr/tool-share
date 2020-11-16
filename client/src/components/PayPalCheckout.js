@@ -39,7 +39,9 @@ export default function PayPalCheckout(props) {
   return (
     <div>
       {paid ? (
-        <div>Payment successful, you just bought {props.amount} points!</div>
+        <div>
+          Payment successful, {props.amount} points are added to your account!
+        </div>
       ) : (
         <div ref={paypal}></div>
       )}
