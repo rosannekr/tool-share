@@ -107,6 +107,7 @@ export default function ProductGrid(props) {
           <option value="">Sort by</option>
           <option value="newest">Newest</option>
           <option value="distance">Distance</option>
+          <option value="condition">Condition</option>
         </select>
       </div>
       <div className="container my-12 mx-auto px-4 md:px-12">

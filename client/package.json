@@ -13,6 +13,7 @@
     "noty": "^3.2.0-beta",
     "postcss": "^8.1.7",
     "postcss-cli": "^8.2.0",
+    "pusher-js": "^7.0.1",
     "react": "^17.0.1",
     "react-datepicker": "^3.3.0",
     "react-dom": "^17.0.1",
