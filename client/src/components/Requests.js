@@ -20,8 +20,25 @@ export default function Requests() {
       <RequestCard key={request.id} request={request} fetchData={fetchData} />
     ));
 
-  const confirmed = requests
+  const upcoming = requests
     .filter((request) => request.confirmed)
+    .filter((request) => new Date(request.startDate) > new Date())
+    .sort((a, b) => {
+      if (a.startDate < b.startDate) return -1;
+      if (a.startDate > b.startDate) return 1;
+      else return 0;
+    })
+    .map((request) => (
+      <RequestCard key={request.id} request={request} fetchData={fetchData} />
+    ));
+
+  const past = requests
+    .filter((request) => new Date(request.startDate) < new Date())
+    .sort((a, b) => {
+      if (a.startDate < b.startDate) return -1;
+      if (a.startDate > b.startDate) return 1;
+      else return 0;
+    })
     .map((request) => (
       <RequestCard key={request.id} request={request} fetchData={fetchData} />
     ));
@@ -32,14 +49,22 @@ export default function Requests() {
       {pending.length ? (
         <div>{pending}</div>
       ) : (
-        <span className="inline-block mt-2">No pending requests</span>
+        <div className="mt-2 text-center">No pending requests</div>
       )}
       <div className="mt-5">
-        <h4 className="font-medium text-2xl mb-3 text-center">Confirmed</h4>
-        {confirmed.length ? (
-          <div>{confirmed}</div>
+        <h4 className="font-medium text-2xl mb-3 text-center">Upcoming</h4>
+        {upcoming.length ? (
+          <div>{upcoming}</div>
         ) : (
-          <span className="inline-block mt-2">No confirmed requests</span>
+          <div className="mt-2 text-center">No confirmed requests</div>
+        )}
+      </div>
+      <div className="mt-5">
+        <h4 className="font-medium text-2xl mb-3 text-center">Past</h4>
+        {past.length ? (
+          <div>{past}</div>
+        ) : (
+          <div className="mt-2 text-center">No confirmed requests</div>
         )}
       </div>
     </div>
