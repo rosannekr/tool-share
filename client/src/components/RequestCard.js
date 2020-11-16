@@ -55,53 +55,63 @@ export default function RequestCard(props) {
     props.fetchData();
   };
 
-  const className = props.request.confirmed
-    ? "text-secondary border-bottom p-3 d-flex justify-content-between"
-    : "border-bottom p-3 d-flex justify-content-between";
-
   return (
-    <div className={className}>
-      <div className="mr-3" style={{ height: "20px" }}>
-        <div>{borrower.name}</div>
-        {borrower.picture && (
-          <img
-            src={`/../../../${borrower.picture.substring(
-              7,
-              borrower.picture.length
-            )}`}
-            className="rounded-circle profile-pic-small"
-          />
-        )}
-      </div>
+    <div className={props.request.confirmed ? "opacity-50" : null}>
+      <div className="p-3 flex justify-between shadow rounded">
+        <div className="flex">
+          <div className="mr-3 text-center">
+            <div>{borrower.name}</div>
+            {borrower.picture && (
+              <img
+                src={`/../../../${borrower.picture.substring(
+                  7,
+                  borrower.picture.length
+                )}`}
+                className="w-16 h-16 rounded-full object-cover"
+              />
+            )}
+          </div>
 
-      <div className="text-left">
-        <small>{new Date(props.request.createdAt).toLocaleDateString()}</small>
-        <div>
-          <span>{product.name} | </span>
-          <span>
-            {format(new Date(props.request.startDate), "MMM dd")} -{" "}
-            {format(new Date(props.request.endDate), "MMM dd")}
-          </span>
+          <div className="text-left">
+            <span className="text-xs text-gray-700">
+              {new Date(props.request.createdAt).toLocaleDateString()}
+            </span>
+            <div className="">
+              <span>{product.name}</span>
+              <span className="p-2">•</span>
+              <span>
+                {format(new Date(props.request.startDate), "MMM dd")} -{" "}
+                {format(new Date(props.request.endDate), "MMM dd")}
+              </span>
+            </div>
+            <div>
+              {points}
+              <i className="fas fa-coins ml-1"></i>
+            </div>
+          </div>
         </div>
-        <div>
-          {points}
-          <i className="fas fa-coins ml-1"></i>
+
+        <div className="self-center">
+          {!props.request.confirmed && (
+            <button
+              onClick={() => handleConfirm(props.request.id)}
+              className={
+                props.request.confirmed
+                  ? "btn btn-primary mr-2 cursor-default"
+                  : "btn btn-primary mr-2"
+              }
+              disabled={props.request.confirmed ? true : false}
+            >
+              Confirm
+            </button>
+          )}
+          <button
+            className="btn btn-outline"
+            onClick={() => handleDelete(props.request.id)}
+          >
+            Cancel
+          </button>
         </div>
-      </div>
-      <div className="align-self-center ml-3">
-        <button
-          onClick={() => handleConfirm(props.request.id)}
-          className="btn btn-secondary mr-2"
-          disabled={props.request.confirmed ? true : false}
-        >
-          Confirm
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => handleDelete(props.request.id)}
-        >
-          Cancel
-        </button>
       </div>
     </div>
   );
