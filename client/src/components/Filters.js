@@ -46,7 +46,7 @@ export default function Filters() {
         name="category_id"
         onChange={handleSelect}
       >
-        <option value="">Category</option>
+        <option value="">All categories</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}
@@ -58,7 +58,7 @@ export default function Filters() {
         name="condition"
         onChange={handleSelect}
       >
-        <option value="">Condition</option>
+        <option value="">All conditions</option>
         <option value="new">New</option>
         <option value="as good as new">As Good As New</option>
         <option value="good">Good</option>
