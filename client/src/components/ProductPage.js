@@ -75,9 +75,7 @@ export default function ProductPage(props) {
       timeout: 3500,
       progressBar: true,
     }).show();
-     
-  }
-
+  };
 
   let getOneProduct = () => {
     fetch(`/products/${id}`)
@@ -88,7 +86,6 @@ export default function ProductPage(props) {
         setItem(json);
       });
   };
-
 
   let borrowItem = (productId) => {
     if (user.points < pointTotal) {
@@ -142,23 +139,38 @@ export default function ProductPage(props) {
   };
 
   return (
-    <div className="container text-center item-page mt-5">
-      {(item && user) && (
-        <div className="card">
-          <p className="card-header">
-            <span className="mr-1">Item posted by</span>
-            <span className="text-primary">{user.name}</span>
-          </p>
-          <div className="card-body">
-            <h5 className="card-title">
-              {item.name} | {item.pricePerDay} points/day
-            </h5>
+    <div className="flex flex-column align-center mx-40 p-8">
+      {item && user && (
+        <div className="flex flex-column text-center h-height pt-5">
+          <div className="flex flex-row justify-around">
+            <img
+              alt="product"
+              class=" lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 mt-36"
+              src={`/../../../${item.picture.substring(
+                7,
+                item.picture.length
+              )}`}
+            />
+            <div className="flex flex-column text-center border rounded-md border-gray-700 w-50">
+              <div className="flex flex-row justify-center">
+                <img
+                  alt="Placeholder"
+                  className="block rounded-full h-8 w-8 object-cover"
+                  src={`/../../../${user.picture.substring(
+                    7,
+                    item.User.picture.length
+                  )}`}
+                />
 
-            <p className="card-text"></p>
-            <p className="card-text text-secondary">{item.description}</p>
-            <p className="text-capitalize">Condition: {item.condition}</p>
-            <div className="d-flex justify-content-center">
-              <p className="mr-1">Rating:</p>
+                <h2 class="text-sm title-font text-gray-500 tracking-widest">
+                  {user.name}
+                </h2>
+              </div>
+
+              <h1 class="text-gray-900 text-3xl title-font font-medium">
+                {item.name}
+              </h1>
+
               {avgRating ? (
                 <StarRatingComponent
                   name={item.id}
@@ -169,28 +181,34 @@ export default function ProductPage(props) {
               ) : (
                 <span>no ratings yet</span>
               )}
-            </div>
 
-           
-           
-
-            {/* {!hasEnoughPoints && (
-              <p className="bg-danger text-light">
-                Sorry but you don't have enough points to borrow this item
-              </p>
-            )} */}
-
-            {item.UserId !== user?.id && !reserved && (
-              <div>
-                <h4>Select dates</h4>
-                <small>Max availability: {item.numOfDaysAvailable} days</small>
-                <DateRange
-                  productId={item.id}
-                  changeStartDate={setStartDate}
-                  changeEndDate={setEndDate}
-                  maxAvailableDays={item.numOfDaysAvailable}
-                />
-                <p>Points total: {pointTotal}</p>
+              <small className="text-muted mb-3">
+                added on {item.createdAt.substring(0, 10)}
+              </small>
+              <p class="leading-relaxed ">{item.description}</p>
+              <p className="text-capitalize">Condition: {item.condition}</p>
+              <div className="d-flex justify-content-center">
+                {item.UserId !== user?.id && !reserved && (
+                  <div>
+                    <h4>Select dates</h4>
+                    <small>
+                      Max availability: {item.numOfDaysAvailable} days
+                    </small>
+                    <div className="text-center">
+                    <DateRange
+                      productId={item.id}
+                      changeStartDate={setStartDate}
+                      changeEndDate={setEndDate}
+                      maxAvailableDays={item.numOfDaysAvailable}
+                    />
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-row justify-around">
+                <span class="title-font font-medium text-xl text-gray-900">
+                  Total: {pointTotal}{" "}
+                </span>
                 <button
                   onClick={() => borrowItem(item.id)}
                   className="btn btn-dark"
@@ -199,31 +217,29 @@ export default function ProductPage(props) {
                   Reserve
                 </button>
               </div>
-            )}
-            {/* {reserved && (
-              <div className="text-success">
-                Your request has been sent to the owner!
-              </div>
-            )} */}
-          </div>
-          <img
-            className="card-img-bottom"
-            src={`/../../../${item.picture.substring(7, item.picture.length)}`}
-          />
-          <div className="py-4">
-            <h5>Reviews</h5>
-            <div>
-              {requests
-                .filter((request) => request.review)
-                .map((request) => (
-                  <ReviewCard key={request.id} request={request} />
-                ))}
             </div>
           </div>
-          <MapContainer address={item.User.address} />
+
+          <div className="flex flex-row justify-evenly  pr-6">
+            <div class="w-1/2 overflow-hidden ml-5 pl-8 text-center">
+              <div className="flex justify-center w-75 ml-36 mt-1">
+                {requests
+                  .filter((request) => request.review)
+                  .map((request) => (
+                    <ReviewCard key={request.id} request={request} />
+                  ))}
+              </div>
+            </div>
+
+            <div class="w-1/2 overflow-hidden ">
+              <div className="mt-1">
+                {item.User && <MapContainer address={item.User.address} />}{" "}
+                .
+              </div>
+            </div>
+          </div>
         </div>
       )}
-
     </div>
   );
 }
