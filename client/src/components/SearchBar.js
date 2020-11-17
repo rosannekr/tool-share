@@ -1,17 +1,36 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function SearchBar(props) {
   let [searchWord, setSearchWord] = useState("");
+  let [isSearching, setIsSearching] = useState(false);
+  let history = useHistory();
 
   const handleInput = (e) => {
     setSearchWord(e.target.value);
+  };
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      history.push(`/search/${searchWord}`);
+      setIsSearching(true);
+    }
+  };
+
+  const handleClick = () => {
+    setIsSearching(true);
+  };
+
+  const handleReset = () => {
+    setSearchWord("");
+    setIsSearching(false);
   };
 
   return (
     <form className="relative flex items-center text-gray-800">
       <input
         onChange={handleInput}
+        onKeyPress={handleEnter}
         value={searchWord}
         type="text"
         size="70"
@@ -20,11 +39,14 @@ function SearchBar(props) {
       />
 
       <Link
-        onClick={() => setSearchWord("")}
         to={`/search/${searchWord}`}
-        className="absolute right-0 mr-3"
+        className="absolute right-0 mr-3 text-gray-600"
       >
-        <i className="fa fa-search text-gray-600"></i>
+        {!isSearching ? (
+          <i className="fa fa-search" onClick={handleClick}></i>
+        ) : (
+          <i className="fas fa-times" onClick={handleReset}></i>
+        )}
       </Link>
     </form>
   );

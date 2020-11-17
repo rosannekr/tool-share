@@ -120,7 +120,7 @@ function App() {
             render={(props) => <HowItWorks {...props} />}
           />
 
-<PrivateRoute path="/chat/:sender/:receiver">
+          <PrivateRoute path="/chat/:sender/:receiver">
             <Chat />
           </PrivateRoute>
 
