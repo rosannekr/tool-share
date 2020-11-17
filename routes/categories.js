@@ -14,11 +14,11 @@ router.get("/", async function (req, res) {
 
 /* GET one category */
 router.get("/:id", async function (req, res) {
-  const { id } = req.params;
+  const { receiver_id } = req.params;
   try {
     const category = await models.Category.findOne({
       where: {
-        id,
+        receiver_id,
       },
     });
     res.send(category);
