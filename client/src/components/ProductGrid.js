@@ -140,7 +140,7 @@ export default function ProductGrid(props) {
                           {item.name}
                         </p>
                       </header>
-                      <p className="text-center">{item.description}</p>
+                      <p className="text-center">Condition: {item.condition}</p>
                       <footer className="flex items-center justify-between leading-none p-2 md:p-4">
                         <div
                           className="flex items-center no-underline hover:underline text-black"
