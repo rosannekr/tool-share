@@ -51,6 +51,7 @@ export default function ProductList(props) {
 
   return (
     <div className="container">
+      
       <EditPopUp
         show={show}
         handleClose={hidePopUp}
