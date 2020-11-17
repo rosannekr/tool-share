@@ -91,6 +91,16 @@ export const getProduct = async (id) => {
   return await axios.get(`/products/${id}`);
 };
 
+// Get all products
+export const getProducts = async () => {
+  return await axios.get(`/products`);
+};
+
+// Get filtered products
+export const getFilteredProducts = async (params) => {
+  return await axios.get(`/products${params}`);
+};
+
 // Update product
 export const updateProduct = async (id, reqbody) => {
   return await axios.put(`/products/${id}`, reqbody);

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getProfile, updatePoints } from "../services/requests";
 import SearchBar from "./SearchBar";
-import CategoryNav from "./CategoryNav";
 import { Link } from "react-router-dom";
 import PaymentDropdown from "./PaymentDropdown";
 import AccountDropdown from "./AccountDropdown";
 
 export default function Header(props) {
   const [user, setUser] = useState({});
-  //const [points, setPoints] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -22,7 +20,6 @@ export default function Header(props) {
   const fetchData = async () => {
     const res = await getProfile();
     setUser(res.data);
-    // setPoints(res.data.points)
   };
 
   return (
@@ -35,7 +32,7 @@ export default function Header(props) {
           Home
         </Link>
 
-        <SearchBar callback={(products) => props.callback(products)} />
+        <SearchBar />
 
         <div className="flex items-center">
           {user && (
@@ -62,8 +59,6 @@ export default function Header(props) {
           {props.isLoggedIn && <AccountDropdown logout={props.logout} />}
         </div>
       </nav>
-
-      <CategoryNav callback={(products) => props.callback(products)} />
     </div>
   );
 }
