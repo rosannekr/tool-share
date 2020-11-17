@@ -4,17 +4,12 @@ import { getProfile } from "../services/requests";
 
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
-const BarcelonaBounds = {
-  north: 41.470001,
-  south: 41.317271,
-  west: 2.049637,
-  east: 2.227478,
-};
 
 const mapStyles = {
-  width: "670px",
-  height: "500px",
-};
+  width: "510px",
+  height: "400px",
+  display: "inline-block",
+  overflow: "hidden"};
 
 function MapContainer(props) {
   let [latitude, setLatitude] = useState("41.3887489");
@@ -52,7 +47,7 @@ function MapContainer(props) {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <Map
         google={props.google}
         zoom={17}
@@ -60,7 +55,6 @@ function MapContainer(props) {
         center={{
           lat: latitude,
           lng: longitude,
-          defaultBounds: { BarcelonaBounds },
         }}
       >
         <Marker position={{ lat: latitude, lng: longitude }} />

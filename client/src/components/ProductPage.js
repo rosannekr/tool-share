@@ -171,11 +171,8 @@ export default function ProductPage(props) {
               )}
             </div>
 
-            <p className="card-text">
-              <small className="text-muted">
-                added on {item.createdAt.substring(0, 10)}
-              </small>
-            </p>
+           
+           
 
             {/* {!hasEnoughPoints && (
               <p className="bg-danger text-light">
@@ -226,6 +223,7 @@ export default function ProductPage(props) {
           <MapContainer address={item.User.address} />
         </div>
       )}
+
     </div>
   );
 }

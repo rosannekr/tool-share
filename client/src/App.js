@@ -8,8 +8,6 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Chat from "./components/Chat";
 import Filters from "./components/Filters";
-import CategoryNav from "./components/CategoryNav";
-import SearchBar from "./components/SearchBar";
 import ProductPage from "./components/ProductPage";
 import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/ProfilePage";
@@ -76,21 +74,12 @@ function App() {
               />
             )}
           />
-          <Route path="/searchBar" component={SearchBar} />
 
           <Route
             path="/product/:id"
             render={(props) => <ProductPage {...props} />}
           />
 
-          <Route
-            path="/searchBar"
-            render={(props) => <SearchBar {...props} />}
-          />
-          <Route
-            path="/filter"
-            render={(props) => <CategoryNav {...props} />}
-          />
           <Route
             path="/category/:category"
             render={(props) => (
