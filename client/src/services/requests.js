@@ -91,7 +91,12 @@ export const getProduct = async (id) => {
   return await axios.get(`/products/${id}`);
 };
 
-// Get products
+// Get all products
+export const getProducts = async () => {
+  return await axios.get(`/products`);
+};
+
+// Get filtered products
 export const getFilteredProducts = async (params) => {
   return await axios.get(`/products${params}`);
 };

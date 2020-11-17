@@ -7,7 +7,6 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Chat from "./components/Chat";
-import Filters from "./components/Filters";
 import ProductPage from "./components/ProductPage";
 import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/ProfilePage";
@@ -19,27 +18,12 @@ import { userIsLoggedIn } from "./helpers/auth";
 import "./main.css";
 
 function App() {
-  let [displayedProducts, setDisplayedProducts] = useState("");
-  let [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    getProducts();
     setIsLoggedIn(userIsLoggedIn());
   }, []);
 
-  const getProducts = () => {
-    fetch(`/products`)
-      .then((response) => response.json())
-      .then((response) => {
-        setDisplayedProducts(response);
-      });
-  };
-  let setProducts = (products) => {
-    setDisplayedProducts(products);
-  };
-
-  // function to pass down to login component
-  // to be able to set state to true when logged in
   const login = () => {
     setIsLoggedIn(true);
   };
@@ -52,54 +36,20 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header
-          callback={(products) => setProducts(products)}
-          isLoggedIn={isLoggedIn}
-          logout={logout}
-        />
+        <Header isLoggedIn={isLoggedIn} logout={logout} />
 
         <Switch>
-          <Route path="/register">
-            <Register />
-          </Route>
+          <Route path="/register" component={Register} />
           <Route path="/login">
             <Login login={login} />
           </Route>
+
+          <Route path="/home" component={Home} />
           <Route path="/search" component={Search} />
+          <Route path="/product/:id" component={ProductPage} />
 
-          <Route
-            path="/product/:id"
-            render={(props) => <ProductPage {...props} />}
-          />
-
-          <Route
-            path="/category/:category"
-            render={(props) => (
-              <Filters
-                {...props}
-                callback={(products) => setProducts(products)}
-              />
-            )}
-          />
-          <Route
-            path="/home"
-            exact
-            render={(props) => <Home {...props} products={displayedProducts} />}
-          />
-
-          <Route
-            path="/"
-            exact
-            render={(props) => (
-              <LandingPage {...props} products={displayedProducts} />
-            )}
-          />
-
-          <Route
-            path="/how-it-works"
-            exact
-            render={(props) => <HowItWorks {...props} />}
-          />
+          <Route path="/" exact component={LandingPage} />
+          <Route path="/how-it-works" component={HowItWorks} />
 
           <PrivateRoute path="/chat/:sender/:receiver">
             <Chat />

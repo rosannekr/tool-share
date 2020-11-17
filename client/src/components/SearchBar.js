@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 function SearchBar() {
   const [searchWord, setSearchWord] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const history = useHistory();
+  let history = useHistory();
+
+  useEffect(() => {
+    if (!searchWord) setIsSearching(false);
+  }, [searchWord]);
 
   const handleInput = (e) => {
     setSearchWord(e.target.value);

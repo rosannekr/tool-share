@@ -14,7 +14,7 @@ import Noty from "noty";
 import "../../node_modules/noty/lib/noty.css";
 import "../../node_modules/noty/lib/themes/relax.css";
 
-export default function ProductPage(props) {
+export default function ProductPage() {
   let { id } = useParams();
   let [item, setItem] = useState("");
   let [pointTotal, setPointTotal] = useState(0);
@@ -195,12 +195,12 @@ export default function ProductPage(props) {
                       Max availability: {item.numOfDaysAvailable} days
                     </small>
                     <div className="text-center">
-                    <DateRange
-                      productId={item.id}
-                      changeStartDate={setStartDate}
-                      changeEndDate={setEndDate}
-                      maxAvailableDays={item.numOfDaysAvailable}
-                    />
+                      <DateRange
+                        productId={item.id}
+                        changeStartDate={setStartDate}
+                        changeEndDate={setEndDate}
+                        maxAvailableDays={item.numOfDaysAvailable}
+                      />
                     </div>
                   </div>
                 )}
@@ -233,8 +233,7 @@ export default function ProductPage(props) {
 
             <div class="w-1/2 overflow-hidden ">
               <div className="mt-1">
-                {item.User && <MapContainer address={item.User.address} />}{" "}
-                .
+                {item.User && <MapContainer address={item.User.address} />} .
               </div>
             </div>
           </div>

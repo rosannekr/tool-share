@@ -11,17 +11,26 @@ const multer = require("multer");
 router.get("/", async function (req, res) {
   const q = req.query.q ? req.query.q : null;
   const condition = req.query.condition ? req.query.condition : null;
-  const categoryId = req.query.categoryId ? req.query.categoryId : null;
+  const category_id = req.query.category_id ? req.query.category_id : null;
+  const sort_by = req.query.sort_by ? req.query.sort_by : null;
 
-  const filters = {};
+  let filters = {};
+  let sort = [];
 
+  // Set where condition
   if (q) filters["name"] = { [Op.like]: `%${q}%` };
   if (condition) filters["condition"] = condition;
-  if (categoryId) filters["categoryId"] = categoryId;
+  if (category_id) filters["categoryId"] = category_id;
+
+  // Set order by condition
+  if (sort_by === "newest") sort = [["createdAt", "DESC"]];
+  else sort = [["id", "ASC"]];
 
   try {
     const products = await models.Product.findAll({
       where: filters,
+      order: sort,
+      limit: 20,
       include: models.User,
     });
     res.send(products);
