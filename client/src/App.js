@@ -65,15 +65,7 @@ function App() {
           <Route path="/login">
             <Login login={login} />
           </Route>
-          <Route
-            path="/search/:q"
-            render={(props) => (
-              <Search
-                {...props}
-                callback={(products) => setProducts(products)}
-              />
-            )}
-          />
+          <Route path="/search" component={Search} />
 
           <Route
             path="/product/:id"

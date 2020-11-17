@@ -9,8 +9,19 @@ const multer = require("multer");
 //GET all available products
 
 router.get("/", async function (req, res) {
+  const q = req.query.q ? req.query.q : null;
+  const condition = req.query.condition ? req.query.condition : null;
+  const categoryId = req.query.categoryId ? req.query.categoryId : null;
+
+  const filters = {};
+
+  if (q) filters["name"] = { [Op.like]: `%${q}%` };
+  if (condition) filters["condition"] = condition;
+  if (categoryId) filters["categoryId"] = categoryId;
+
   try {
     const products = await models.Product.findAll({
+      where: filters,
       include: models.User,
     });
     res.send(products);

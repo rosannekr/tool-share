@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-function SearchBar(props) {
-  let [searchWord, setSearchWord] = useState("");
-  let [isSearching, setIsSearching] = useState(false);
-  let history = useHistory();
+function SearchBar() {
+  const [searchWord, setSearchWord] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const history = useHistory();
 
   const handleInput = (e) => {
     setSearchWord(e.target.value);
@@ -12,22 +12,24 @@ function SearchBar(props) {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      history.push(`/search/${searchWord}`);
+      history.push(`/search?q=${searchWord}`);
       setIsSearching(true);
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    history.push(`/search?q=${searchWord}`);
     setIsSearching(true);
   };
 
-  const handleReset = () => {
+  const handleReset = (e) => {
     setSearchWord("");
     setIsSearching(false);
+    history.push(`/home`);
   };
 
   return (
-    <form className="relative flex items-center text-gray-800">
+    <div className="relative flex items-center text-gray-800">
       <input
         onChange={handleInput}
         onKeyPress={handleEnter}
@@ -37,18 +39,14 @@ function SearchBar(props) {
         className="h-10 px-4 rounded-full bg-white focus:outline-none border"
         placeholder="Type to search..."
       />
-
-      <Link
-        to={`/search/${searchWord}`}
-        className="absolute right-0 mr-3 text-gray-600"
-      >
+      <button className="absolute right-0 mr-3 text-gray-600 focus:outline-none">
         {!isSearching ? (
           <i className="fa fa-search" onClick={handleClick}></i>
         ) : (
           <i className="fas fa-times" onClick={handleReset}></i>
         )}
-      </Link>
-    </form>
+      </button>
+    </div>
   );
 }
 
