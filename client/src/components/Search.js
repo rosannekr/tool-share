@@ -18,8 +18,6 @@ export default function Search() {
 
   const searchProducts = async () => {
     try {
-      console.log(parsed);
-
       const res = await getFilteredProducts(parsed);
       setProducts(res.data);
     } catch (error) {

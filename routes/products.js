@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 const sequelize = require("sequelize");
-const { QueryTypes } = require("sequelize");
+const { QueryTypes, where } = require("sequelize");
 const Op = sequelize.Op;
 const multer = require("multer");
 
@@ -13,11 +13,13 @@ router.get("/", async function (req, res) {
   const q = req.query.q ? req.query.q : null;
   const condition = req.query.condition ? req.query.condition : null;
   const category_id = req.query.category_id ? req.query.category_id : null;
+  const distance = req.query.distance ? req.query.distance : 20000000;
   const sort_by = req.query.sort_by ? req.query.sort_by : null;
   const lat = req.query.lat ? req.query.lat : null;
   const lng = req.query.lng ? req.query.lng : null;
 
   let filters = {};
+  let whereCondition = {};
   let sort = [];
 
   // Set where condition
@@ -25,8 +27,9 @@ router.get("/", async function (req, res) {
   if (condition) filters["condition"] = condition;
   if (category_id) filters["categoryId"] = category_id;
 
-  // Set order by condition
-  if (sort_by === "newest") sort = [["createdAt", "DESC"]];
+  if (sort_by === "newest")
+    // Set order by condition
+    sort = [["createdAt", "DESC"]];
   else if (sort_by === "distance")
     sort = [
       [
@@ -46,7 +49,23 @@ router.get("/", async function (req, res) {
 
   try {
     const products = await models.Product.findAll({
-      where: filters,
+      where: {
+        [Op.and]: [
+          filters,
+          sequelize.where(
+            sequelize.fn(
+              "ST_Distance_Sphere",
+              sequelize.fn(
+                "Point",
+                sequelize.col("User.lat"),
+                sequelize.col("User.lng")
+              ),
+              sequelize.fn("Point", lat, lng)
+            ),
+            { [Op.lt]: +distance }
+          ),
+        ],
+      },
       order: sort,
       offset: +offset,
       limit: 6,
