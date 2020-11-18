@@ -36,7 +36,7 @@ export default function Filters() {
           });
         },
         (error) => {
-          alert(`Sorry, no position available`);
+          alert(`Sorry, no location available.`);
           console.log(`ERROR(${error.code}): ${error.message}`);
           // Set default location values (Madrid)
           setFilters({
