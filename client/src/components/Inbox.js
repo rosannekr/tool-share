@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Pusher from "pusher-js";
 import axios from "axios";
 
-export default function Chat({ sender, receiver, name, photo, close }) {
+export default function Inbox(props) {
   let [messages, setMessages] = useState([]);
   let [input, setInput] = useState("");
+  let [user, setUser] = useState("");
+
+  let { sender, receiver } = useParams();
 
   useEffect(() => {
+
     setMessages([]);
     getMessages();
+    getUser()
+    
 
     Pusher.logToConsole = true;
 
@@ -40,30 +47,32 @@ export default function Chat({ sender, receiver, name, photo, close }) {
     setInput("");
   };
 
+  const getUser = async () => {
+    const res = await axios.get(`/users/${sender}`);
+    setUser(res.data);
+  };
+
   const getMessages = async () => {
     let { data } = await axios(`/chat/${sender}/${receiver}`);
 
     setMessages((messages) => [...messages, ...data]);
+    console.log(messages[0])
   };
 
   return (
-    <div className="d-flex flex-column h-100 w-100 border rounded-md pt-5">
-      <div className="absolute top-0 bg-indigo-700 w-100 py-2 flex justify-between">
-        <div className="flex text-white items-center gap-1 px-3">
-          <img
+    <div className="d-flex mt-5 flex-column h-full w-100 rounded-md pt-5 fixed bottom-0 w-100">
+      <div className="absolute mt-3  w-100 py-2 flex justify-between">
+        <div className="flex text-white items-center gap-1 px-3 bg-indigo-500 w-100 py-3">
+        <Link to={`/messages/${receiver}`}><i className="fas fa-chevron-left"></i></Link>
+         { user && <img
             alt="Placeholder"
             className="block rounded-full h-8 w-8 object-cover"
-            src={`/../../../${photo.substring(7, photo.length)}`}
-          />
-          {name}
+            src={`/../../../${user.picture.substring(7, user.picture.length)}`}
+          />}
+         {user && <p>{user.name}</p>}
         </div>
-
-        <i
-          className="fa fa-times text-white pr-2 items-center cursor"
-          aria-hidden="true" onClick={close}
-        ></i>
       </div>
-      <div className="flex-grow-1 px-3">
+      <div className="flex-grow-1 px-5 mt-32">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -89,8 +98,7 @@ export default function Chat({ sender, receiver, name, photo, close }) {
       <div className="bg-light p-4 border-top">
         <div className="flex flex-column space-evenly">
         
-        <div className="flex flex-row">
-
+        <div className="flex flex-row ">
 
         <input 
             id="title"
