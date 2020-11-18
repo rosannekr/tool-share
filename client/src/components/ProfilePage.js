@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { getProfile } from "../services/requests";
+import { getProfile, updateProfile } from "../services/requests";
 import ProductList from "./ProductList";
 import BorrowedProductList from "./BorrowedProductList";
 import UpdatePicture from "./UpdatePicture";
+
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export default function ProfilePage(props) {
   const [user, setUser] = useState({});
   const [show, setShow] = useState(false);
   const [update, setUpdate] = useState(false);
   const [address, setAddress] = useState("");
+  const [location, setLocation] = useState({});
   const [editMode, setEditMode] = useState(false);
 
   // Fetch user data when component mounts
@@ -31,38 +34,53 @@ export default function ProfilePage(props) {
   const fetchData = async () => {
     const res = await getProfile();
     setUser(res.data);
-    setAddress(res.data.address)
+    setAddress(res.data.address);
   };
 
-  const addressSubmit = (event) => {
-    event.preventDefault();
-    const id = user.id;
+  // Get coordinates of user's address
 
+  const getCoords = (address) => {
+    const formattedAddress = address.split(" ").join("+");
 
-    fetch(`/users/profile/`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        address: address,
-      }),
-    })
+    const location = {};
+
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedAddress}&key=${apiKey}`
+    )
+      .then((res) => res.json())
       .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        location.lat = response.results[0].geometry.location.lat;
+        location.lng = response.results[0].geometry.location.lng;
 
+        setLocation(location);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const addressSubmit = async (event) => {
+    event.preventDefault();
+
+    getCoords(address);
+
+    try {
+      await updateProfile({ address });
+    } catch (error) {
+      console.log(error);
+    }
 
     changeEditMode();
   };
 
+  useEffect(() => {
+    storeLocationCoords();
+  }, [location]);
+
+  const storeLocationCoords = async () => {
+    await updateProfile(location);
+  };
+
   return (
     <div className="text-center mt-4 ">
-
       <UpdatePicture
         show={show}
         handleClose={hidePopUp}
@@ -88,9 +106,11 @@ export default function ProfilePage(props) {
 
             <div className=" flex flex-col justify-around">
               <h2 className="title">Hi there, {user.name}!</h2>
-              {!user.address ? 
-                <p>let us know the location of your products!</p> : <p>your products location:</p>
-              }
+              {!user.address ? (
+                <p>let us know the location of your products!</p>
+              ) : (
+                <p>your products location:</p>
+              )}
               <div className="flex">
                 <input
                   className="cursor text-center border-b-2 border-black border-dotted w-100 bg-indigo-100"
@@ -107,13 +127,14 @@ export default function ProfilePage(props) {
               </div>
             </div>
           </div>
-            <h3 className="text-2xl text-black font-bold mt-5">- Your dashboard -</h3>
+          <h3 className="text-2xl text-black font-bold mt-5">
+            - Your dashboard -
+          </h3>
           <div className="container flex justify-around mt-4">
             <ProductList /> <BorrowedProductList id={user.id} />
           </div>
         </div>
       )}
-
     </div>
   );
 }
