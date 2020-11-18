@@ -9,6 +9,7 @@ const multer = require("multer");
 //GET all available products
 
 router.get("/", async function (req, res) {
+  const offset = req.body.offset ? req.body.offset : 0;
   const q = req.query.q ? req.query.q : null;
   const condition = req.query.condition ? req.query.condition : null;
   const category_id = req.query.category_id ? req.query.category_id : null;
@@ -31,6 +32,7 @@ router.get("/", async function (req, res) {
       where: filters,
       order: sort,
       limit: 20,
+      offset: offset,
       include: models.User,
     });
     res.send(products);
