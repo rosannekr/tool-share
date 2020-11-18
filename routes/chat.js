@@ -40,6 +40,25 @@ router.post("/:sender_id/:receiver_id", (req, res) => {
   res.send({ msg: "Sent" });
 });
 
+//get all messages a user has received
+
+router.get("/messages/:id", async (req, res) => {
+  let {id} = req.params;
+  let messages = await models.Message.findAll({
+    where: {
+      receiver_id: id
+     
+    },
+    include: ["sender", "receiver"],
+    limit: 10,
+    order: [["id", "DESC"]],
+  });
+
+  res.send(messages.reverse());
+});
+
+//get all messages between two users;
+
 router.get("/:id1/:id2", async (req, res) => {
   let { id1, id2 } = req.params;
   let messages = await models.Message.findAll({
@@ -58,5 +77,8 @@ router.get("/:id1/:id2", async (req, res) => {
 
   res.send(messages.reverse());
 });
+
+
+
 
 module.exports = router;

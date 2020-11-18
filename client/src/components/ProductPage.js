@@ -9,7 +9,7 @@ import DateRange from "./DateRange";
 import StarRatingComponent from "react-star-rating-component";
 import MapContainer from "./MapContainer";
 import ReviewCard from "./ReviewCard";
-
+import ChatWindow from "./ChatWindow";
 import Noty from "noty";
 import "../../node_modules/noty/lib/noty.css";
 import "../../node_modules/noty/lib/themes/relax.css";
@@ -25,6 +25,8 @@ export default function ProductPage() {
   let [reserved, setReserved] = useState(false);
   let [requests, setRequests] = useState([]);
   let [avgRating, setAvgRating] = useState(0);
+  const [show, setShow] = useState(false);
+  const [productId, setProductId] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -64,6 +66,8 @@ export default function ProductPage() {
     }
   }, [startDate, endDate]);
 
+//notifications
+
   let notification = (bool) => {
     new Noty({
       text: bool
@@ -77,6 +81,8 @@ export default function ProductPage() {
     }).show();
   };
 
+  //fetch product
+
   let getOneProduct = () => {
     fetch(`/products/${id}`)
       .then((response) => {
@@ -86,6 +92,8 @@ export default function ProductPage() {
         setItem(json);
       });
   };
+
+  //add item to borrowed items
 
   let borrowItem = (productId) => {
     if (user.points < pointTotal) {
@@ -138,10 +146,37 @@ export default function ProductPage() {
       });
   };
 
+  //open and close chat pop up
+
+  let showPopUp = (id) => {
+    setProductId(id);
+    setShow(true);
+  };
+
+  let hidePopUp = (id) => {
+    setProductId(id);
+    setShow(false);
+  };
+
   return (
     <div className="flex flex-column align-center mx-40 p-8">
+
       {item && user && (
-        <div className="flex flex-column text-center h-height pt-5">
+
+        <div>
+
+<ChatWindow
+        show={show}
+        handleClose={hidePopUp}
+        sender={user.id}
+        receiver={item.UserId}
+        name={item.User.name}
+        photo={item.User.picture}
+      callback1={hidePopUp}
+     
+      />
+
+        <div className="flex flex-column text-center h-height pt-3">
           <div className="flex flex-row justify-around">
             <img
               alt="product"
@@ -151,38 +186,43 @@ export default function ProductPage() {
                 item.picture.length
               )}`}
             />
-            <div className="flex flex-column text-center border rounded-md border-gray-700 w-50">
-              <div className="flex flex-row justify-center">
+            <div className="flex flex-column text-center border rounded-md border-gray-700 w-50 pt-5">
+              <div className="flex flex-row justify-center items-center gap-1 mb-1">
                 <img
                   alt="Placeholder"
                   className="block rounded-full h-8 w-8 object-cover"
-                  src={`/../../../${user.picture.substring(
+                  src={`/../../../${item.User.picture.substring(
                     7,
                     item.User.picture.length
                   )}`}
                 />
 
                 <h2 class="text-sm title-font text-gray-500 tracking-widest">
-                  {user.name}
+                  {item.User.name}
                 </h2>
               </div>
 
-              <h1 class="text-gray-900 text-3xl title-font font-medium">
-                {item.name}
+              <h1 class="text-indigo-700 text-3xl title-font font-medium">
+                  {item.name} <span className="text-sm text-black">| {item.pricePerDay} <i className="fas fa-coins    "></i> / day</span>
               </h1>
 
+
               {avgRating ? (
+                <div>
+                <p>Rating:</p>
                 <StarRatingComponent
                   name={item.id}
                   starCount={5}
                   value={avgRating}
                   editing={false}
                 />
+                </div>
               ) : (
-                <span>no ratings yet</span>
+                <p>no ratings yet</p>
               )}
+            
 
-              <small className="text-muted mb-3">
+              <small className="text-muted mb-1">
                 added on {item.createdAt.substring(0, 10)}
               </small>
               <p class="leading-relaxed ">{item.description}</p>
@@ -190,7 +230,7 @@ export default function ProductPage() {
               <div className="d-flex justify-content-center">
                 {item.UserId !== user?.id && !reserved && (
                   <div>
-                    <h4>Select dates</h4>
+                    <h4 className="font-semibold mt-2">Select dates</h4>
                     <small>
                       Max availability: {item.numOfDaysAvailable} days
                     </small>
@@ -205,29 +245,36 @@ export default function ProductPage() {
                   </div>
                 )}
               </div>
-              <div className="flex flex-row justify-around">
+              <div className="flex flex-row justify-around mt-3">
                 <span class="title-font font-medium text-xl text-gray-900">
-                  Total: {pointTotal}{" "}
+                  Total: {pointTotal} <i className="fas fa-coins    "></i>
                 </span>
+                <div className="flex">
                 <button
                   onClick={() => borrowItem(item.id)}
-                  className="btn btn-dark"
+                  className="btn btn-primary mb-2"
                   disabled={!(startDate && endDate) ? true : false}
                 >
                   Reserve
                 </button>
+                <button className="btn mb-2 btn-primary" onClick={() => showPopUp()}>
+
+                <i className="far fa-comment"></i>
+                </button>
+              
+                </div>
               </div>
             </div>
           </div>
 
           <div className="flex flex-row justify-evenly  pr-6">
             <div class="w-1/2 overflow-hidden ml-5 pl-8 text-center">
-              <div className="flex justify-center w-75 ml-36 mt-1">
-                {requests
-                  .filter((request) => request.review)
+              <div className="flex flex-column justify-center w-75 ml-36 mt-1">
+                <p className="text-xl text-indigo-700 mt-1">Reviews</p>
+                {requests.filter((request) => request.review)
                   .map((request) => (
                     <ReviewCard key={request.id} request={request} />
-                  ))}
+                  ))  }
               </div>
             </div>
 
@@ -237,6 +284,7 @@ export default function ProductPage() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       )}
     </div>

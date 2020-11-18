@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Messages from "./components/Messages";
 import Chat from "./components/Chat";
 import ProductPage from "./components/ProductPage";
 import LandingPage from "./components/LandingPage";
@@ -53,6 +54,10 @@ function App() {
 
           <PrivateRoute path="/chat/:sender/:receiver">
             <Chat />
+          </PrivateRoute>
+
+          <PrivateRoute path="/messages/:id">
+            <Messages />
           </PrivateRoute>
 
           <PrivateRoute path="/profile">

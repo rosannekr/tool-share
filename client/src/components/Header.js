@@ -56,7 +56,7 @@ export default function Header(props) {
               </Link>
             </div>
           )}
-          {props.isLoggedIn && <AccountDropdown logout={props.logout} />}
+          {props.isLoggedIn && <AccountDropdown logout={props.logout} id={user.id} />}
         </div>
       </nav>
     </div>
