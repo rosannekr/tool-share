@@ -1,7 +1,8 @@
-
 module.exports = {
   future: {},
-  purge: [],
+  purge: [
+    "./src/**/*.js",
+  ],
   theme: {
     extend: {},
   },
@@ -9,3 +10,4 @@ module.exports = {
   plugins: [],
   "tailwindCSS.includeLanguages": { plaintext: "javascript" },
 };
+
