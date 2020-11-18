@@ -34,6 +34,12 @@ export default function AccountDropdown(props) {
           </Link>
           <Link
             className="block px-3 py-2 hover:bg-indigo-700 hover:text-white"
+            to={`/messages/${props.id}`}
+          >
+            My messages
+          </Link>
+          <Link
+            className="block px-3 py-2 hover:bg-indigo-700 hover:text-white"
             to="/products/upload"
           >
             Add product
