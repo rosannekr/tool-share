@@ -14,7 +14,7 @@ module.exports = {
           categoryId: 4,
           picture: "public/pictures/photo-1504148455328-c376907d081c.jpeg",
           condition: "good",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 4)),
           updatedAt: new Date(),
         },
         {
@@ -38,7 +38,7 @@ module.exports = {
           categoryId: 2,
           picture: "public/pictures/photo-1463183427169-5df5a06d5447.jpeg",
           condition: "acceptable",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 10)),
           updatedAt: new Date(),
         },
         {
@@ -50,7 +50,7 @@ module.exports = {
           categoryId: 3,
           picture: "public/pictures/RaclettePrimeale.jpg",
           condition: "new",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 20)),
           updatedAt: new Date(),
         },
         {
@@ -63,7 +63,7 @@ module.exports = {
           categoryId: 5,
           picture: "public/pictures/jeremy-allouche-YStboKiFPVw-unsplash.jpg",
           condition: "acceptable",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 3)),
           updatedAt: new Date(),
         },
         {
@@ -75,7 +75,7 @@ module.exports = {
           categoryId: 5,
           picture: "public/pictures/toni-cuenca-55MySYrKf5w-unsplash.jpg",
           condition: "good",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 30)),
           updatedAt: new Date(),
         },
 
@@ -88,7 +88,7 @@ module.exports = {
           categoryId: 2,
           picture: "public/pictures/andres-siimon-zfwyrIA6bFw-unsplash.jpg",
           condition: "good",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 15)),
           updatedAt: new Date(),
         },
 
@@ -101,7 +101,7 @@ module.exports = {
           categoryId: 5,
           picture: "public/pictures/photo-1484219372613-e9e83a68f732.jpeg",
           condition: "as good as new",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 8)),
           updatedAt: new Date(),
         },
         {
@@ -113,7 +113,7 @@ module.exports = {
           categoryId: 6,
           picture: "public/pictures/photo-1590272939560-b61891345b50.jpeg",
           condition: "good",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 22)),
           updatedAt: new Date(),
         },
       ],
