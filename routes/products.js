@@ -9,10 +9,13 @@ const multer = require("multer");
 //GET all available products
 
 router.get("/", async function (req, res) {
+  const offset = req.body.offset ? req.body.offset : 0;
   const q = req.query.q ? req.query.q : null;
   const condition = req.query.condition ? req.query.condition : null;
   const category_id = req.query.category_id ? req.query.category_id : null;
   const sort_by = req.query.sort_by ? req.query.sort_by : null;
+  const lat = req.query.lat ? req.query.lat : null;
+  const lng = req.query.lng ? req.query.lng : null;
 
   let filters = {};
   let sort = [];
@@ -24,6 +27,21 @@ router.get("/", async function (req, res) {
 
   // Set order by condition
   if (sort_by === "newest") sort = [["createdAt", "DESC"]];
+  else if (sort_by === "distance")
+    sort = [
+      [
+        sequelize.fn(
+          "ST_Distance",
+          sequelize.fn(
+            "Point",
+            sequelize.col("User.lat"),
+            sequelize.col("User.lng")
+          ),
+          sequelize.fn("Point", lat, lng)
+        ),
+        "ASC",
+      ],
+    ];
   else sort = [["id", "ASC"]];
 
   try {
@@ -31,6 +49,7 @@ router.get("/", async function (req, res) {
       where: filters,
       order: sort,
       limit: 20,
+      offset: offset,
       include: models.User,
     });
     res.send(products);
