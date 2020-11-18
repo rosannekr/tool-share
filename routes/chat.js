@@ -54,13 +54,22 @@ router.get("/messages/:id", async (req, res) => {
     order: [["id", "DESC"]],
   });
 
-  res.send(messages.reverse());
+  const filteredArray = Object.values(messages.reduce((unique, o) => {
+    if(!unique[o.sender_id] || +o.date > +unique[o.sender_id].date) unique[o.sender_id] = o;
+    
+    return unique;
+  }, {}));
+  
+  console.log(filteredArray);
+
+  res.send(filteredArray.reverse());
 });
 
 //get all messages between two users;
 
 router.get("/:id1/:id2", async (req, res) => {
   let { id1, id2 } = req.params;
+
   let messages = await models.Message.findAll({
     where: {
       sender_id: {
@@ -75,6 +84,20 @@ router.get("/:id1/:id2", async (req, res) => {
     order: [["id", "DESC"]],
   });
 
+  // let uniqueMessages = [];
+  // const map = new Map();
+  // for (const item of messages) {
+  //   if(!map.has(sender_id)) {
+  //     map.set(item.id, true);
+  //     uniqueMessages.push({
+  //       sender_id: item.sender_id,
+  //       text: item_text
+      
+  //     })
+  //   }
+  // }
+
+  // res.send(uniqueMessages.reverse());
   res.send(messages.reverse());
 });
 
@@ -82,3 +105,6 @@ router.get("/:id1/:id2", async (req, res) => {
 
 
 module.exports = router;
+
+
+

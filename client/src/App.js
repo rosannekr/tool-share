@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Messages from "./components/Messages";
-import Chat from "./components/Chat";
+import Inbox from "./components/Inbox";
 import ProductPage from "./components/ProductPage";
 import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/ProfilePage";
@@ -52,8 +52,8 @@ function App() {
           <Route path="/" exact component={LandingPage} />
           <Route path="/how-it-works" component={HowItWorks} />
 
-          <PrivateRoute path="/chat/:sender/:receiver">
-            <Chat />
+          <PrivateRoute path="/inbox/:sender/:receiver">
+            <Inbox />
           </PrivateRoute>
 
           <PrivateRoute path="/messages/:id">
