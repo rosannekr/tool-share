@@ -60,9 +60,9 @@ export default function Inbox(props) {
   };
 
   return (
-    <div className="d-flex mt-5 flex-column h-full w-100 rounded-md pt-5 fixed bottom-0 w-100">
-      <div className="absolute mt-3  w-100 py-2 flex justify-between">
-        <div className="flex text-white items-center gap-1 px-3 bg-indigo-500 w-100 py-3">
+    <div className="d-flex mt-5 flex-col h-full rounded-md pt-5 fixed bottom-0 w-screen">
+      <div className="absolute mt-3 py-2 flex justify-between">
+        <div className="flex text-white items-center gap-1 px-3 bg-indigo-500 w-screen py-4 mt-20">
         <Link to={`/messages/${receiver}`}><i className="fas fa-chevron-left"></i></Link>
          { user && <img
             alt="Placeholder"
@@ -80,9 +80,9 @@ export default function Inbox(props) {
               message.sender_id == sender ? "text-right mt-3" : "text-left mt-3"
             }
           >
-            <div className="">
+            <div className="mt-6">
               <span
-                className={`py-2 px-1 mt-3 rounded text-white ${
+                className={`py-2 px-1  rounded text-white ${
                   message.sender_id == sender
                     ? "bg-indigo-400"
                     : "bg-gray-500"
@@ -95,15 +95,15 @@ export default function Inbox(props) {
         ))}
       </div>
 
-      <div className="bg-light p-4 border-top">
-        <div className="flex flex-column space-evenly">
+      <div className="p-4 border-top">
+        <div className="flex flex-col space-evenly h-1/6">
         
-        <div className="flex flex-row ">
+        <div className="flex flex-row pt-64 pb-3 px-4 ">
 
         <input 
             id="title"
             type="text"
-            className="form-control mr-1"
+            className="form-control mr-1 border rounded border-gray-500 w-screen pb-8 px-3" 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => {

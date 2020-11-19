@@ -1,32 +1,74 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import {getProfile} from "../services/requests";
+import ChatWindow from "./ChatWindow";
 import { format } from "date-fns";
 import axios from "axios";
 
 export default function Messages() {
   const [messages, setMessages] = useState("");
+  const [show, setShow] = useState(false);
+  const [user, setUser] = useState("");
+  const [receiver, setReceiver] = useState("");
   let { id } = useParams();
+
 
   useEffect(() => {
     getAllMessages();
+    fetchData();
   }, []);
 
-  const getAllMessages = async () => {
-    const res = await axios.get(`/chat/messages/${id}`);
-    setMessages(res.data);
-  };
+  const fetchData = async () => {
+    // Get owner and product data
+    const res1 = await getProfile();
+    setUser(res1.data);
+  }
+
+    //open and close chat pop up
+
+    let showPopUp = (id) => {
+
+      setShow(true);
+    };
+  
+    let hidePopUp = (id) => {
+  
+      setShow(false);
+    };
+
+    let managePopUp = (id) => {
+      setReceiver(id)
+      showPopUp()
+    }
+
+    const getAllMessages = async () => {
+      const res = await axios.get(`/chat/messages/${id}`);
+      setMessages(res.data);
+    };
 
   return (
     <div>
+
+{ receiver &&
+<ChatWindow
+            show={show}
+            handleClose={hidePopUp}
+            sender={user.id}
+            receiver={receiver.sender_id}
+            name={receiver.name}
+            photo={receiver.sender_picture}
+            callback1={hidePopUp}
+          />
+} 
+
       <ul className="px-5 py-5">
-        <li className="border list-none rounded-sm px-3 py-3 bg-indigo-400 text-white">
+        <li className="border list-none rounded-sm px-3 py-3 bg-indigo-400 text-white cursor">
           Inbox <i class="fa fa-inbox" aria-hidden="true"></i>
         </li>
         {messages &&
           messages.map((message) => (
-            <Link to={`/inbox/${message.sender.id}/${id}`}>
-            <li className="border list-none rounded-sm px-3 py-3">
+          
+            <li className="border list-none rounded-sm px-3 py-3" onClick={managePopUp}>
               <div className="flex flex-row justify-center gap-2">
                 {" "}
                 
@@ -45,7 +87,7 @@ export default function Messages() {
                 <p className="text-center">{message.text}</p>
               
             </li>
-            </Link>
+       
           ))}
       </ul>
     </div>

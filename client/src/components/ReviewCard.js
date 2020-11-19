@@ -21,7 +21,7 @@ export default function ReviewCard(props) {
   }, []);
 
   return (
-    <div className="border-bottom px-5 py-3 d-flex">
+    <div className="border-bottom px-5 mt-6 flex flex-row justify-center">
       <div className="mr-3" style={{ height: "20px" }}>
         <div>{borrower.name}</div>
         {borrower.picture && (

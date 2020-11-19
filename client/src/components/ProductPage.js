@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -159,7 +160,7 @@ export default function ProductPage() {
   };
 
   return (
-    <div className="flex flex-col align-center mx-40 p-8">
+    <div className="flex flex-col align-center mx-40 p-8 mt-5">
       {item && user && (
         <div>
           <ChatWindow
@@ -173,10 +174,10 @@ export default function ProductPage() {
           />
 
           <div className="flex flex-col text-center h-height pt-3">
-            <div className="flex flex-row justify-around">
+            <div className="flex flex-row justify-around gap-1">
               <img
                 alt="product"
-                class=" lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 mt-36"
+                class=" lg:w-1/2 w-64 object-cover object-center rounded border border-gray-200 mt-36"
                 src={`/../../../${item.picture.substring(
                   7,
                   item.picture.length
@@ -223,16 +224,16 @@ export default function ProductPage() {
                 <small className="text-muted mb-1">
                   added on {item.createdAt.substring(0, 10)}
                 </small>
-                <p class="leading-relaxed ">{item.description}</p>
+                <p class="leading-relaxed px-48 ">{item.description}</p>
                 <p className="text-capitalize">Condition: {item.condition}</p>
                 <div className="d-flex justify-content-center">
                   {item.UserId !== user?.id && !reserved && (
                     <div>
-                      <h4 className="font-semibold mt-2">Select dates</h4>
+                      <h4 className="font-semibold mt-2 ">Select dates</h4>
                       <small>
                         Max availability: {item.numOfDaysAvailable} days
                       </small>
-                      <div className="text-center">
+                      <div className="text-center ">
                         <DateRange
                           productId={item.id}
                           changeStartDate={setStartDate}
@@ -266,9 +267,9 @@ export default function ProductPage() {
               </div>
             </div>
 
-            <div className="flex flex-row justify-evenly  pr-6">
-              <div class="w-1/2 overflow-hidden ml-5 pl-8 text-center">
-                <div className="flex flex-col justify-center w-75 ml-36 mt-1">
+            <div className="flex flex-row justify-evenly  pr-3">
+              <div class="w-1/2 overflow-hidden ml-5 pl-4 text-center">
+                <div className="flex flex-col justify-center w-75 mt-1">
                   <p className="text-xl text-indigo-700 mt-1">Reviews</p>
                   {requests
                     .filter((request) => request.review)
@@ -279,7 +280,7 @@ export default function ProductPage() {
               </div>
 
               <div class="w-1/2 overflow-hidden ">
-                <div className="mt-1">
+                <div className="mt-3">
                   {item.User && (
                     <MapContainer lat={item.User.lat} lng={item.User.lng} />
                   )}

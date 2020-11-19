@@ -47,7 +47,7 @@ export default function Chat({ sender, receiver, name, photo, close }) {
   };
 
   return (
-    <div className="d-flex flex-column h-100 w-100 border rounded-md pt-5">
+    <div className="d-flex flex-col h-100 w-64 border rounded-md pt-4">
       <div className="absolute top-0 bg-indigo-700 w-100 py-2 flex justify-between">
         <div className="flex text-white items-center gap-1 px-3">
           <img
@@ -59,11 +59,11 @@ export default function Chat({ sender, receiver, name, photo, close }) {
         </div>
 
         <i
-          className="fa fa-times text-white pr-2 items-center cursor"
+          className="fa fa-times text-white pr-2 items-center cursor pl-40 pt-1"
           aria-hidden="true" onClick={close}
         ></i>
       </div>
-      <div className="flex-grow-1 px-3">
+      <div className="flex-grow-1 px-3 pt-6">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -95,7 +95,7 @@ export default function Chat({ sender, receiver, name, photo, close }) {
         <input 
             id="title"
             type="text"
-            className="form-control mr-1"
+            className="form-control mr-1 border border-gray-500 rounded"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => {

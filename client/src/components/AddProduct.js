@@ -104,7 +104,7 @@ export default function AddProduct(props) {
   };
 
   return (
-    <div className="text-center mt-3">
+    <div className="from-blue-600 to-purple-500 bg-gradient-to-r text-center mt-20 mx-64 py-3 border rounded-lg">
       {loading && (
         <div class="spinner-border text-success" role="status">
           <span class="sr-only">Loading...</span>
@@ -114,32 +114,47 @@ export default function AddProduct(props) {
         <p className="text-success">Your product was correctly uploaded</p>
       )} */}
       <h3>Add a new product...</h3>
-      <p className="text-muted">
+      <p className="text-white">
         ...and get 20 free <i className="fas fa-coins"></i>!{" "}
       </p>
 
-      <form className="w-25 mx-auto mt-2">
+      <form className="w-25 mx-auto mt-2 flex flex-col justify-center">
+
+      <div class="flex flex-wrap -mx-2 overflow-hidden">
+
+<div class="my-2 px-2 w-full overflow-hidden">
+<div className="flex flex-row justify-center gap-2">
+        <div className="flex flex-col items-bottom mt-2">
         <label>What is it?</label>
         <input
-          className="form-control mb-1 text-center"
+          className="form-control mb-1 text-center border rounded  border-gray-700"
           type="text"
           placeholder="product's name"
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
+        </div>
 
+        <div className="flex flex-col">
         <label className="mt-2">Tell us more things about it!</label>
         <input
-          className="form-control text-center"
+          className="form-control text-center border rounded  border-gray-700"
           type="text"
           placeholder="product's description"
           onChange={(e) => setDescription(e.target.value)}
           value={description}
         />
+        </div>
+        </div>
+</div>
 
-        <label>In which condition is it?</label>
+<div class="my-2 px-2 w-full overflow-hidden">
+ 
+<div className="flex flex-row justify-center gap-2">
+        <div className="flex flex-col">
+        <label>Condition?</label>
         <select
-          className="form-control text-center"
+          className="text-center border rounded w-40 py-1 mt-1  border-gray-700"
           value={condition}
           onChange={(e) => setCondition(e.target.value)}
         >
@@ -147,7 +162,7 @@ export default function AddProduct(props) {
           <option className="text-center" value="new">
             New
           </option>
-          <option className="text-center" value="as good as new">
+          <option className="text-center border rounded  border-gray-700" value="as good as new">
             As good as new
           </option>
           <option className="text-center" value="good">
@@ -157,20 +172,29 @@ export default function AddProduct(props) {
             Acceptable
           </option>
         </select>
+        </div>
 
+        <div className="flex flex-col">
         <label className="mt-2">
           What's its price (in <i className="fas fa-coins"></i>)?
         </label>
         <input
-          className="form-control text-center"
+          className="form-control text-center border rounded  border-gray-700"
           type="number"
           onChange={(e) => setPricePerDay(e.target.value)}
           value={pricePerDay}
         />
+        </div>
+        </div>
+</div>
+
+<div class="my-2 px-2 w-full overflow-hidden">
+<div className="flex flex-row justify-center gap-2">
+  <div className="flex flex-col">
 
         <label className="mt-2">Choose a category</label>
         <select
-          className="form-control text-center"
+          className="form-control text-center border rounded w-40  border-gray-700"
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
         >
@@ -185,26 +209,45 @@ export default function AddProduct(props) {
             </option>
           ))}
         </select>
+        </div>
 
-        <label className="mt-2">For how long can it be borrowed?</label>
+        <div className="flex flex-col">
+        <label className="mt-2">Max days available</label>
         <input
-          className="form-control text-center"
+          className="form-control text-center border rounded  w-40 border-gray-700"
           type="number"
           onChange={(e) => setNumOfDaysAvailable(e.target.value)}
           value={numOfDaysAvailable}
         />
+        </div>
+</div>
+
+</div>
+
+<div class="my-2 px-2 w-full overflow-hidden">
+<div className="flex flex-col justify-center">
         <label className="mt-2">Upload a nice picture!</label>
         <input
           type="file"
           onChange={fileSelectedHandler}
           lang="en"
-          className="form-control-file text-center"
+          className="block my-auto mx-auto mt-1 mb-2"
         />
+        </div>
+</div>
 
-        <button className="btn btn-primary mt-2 mb-2" onClick={send}>
+</div>
+
+        <button className="btn btn-primary block my-auto mx-auto " onClick={send}>
           Add item
         </button>
       </form>
+
+
+
+
+
+      
     </div>
   );
 }
