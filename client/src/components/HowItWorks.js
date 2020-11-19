@@ -51,9 +51,9 @@ export default function HowItWorks() {
 </div>
 
 <div className="flex flex-col items-center justify-self-center">
-<img className="mb-2 object-cover h-64 w-64" src="/../../../pictures/givr.jpg" />
+<img className="mb-2 object-cover h-64 w-64" src="/../../../pictures/andre-ouellet-zU3xcg52df0-unsplash.jpg" />
 <h5 className="font-semibold">Lend your product</h5>
-<p className="w-50 text-center">Check your product's requests, meet your neighbor and give them your item</p>
+<p className="w-50 text-center">Check your requests and give the item to a neighbor</p>
 
 </div>
 
