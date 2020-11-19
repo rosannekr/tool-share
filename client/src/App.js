@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Search from "./components/Search";
 import Header from "./components/Header";
-import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
@@ -46,9 +45,7 @@ function App() {
             <Login login={login} />
           </Route>
 
-          <Route path="/home" component={Home} />
-         
-         <Route path="/search" component={Search} />
+          <Route path="/search" component={Search} />
           <Route path="/product/:id" component={ProductPage} />
 
           <Route path="/" exact component={LandingPage} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRequest } from "../services/requests";
 import { format } from "date-fns";
 import StarRatingComponent from "react-star-rating-component";
- 
+
 export default function ReviewCard(props) {
   const [request, setRequest] = useState({});
   const [borrower, setBorrower] = useState({});
@@ -21,8 +21,8 @@ export default function ReviewCard(props) {
   }, []);
 
   return (
-    <div className="border-bottom px-5 mt-6 flex flex-row justify-center">
-      <div className="mr-3" style={{ height: "20px" }}>
+    <div className="mt-2 p-3 flex shadow rounded">
+      <div className="ml-3 mr-5">
         <div>{borrower.name}</div>
         {borrower.picture && (
           <img
@@ -30,14 +30,14 @@ export default function ReviewCard(props) {
               7,
               borrower.picture.length
             )}`}
-            className="rounded-full w-12 h-12"
+            className="w-16 h-16 rounded-full object-cover"
           />
         )}
       </div>
 
       <div className="text-left">
-        <div>
-          <small>{new Date(request.startDate).toLocaleDateString()}</small>
+        <div className="text-gray-600 text-sm">
+          {new Date(request.startDate).toLocaleDateString()}
         </div>
 
         <StarRatingComponent

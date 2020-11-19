@@ -6,9 +6,10 @@ export default function ProductGrid(props) {
   return (
     <div>
       <Filters />
-      <div className="container my-12 mx-auto px-4 md:px-12">
+      <div className="container my-10 mx-auto px-4 md:px-12">
         <div className="flex items-center justify-center flex-wrap mx-5 my-4 lg:-mx-4">
-          {props.products && props.products.length > 0 ? (
+          {props.products &&
+            props.products.length > 0 &&
             props.products.map((item) => (
               <div
                 key={item.id}
@@ -21,7 +22,7 @@ export default function ProductGrid(props) {
                   <article className="overflow-hidden w-11/12 text-center rounded-lg shadow-lg">
                     <img
                       alt="Placeholder"
-                      className="block h-auto w-full object-cover"
+                      className="h-56 w-full object-cover"
                       src={`/../../../${item.picture.substring(
                         7,
                         item.picture.length
@@ -29,14 +30,13 @@ export default function ProductGrid(props) {
                     />
 
                     <header className="text-center leading-tight p-2 md:p-4">
-                      <p
-                        className="no-underline text-xl font-bold text-center text-indigo-800"
-                        href="#"
-                      >
+                      <div className="text-xl font-bold text-center text-indigo-800">
                         {item.name}
-                      </p>
+                      </div>
                     </header>
-                    <p className="text-center">{item.description}</p>
+                    <div className="mx-2 text-center h-12">
+                      {item.description}
+                    </div>
                     <footer className="flex items-center justify-between leading-none p-2 md:p-4">
                       <div
                         className="flex items-center no-underline hover:underline text-black"
@@ -61,8 +61,8 @@ export default function ProductGrid(props) {
                   </article>
                 </Link>
               </div>
-            ))
-          ) : (
+            ))}
+          {!props.products.length && !props.isLoading && (
             <div>No items matched your search</div>
           )}
         </div>

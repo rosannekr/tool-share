@@ -5,7 +5,7 @@ const apiKey = "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8";
 
 const mapStyles = {
   width: "510px",
-  height: "400px",
+  height: "380px",
   display: "inline-block",
   overflow: "hidden",
 };

@@ -32,7 +32,7 @@ export default function Login(props) {
       // call login method to set logged in state in App component
       props.login();
       // redirect user to home page after login
-      history.push("/home");
+      history.push("/search");
     } catch (error) {
       notification("Invalid username or password");
       history.push("/login");
@@ -41,29 +41,34 @@ export default function Login(props) {
   };
 
   return (
-
-
-    <div className="text-center mt-5">
-      <h2>Log In</h2>
-      <form className="w-25 mx-auto mt-2">
-        <input
-          className="form-control mb-1"
-          type="text"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <input
-          className="form-control"
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <button className="btn btn-primary mt-2" onClick={handleClick}>
+    <div className="h-screen">
+      <div className="w-1/4 py-5 text-center mt-24 rounded-lg shadow-lg mx-auto">
+        <h2 className="text-2xl text-gray-900 font-semibold uppercase">
           Log In
-        </button>
-      </form>
+        </h2>
+        <form className="w-64 mx-auto my-5">
+          <input
+            className="w-full block border-2 p-2 rounded-lg mb-2 focus:outline-none focus:border-gray-500"
+            type="text"
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+          />
+          <input
+            className="w-full block border-2 p-2 rounded-lg mb-2 focus:outline-none focus:border-gray-500"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+          <button
+            className="block w-full btn btn-primary mt-2"
+            onClick={handleClick}
+          >
+            Log In
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

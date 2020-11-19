@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
- getProfile,
- getProduct,
- getProductRequests,
+  getProfile,
+  getProduct,
+  getProductRequests,
 } from "../services/requests";
 import DateRange from "./DateRange";
 import StarRatingComponent from "react-star-rating-component";
@@ -14,7 +14,7 @@ import ChatWindow from "./ChatWindow";
 import Noty from "noty";
 import "../../node_modules/noty/lib/noty.css";
 import "../../node_modules/noty/lib/themes/relax.css";
- 
+
 export default function ProductPage() {
   let { id } = useParams();
   let [item, setItem] = useState("");
@@ -208,7 +208,7 @@ export default function ProductPage() {
                 </h1>
 
                 {avgRating ? (
-                  <div >
+                  <div>
                     <p className="px-80">Rating:</p>
                     <StarRatingComponent
                       name={item.id}
@@ -267,7 +267,7 @@ export default function ProductPage() {
               </div>
             </div>
 
-            <div className="flex flex-row justify-evenly  pr-3 mb-64">
+            <div className="flex flex-row justify-evenly  pr-3">
               <div class="w-1/2 overflow-hidden ml-5 pl-4 text-center">
                 <div className="flex flex-col justify-center w-75 mt-1">
                   <p className="text-xl text-indigo-700 mt-1">Reviews</p>
@@ -279,7 +279,10 @@ export default function ProductPage() {
                 </div>
               </div>
 
-              <div class="w-1/2 overflow-hidden ">
+              <div
+                class="w-1/2 overflow-hidden"
+                style={{ marginBottom: "300px" }}
+              >
                 <div className="mt-3">
                   {item.User && (
                     <MapContainer lat={item.User.lat} lng={item.User.lng} />
