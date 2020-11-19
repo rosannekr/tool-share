@@ -40,7 +40,7 @@ export default function Search() {
   return (
     <div>
       <ProductGrid products={products} />
-      {!isEnd && (
+      {!isEnd && products >= 6 && (
         <button
           onClick={loadMore}
           className="btn btn-primary mx-auto mb-5 block"

@@ -5,7 +5,7 @@ import { getCategories } from "../services/requests";
 
 export default function Filters() {
   const [categories, setCategories] = useState([]);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({ lat: 40.41678, lng: -3.70379 });
   const [sortBy, setSortBy] = useState("");
   const [condition, setCondition] = useState("");
   const [categoryId, setcategoryId] = useState("");
@@ -24,29 +24,20 @@ export default function Filters() {
     fetchData();
 
     // Get the user's position coords (default is Madrid)
-    if (!parsed.lat) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log("here");
-          const { latitude, longitude } = position.coords;
-          setFilters({
-            ...filters,
-            lat: latitude.toFixed(5),
-            lng: longitude.toFixed(5),
-          });
-        },
-        (error) => {
-          alert(`Sorry, no location available.`);
-          console.log(`ERROR(${error.code}): ${error.message}`);
-          // Set default location values (Madrid)
-          setFilters({
-            ...filters,
-            lat: 40.41678,
-            lng: -3.70379,
-          });
-        }
-      );
-    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setFilters({
+          ...filters,
+          lat: latitude.toFixed(5),
+          lng: longitude.toFixed(5),
+        });
+      },
+      (error) => {
+        alert(`Sorry, no location available.`);
+        console.log(`ERROR(${error.code}): ${error.message}`);
+      }
+    );
   }, []);
 
   const fetchData = async () => {
@@ -74,10 +65,17 @@ export default function Filters() {
     history.push(`/search?${queryParams}`);
   }, [filters]);
 
+  const resetFilters = () => {
+    setcategoryId("");
+    setCondition("");
+    setSortBy("");
+    setFilters({ ...filters, category_id: "", condition: "", sort_by: "" });
+  };
+
   return (
     <div className="py-3 pl-5">
       <select
-        className="w-40 border shadow-sm p-2 mr-3 rounded-full focus:outline-none"
+        className="w-48 border shadow-sm p-2 mr-3 rounded-full focus:outline-none"
         name="category_id"
         onChange={handleSelect}
         value={categoryId}
@@ -90,19 +88,31 @@ export default function Filters() {
         ))}
       </select>
       <select
-        className="w-40 border shadow-sm p-2 mr-3 rounded-full focus:outline-none"
+        className="w-48 border shadow-sm p-2 mr-3 rounded-full focus:outline-none"
         name="condition"
         onChange={handleSelect}
         value={condition}
       >
-        <option value="">All conditions</option>
+        <option value="">Item condition</option>
         <option value="new">New</option>
         <option value="as good as new">As Good As New</option>
         <option value="good">Good</option>
         <option value="acceptable">Acceptable</option>
       </select>
       <select
-        className="w-40 border shadow-sm p-2 mr-2 rounded-full focus:outline-none"
+        className="w-48 border shadow-sm p-2 mr-2 rounded-full focus:outline-none"
+        name="sort_by"
+        // onChange={handleSelect}
+        // value={sortBy}
+      >
+        <option value="">Distance</option>
+        <option value="newest">Up to 5 km</option>
+        <option value="newest">Up to 10 km</option>
+        <option value="distance">Up to 30 km</option>
+        <option value="distance">Up to 50 km</option>
+      </select>
+      <select
+        className="w-48 border shadow-sm p-2 mr-2 rounded-full focus:outline-none"
         name="sort_by"
         onChange={handleSelect}
         value={sortBy}
@@ -111,6 +121,9 @@ export default function Filters() {
         <option value="newest">Newest</option>
         <option value="distance">Distance</option>
       </select>
+      <button onClick={resetFilters} className="ml-3 text-indigo-500">
+        Reset filters
+      </button>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 function SearchBar() {
   const [searchWord, setSearchWord] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   let history = useHistory();
+  let location = useLocation();
 
   useEffect(() => {
     if (!searchWord) setIsSearching(false);
@@ -16,7 +17,7 @@ function SearchBar() {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      history.push(`/search?q=${searchWord}`);
+      history.push(`/search${location.search}&q=${searchWord}`);
       setIsSearching(true);
     }
   };
@@ -29,7 +30,7 @@ function SearchBar() {
   const handleReset = (e) => {
     setSearchWord("");
     setIsSearching(false);
-    history.push(`/home`);
+    history.push(`/search`);
   };
 
   return (
