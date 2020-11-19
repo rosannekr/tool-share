@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRequest } from "../services/requests";
 import { format } from "date-fns";
 import StarRatingComponent from "react-star-rating-component";
-
+ 
 export default function ReviewCard(props) {
   const [request, setRequest] = useState({});
   const [borrower, setBorrower] = useState({});

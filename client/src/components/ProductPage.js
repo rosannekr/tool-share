@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
-  getProfile,
-  getProduct,
-  getProductRequests,
+ getProfile,
+ getProduct,
+ getProductRequests,
 } from "../services/requests";
 import DateRange from "./DateRange";
 import StarRatingComponent from "react-star-rating-component";
@@ -14,7 +14,7 @@ import ChatWindow from "./ChatWindow";
 import Noty from "noty";
 import "../../node_modules/noty/lib/noty.css";
 import "../../node_modules/noty/lib/themes/relax.css";
-
+ 
 export default function ProductPage() {
   let { id } = useParams();
   let [item, setItem] = useState("");

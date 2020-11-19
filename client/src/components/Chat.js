@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Pusher from "pusher-js";
 import axios from "axios";
-
+ 
 export default function Chat({ sender, receiver, name, photo, close }) {
   let [messages, setMessages] = useState([]);
   let [input, setInput] = useState("");
@@ -91,7 +91,6 @@ export default function Chat({ sender, receiver, name, photo, close }) {
         
         <div className="flex flex-row">
 
-
         <input 
             id="title"
             type="text"
@@ -106,9 +105,12 @@ export default function Chat({ sender, receiver, name, photo, close }) {
             <button onClick={sendMessage} className="btn btn-primary">
               <i className="fa fa-paper-plane" aria-hidden="true"></i>
             </button>
-         </div>
+         
         </div>
-      </div>
-    </div>
-  );
+       </div>
+     </div>
+   </div>
+
+ );
 }
+

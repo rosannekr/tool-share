@@ -6,6 +6,7 @@ module.exports = {
       "Products",
       [
         {
+          id: 1,
           name: "Drill",
           description: "Powerful drill, works on batteries.",
           pricePerDay: 2,
@@ -18,6 +19,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          id: 2,
           name: "Tent",
           description: "2-person tent for camping.",
           pricePerDay: "10",
@@ -30,6 +32,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          id: 3,
           name: "Barbecue",
           description: "Charcoal BBQ. Cooking area: 40 cm.",
           pricePerDay: "5",
@@ -42,6 +45,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          id: 4,
           name: "Raclette",
           description: "For a delicious meal at home.",
           pricePerDay: "5",
@@ -54,6 +58,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          id: 5,
           name: "Electric guitar",
           description:
             "Awesome guitar to impress your guests with your skills.",
@@ -67,6 +72,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          id: 6,
           name: "Floaties",
           description: "Fun at the beach or the pool.",
           pricePerDay: "3",
@@ -80,6 +86,7 @@ module.exports = {
         },
 
         {
+          id: 7,
           name: "Mower",
           description: "Very powerful, make your garden looking good!",
           pricePerDay: "5",
@@ -93,6 +100,7 @@ module.exports = {
         },
 
         {
+          id: 8,
           name: "Camera GoPro",
           description: "Action camera to document your best adventures!",
           pricePerDay: "3",
@@ -105,6 +113,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          id: 9,
           name: "Wedding dress",
           description: "Look beautiful on your special day. Size M",
           pricePerDay: "10",

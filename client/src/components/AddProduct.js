@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { getCategories } from "../services/requests";
 import { getProfile } from "../services/requests";
 import axios from "axios";
-
-import Noty from 'noty';  
-import "../../node_modules/noty/lib/noty.css";  
-import "../../node_modules/noty/lib/themes/relax.css";  
-
+ 
+import Noty from 'noty'; 
+import "../../node_modules/noty/lib/noty.css"; 
+import "../../node_modules/noty/lib/themes/relax.css"; 
+ 
 export default function AddProduct(props) {
   const [userId, setUserId] = useState(0);
   const [name, setName] = useState("");
