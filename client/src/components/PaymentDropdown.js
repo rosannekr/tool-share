@@ -34,7 +34,7 @@ export default function PaymentDropdown(props) {
         ></button>
       )}
       {isOpen && (
-        <div className="absolute right-0 w-64 p-3 mt-2 mr-3 rounded-lg shadow bg-white text-gray-900">
+        <div className="absolute right-0 z-10 w-64 p-3 mt-2 mr-3 rounded-lg shadow bg-white text-gray-900">
           <h5 className="font-semibold text-center mb-1">
             Add points to your account
           </h5>
