@@ -59,7 +59,11 @@ export default function Search() {
           Load more
         </button>
       )}
-      {isLoading && <div className="text-center">Loading...</div>}
+      {isLoading && (
+        <div className="text-center">
+          <i className="fas fa-spinner fa-pulse fa-3x"></i>
+        </div>
+      )}
     </div>
   );
 }
