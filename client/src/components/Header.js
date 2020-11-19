@@ -25,10 +25,7 @@ export default function Header(props) {
   return (
     <div>
       <nav className="py-2 px-4 flex justify-between items-center w-screen bg-indigo-700 text-white">
-        <Link
-          className="px-5 text-lg font-semibold hover:text-gray-400"
-          to="/home"
-        >
+        <Link className="px-5 text-lg font-semibold hover:text-gray-400" to="/">
           Home
         </Link>
 

@@ -71,21 +71,6 @@ export const getCategories = async () => {
   return await axios.get("/categories");
 };
 
-// Add a product
-// export const addProduct = async (
-//   name,
-//   description,
-//   pricePerDay,
-//   categoryId
-// ) => {
-//   return await axios.post("/products", {
-//     name,
-//     description,
-//     pricePerDay,
-//     categoryId,
-//   });
-// };
-
 // Get a product
 export const getProduct = async (id) => {
   return await axios.get(`/products/${id}`);
