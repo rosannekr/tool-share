@@ -51,22 +51,18 @@ export default function Requests() {
       ) : (
         <div className="mt-2 text-center">No pending requests</div>
       )}
-      <div className="mt-5">
-        <h4 className="font-medium text-2xl mb-3 text-center">Upcoming</h4>
-        {upcoming.length ? (
+      {upcoming.length > 0 && (
+        <div className="mt-5">
+          <h4 className="font-medium text-2xl mb-3 text-center">Upcoming</h4>
           <div>{upcoming}</div>
-        ) : (
-          <div className="mt-2 text-center">No confirmed requests</div>
-        )}
-      </div>
-      <div className="mt-5">
-        <h4 className="font-medium text-2xl mb-3 text-center">Past</h4>
-        {past.length ? (
+        </div>
+      )}
+      {past.length > 0 && (
+        <div className="mt-5">
+          <h4 className="font-medium text-2xl mb-3 text-center">Past</h4>
           <div>{past}</div>
-        ) : (
-          <div className="mt-2 text-center">No confirmed requests</div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
