@@ -1,10 +1,13 @@
 module.exports = {
   future: {},
-  purge: ["./client/src/**/*.js"],
-  theme: {
+  purge: [
+    "./src/**/*.js",
+  ],
+ theme: {
     extend: {},
   },
   variants: {},
   plugins: [],
   "tailwindCSS.includeLanguages": { plaintext: "javascript" },
 };
+
