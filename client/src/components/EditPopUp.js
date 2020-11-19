@@ -16,7 +16,7 @@ export default function EditPopUp({
 }) 
 
 {
-  const showHideClassName = show ? "modal display-block" : "modal display-none";
+  const showHideClassName = show ? "relative inset-0 h-full w-full cursor-default bg-white block" : "relative inset-0 h-full w-full cursor-default bg-white hidden";
 
   let [item, setItem] = useState("");
   const [productName, setName] = useState("");
@@ -80,19 +80,18 @@ export default function EditPopUp({
 
   return (
     <div className={showHideClassName}>
-      <section className="modal-main">
+      <section className="  mr-4 w-full relative z-10 text-black border border-gray-400 rounded">
         <p className="text-right" onClick={handleClose}>
           <i class="fa fa-times mr-2 text-danger cursor" aria-hidden="true"></i>
         </p>
         <p></p>
-        <div className="form">
-          <h5>Edit product</h5>
+        <div className="flex flex-col items-center">
           <label>
             <i className="fas fa-edit"> </i> name
           </label>
           <input
             type="text"
-            className="mb-3 mr-2 ml-2 text-center"
+            className="mb-3 mr-2 ml-2 text-center border border-gray-600 rounded"
             placeholder={item && item.name}
             onChange={(e) => setName(e.target.value)}
             value={productName}
@@ -102,7 +101,7 @@ export default function EditPopUp({
           </label>
           <textarea
             type="text"
-            className="mb-3 mr-2 ml-2 text-center"
+            className="mb-3 mr-2 ml-2 text-center border border-gray-600 rounded"
             placeholder={item && item.description}
             onChange={(e) => setDescription(e.target.value)}
             value={description}
@@ -112,7 +111,7 @@ export default function EditPopUp({
           </label>
           <input
             type="number"
-            className="mb-3 mr-2 ml-2 text-center"
+            className="mb-3 mr-2 ml-2 text-center border border-gray-600 rounded"
             placeholder={item && item.numOfDaysAvailable}
             onChange={(e) => setNumOfDaysAvailable(e.target.value)}
             value={numOfDaysAvailable}
@@ -123,14 +122,14 @@ export default function EditPopUp({
             <i className="fas fa-coins"></i>)
           </label>
           <input
-            className="mb-3 mr-2 ml-2 text-center"
+            className="mb-3 mr-2 ml-2 text-center border border-gray-600 rounded"
             placeholder={item && item.pricePerDay}
             type="number"
             onChange={(e) => setPricePerDay(e.target.value)}
             value={pricePerDay}
             min="0"
           />
-          <button className="btn btn-dark btn-block" onClick={editProducts}>
+          <button className="btn btn-primary mb-3" onClick={editProducts}>
             Update item
           </button>
         </div>

@@ -52,16 +52,21 @@ export default function ProductList(props) {
  return (
    <div className="container mx-24">
     
-     <EditPopUp
+
+      
+          <ul className="px-0">
+       
+ <li className="border list-none rounded-sm px-3 py-3 from-purple-400 to-indigo-500 bg-gradient-to-r text-white">Owned stuff</li>
+
+ {  !props.show &&
+ (<EditPopUp
        show={show}
        handleClose={hidePopUp}
        productId={productId}
        callback1={hidePopUp}
        callback2={() => setUpdate(true)}
-     />
-          <ul className="px-0">
- <li className="border list-none rounded-sm px-3 py-3 from-purple-400 to-indigo-500 bg-gradient-to-r text-white">Owned stuff</li>
-       {user.Products && user.Products.length > 0 ? (
+     />) }
+       {user.Products && user.Products.length ? (
           user.Products.map((item) => (
            <li className="border list-none rounded-sm px-3 py-3" > <Link to={`/product/${item.id}`} className="font-bold">{item.name}</Link> |
            
@@ -94,8 +99,9 @@ export default function ProductList(props) {
            </Link>{" "}
          </li>
        )}
+      
      </ul>
- 
+
    </div>
  
  
@@ -103,4 +109,4 @@ export default function ProductList(props) {
  
  
  );
-}
+       }

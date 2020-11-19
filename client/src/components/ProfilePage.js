@@ -129,7 +129,7 @@ export default function ProfilePage(props) {
          </div>
     
          <div className="container flex flex-row justify-center mt-8">
-           <ProductList /> <BorrowedProductList id={user.id} />
+           <ProductList show={show} /> <BorrowedProductList id={user.id} />
          </div>
        </div>
      )}
