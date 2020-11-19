@@ -3,7 +3,7 @@ module.exports = {
   purge: [
     "./src/**/*.js",
   ],
-  theme: {
+ theme: {
     extend: {},
   },
   variants: {},

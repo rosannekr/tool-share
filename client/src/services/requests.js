@@ -97,8 +97,8 @@ export const getProducts = async () => {
 };
 
 // Get filtered products
-export const getFilteredProducts = async (params) => {
-  return await axios.get(`/products${params}`);
+export const getFilteredProducts = async (paramsObj) => {
+  return await axios.get(`/products`, { params: paramsObj });
 };
 
 // Update product
@@ -140,9 +140,4 @@ export const deleteRequest = async (id) => {
 // Update request
 export const updateRequest = async (id, reqbody) => {
   return await axios.put(`/requests/${id}`, reqbody);
-}
-
-
-
-
-
+};
