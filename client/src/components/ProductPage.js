@@ -159,7 +159,7 @@ export default function ProductPage() {
   };
 
   return (
-    <div className="flex flex-column align-center mx-40 p-8">
+    <div className="flex flex-col align-center mx-40 p-8">
       {item && user && (
         <div>
           <ChatWindow
@@ -172,7 +172,7 @@ export default function ProductPage() {
             callback1={hidePopUp}
           />
 
-          <div className="flex flex-column text-center h-height pt-3">
+          <div className="flex flex-col text-center h-height pt-3">
             <div className="flex flex-row justify-around">
               <img
                 alt="product"
@@ -182,7 +182,7 @@ export default function ProductPage() {
                   item.picture.length
                 )}`}
               />
-              <div className="flex flex-column text-center border rounded-md border-gray-700 w-50 pt-5">
+              <div className="flex flex-col text-center border rounded-md border-gray-700 w-50 pt-5">
                 <div className="flex flex-row justify-center items-center gap-1 mb-1">
                   <img
                     alt="Placeholder"
@@ -207,8 +207,8 @@ export default function ProductPage() {
                 </h1>
 
                 {avgRating ? (
-                  <div>
-                    <p>Rating:</p>
+                  <div >
+                    <p className="px-80">Rating:</p>
                     <StarRatingComponent
                       name={item.id}
                       starCount={5}
@@ -268,7 +268,7 @@ export default function ProductPage() {
 
             <div className="flex flex-row justify-evenly  pr-6">
               <div class="w-1/2 overflow-hidden ml-5 pl-8 text-center">
-                <div className="flex flex-column justify-center w-75 ml-36 mt-1">
+                <div className="flex flex-col justify-center w-75 ml-36 mt-1">
                   <p className="text-xl text-indigo-700 mt-1">Reviews</p>
                   {requests
                     .filter((request) => request.review)
