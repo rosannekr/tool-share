@@ -8,7 +8,8 @@ export default function ProductGrid(props) {
       <Filters />
       <div className="container my-10 mx-auto px-4 md:px-12">
         <div className="flex items-center justify-center flex-wrap mx-5 my-4 lg:-mx-4">
-          {props.products && props.products.length > 0 ? (
+          {props.products &&
+            props.products.length > 0 &&
             props.products.map((item) => (
               <div
                 key={item.id}
@@ -61,8 +62,8 @@ export default function ProductGrid(props) {
                   </article>
                 </Link>
               </div>
-            ))
-          ) : (
+            ))}
+          {!props.products.length && !props.isLoading && (
             <div>No items matched your search</div>
           )}
         </div>

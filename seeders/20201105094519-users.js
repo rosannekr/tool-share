@@ -75,6 +75,20 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          id: 6,
+          name: "Tom",
+          username: "tom123",
+          password:
+            "$2b$10$zA3U2TyT9WA3mKuxlOHlo.em0h6vb5wvp12DG.iwC0hPshmgOXRLm",
+          picture: "public/pictures/irene-strong-v2aKnjMbP_k-unsplash.jpg",
+          address: "Av. del Higuerón, 54, Benalmádena, Málaga",
+          lat: 36.57856,
+          lng: -4.59679,
+          points: 25,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
