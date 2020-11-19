@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import queryString from "query-string";
 
 function SearchBar() {
   const [searchWord, setSearchWord] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   let history = useHistory();
   let location = useLocation();
+  const parsed = queryString.parse(location.search);
 
   useEffect(() => {
-    if (!searchWord) setIsSearching(false);
+    if (!searchWord) {
+      setIsSearching(false);
+    }
   }, [searchWord]);
 
   const handleInput = (e) => {
@@ -17,20 +21,34 @@ function SearchBar() {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      history.push(`/search${location.search}&q=${searchWord}`);
-      setIsSearching(true);
+      search();
     }
   };
 
-  const handleClick = (e) => {
-    history.push(`/search?q=${searchWord}`);
-    setIsSearching(true);
+  const handleClick = () => {
+    search();
   };
 
-  const handleReset = (e) => {
+  const handleReset = () => {
     setSearchWord("");
     setIsSearching(false);
-    history.push(`/search`);
+    history.push(`/search?lat=${parsed.lat}&lng=${parsed.lng}`);
+  };
+
+  const search = () => {
+    // Use coords of Madrid if none are provided yet
+    if (!(parsed.lat && parsed.lng)) {
+      parsed.lat = 40.41677;
+      parsed.lng = -3.70379;
+    }
+
+    parsed.q = searchWord;
+
+    const stringified = queryString.stringify(parsed);
+
+    // Go to search page
+    history.push(`/search?${stringified}`);
+    setIsSearching(true);
   };
 
   return (

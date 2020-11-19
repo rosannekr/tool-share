@@ -15,11 +15,10 @@ router.get("/", async function (req, res) {
   const category_id = req.query.category_id ? req.query.category_id : null;
   const distance = req.query.distance ? req.query.distance : 20000000;
   const sort_by = req.query.sort_by ? req.query.sort_by : null;
-  const lat = req.query.lat ? req.query.lat : null;
-  const lng = req.query.lng ? req.query.lng : null;
+  const lat = req.query.lat ? req.query.lat : 40.41677;
+  const lng = req.query.lng ? req.query.lng : -3.70379;
 
   let filters = {};
-  let whereCondition = {};
   let sort = [];
 
   // Set where condition

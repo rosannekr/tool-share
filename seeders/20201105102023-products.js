@@ -15,7 +15,7 @@ module.exports = {
           categoryId: 4,
           picture: "public/pictures/photo-1504148455328-c376907d081c.jpeg",
           condition: "good",
-          createdAt: new Date(new Date().setDate(new Date().getDate() - 4)),
+          createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
@@ -28,7 +28,7 @@ module.exports = {
           categoryId: 5,
           picture: "public/pictures/photo-1585790339317-d3b8a421e6c9.jpeg",
           condition: "as good as new",
-          createdAt: new Date(),
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 4)),
           updatedAt: new Date(),
         },
         {

@@ -2,7 +2,7 @@ import React from "react";
 import ProductGrid from "./ProductGrid";
 import { Link } from "react-router-dom";
 
-export default function Home(props) {
+export default function LandingPage(props) {
   return (
     <div className="text-center">
       <div className="container">
@@ -17,7 +17,7 @@ export default function Home(props) {
           <h5 className="font-sans-serif pr-3 pl-3 text-muted">
             save money, borrow your neighbours' stuff!
           </h5>
-          <Link to="how-it-works">
+          <Link to="/how-it-works">
             <button className="bg-purple-400 text-white font-semibold px-4 mt-3 py-2 rounded">
               learn how it works
             </button>
