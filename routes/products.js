@@ -67,7 +67,7 @@ router.get("/", async function (req, res) {
       },
       order: sort,
       offset: +offset,
-      limit: 6,
+      limit: 9,
       include: models.User,
     });
     res.send(products);

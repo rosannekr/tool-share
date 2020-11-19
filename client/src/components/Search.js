@@ -11,7 +11,7 @@ export default function Search() {
   const [loadMore, setLoadMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const offset = 6;
+  const offset = 9;
 
   // Fetch products every time the query string changes
 
@@ -50,7 +50,7 @@ export default function Search() {
 
   return (
     <div>
-      <ProductGrid products={products} />
+      <ProductGrid isLoading={isLoading} products={products} />
       {loadMore && (
         <button
           onClick={loadMoreProducts}
