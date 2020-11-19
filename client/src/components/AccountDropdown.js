@@ -19,7 +19,7 @@ export default function AccountDropdown(props) {
         ></button>
       )}
       {isOpen && (
-        <div className="absolute right-0 w-40 py-2 mt-2 bg-white text-gray-800 rounded-md shadow-xl">
+        <div className="absolute right-0 z-10 w-40 py-2 mt-2 bg-white text-gray-800 rounded-md shadow-xl">
           <Link
             className="block px-3 py-2 hover:bg-indigo-700 hover:text-white"
             to="/profile"

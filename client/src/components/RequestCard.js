@@ -78,7 +78,7 @@ export default function RequestCard(props) {
             </span>
             <div className="">
               <span>{product.name}</span>
-              <span className="p-2">•</span>
+              <span className="p-2">&bull;</span>
               <span>
                 {format(new Date(props.request.startDate), "MMM dd")} -{" "}
                 {format(new Date(props.request.endDate), "MMM dd")}
