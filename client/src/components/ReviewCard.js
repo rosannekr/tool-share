@@ -30,7 +30,7 @@ export default function ReviewCard(props) {
               7,
               borrower.picture.length
             )}`}
-            className="rounded-circle profile-pic-small"
+            className="rounded-full w-12 h-12"
           />
         )}
       </div>

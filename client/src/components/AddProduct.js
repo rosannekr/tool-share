@@ -104,7 +104,7 @@ export default function AddProduct(props) {
   };
 
   return (
-    <div className="from-blue-600 to-purple-500 bg-gradient-to-r text-center mt-20 mx-64 py-3 border rounded-lg">
+    <div className="from-blue-300 to-purple-300 bg-gradient-to-r text-center mt-20 mx-64 py-3 border rounded-lg">
       {loading && (
         <div class="spinner-border text-success" role="status">
           <span class="sr-only">Loading...</span>

@@ -46,7 +46,7 @@ export default function BorrowedProductList(props) {
   return (
     <div className="container">
    <ul className="px-0">
-  <li className="border list-none rounded-sm px-3 py-3 bg-indigo-500">Borrowed stuff</li>
+  <li className="border list-none rounded-sm px-3 py-3 from-indigo-500 to-purple-400 bg-gradient-to-r text-white">Borrowed stuff</li>
         {requests && requests.length > 0 ? (
           requests.map((request) => (
             <li key={request.id} className="border list-none rounded-sm px-3 py-3">
@@ -58,7 +58,7 @@ export default function BorrowedProductList(props) {
               <span className="px-2">
                 {format(new Date(request.startDate), "MMM dd")} -{" "}
                 {format(new Date(request.endDate), "MMM dd")}{" "}
-                <i className="fa fa-calendar-check" aria-hidden="true"></i>
+                <i className="fa fa-calendar-check text-indigo-700" aria-hidden="true"></i>
               </span>
               {request.review ? (
                 <div className="d-flex justify-content-center">
@@ -85,7 +85,7 @@ export default function BorrowedProductList(props) {
                   </p>
                   <div className="form-group w-75 mx-auto">
                     <textarea
-                      className="form-control"
+                      className="form-control border border-gray-400 rounded "
                       rows="2"
                       placeholder="Write a review"
                       onChange={(e) => setReview(e.target.value)}
@@ -93,7 +93,7 @@ export default function BorrowedProductList(props) {
                   </div>
                   <button
                     onClick={() => handleSubmit(request.id)}
-                    className="btn btn-outline-secondary"
+                    className="btn btn-primary"
                   >
                     Submit
                   </button>

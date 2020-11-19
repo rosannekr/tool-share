@@ -29,7 +29,13 @@ export default function Header(props) {
           className="px-5 text-lg font-semibold hover:text-gray-400"
           to="/home"
         >
-          Home
+              <div className="flex flex-row">
+                 <img
+          className="img-fluid w-100 landing-picture h-8 "
+          src="/../../../pictures/logo.png"
+        />
+        <i className="fas fa-wrench ml-2 mt-2"></i>
+        </div>
         </Link>
 
         <SearchBar />

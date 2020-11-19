@@ -13,7 +13,7 @@ export default function ChatWindow({
   }) 
   
   {
-  const showHideClassName = show ? "fixed z-50 display-block right-0 bottom-0" : " fixed z-50 fixed display-none right-0 bottom-0";
+  const showHideClassName = show ? "fixed z-50 block right-0 bottom-0" : " fixed z-50 fixed hidden right-0 bottom-0";
 
   useEffect(() => {
   }, []);  

@@ -4,7 +4,7 @@ import ProductList from "./ProductList";
 import BorrowedProductList from "./BorrowedProductList";
 import UpdatePicture from "./UpdatePicture";
 
-const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+const apiKey = "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8";
 
 export default function ProfilePage(props) {
   const [user, setUser] = useState({});
@@ -91,11 +91,11 @@ export default function ProfilePage(props) {
 
       {user && (
         <div>
-          <div className="mainProfileDiv py-4 flex justify-center gap-4 bg-indigo-100">
+          <div className="mainProfileDiv py-4 flex justify-center gap-4">
             {user.picture && (
               <img
                 onClick={showPopUp}
-                className="rounded-full cursor w-32 h-32 self-center object-fit hover:opacity-75"
+                className="rounded-full cursor w-32 h-32 self-center object-fit border-4 border-indigo-500 border-opacity-50 hover:opacity-75"
                 src={`/../../../${user.picture.substring(
                   7,
                   user.picture.length
@@ -111,9 +111,9 @@ export default function ProfilePage(props) {
               ) : (
                 <p>your products location:</p>
               )}
-              <div className="flex">
+              <div className="flex flex-row justify-center">
                 <input
-                  className="cursor text-center border-b-2 border-black border-dotted w-100 bg-indigo-100"
+                  className="cursor text-center border-b-2 border-black border-dotted w-100 "
                   type="text"
                   defaultValue={address}
                   onChange={(e) => setAddress(e.target.value)}
@@ -127,10 +127,8 @@ export default function ProfilePage(props) {
               </div>
             </div>
           </div>
-          <h3 className="text-2xl text-black font-bold mt-5">
-            - Your dashboard -
-          </h3>
-          <div className="container flex justify-around mt-4">
+      
+          <div className="container flex flex-row justify-center mt-8">
             <ProductList /> <BorrowedProductList id={user.id} />
           </div>
         </div>

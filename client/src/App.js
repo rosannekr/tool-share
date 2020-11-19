@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Footer from "./components/Footer";
 import Messages from "./components/Messages";
 import Inbox from "./components/Inbox";
 import ProductPage from "./components/ProductPage";
@@ -72,6 +73,7 @@ function App() {
           </PrivateRoute>
         </Switch>
       </Router>
+      <Footer />
     </div>
   );
 }

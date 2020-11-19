@@ -267,7 +267,7 @@ export default function ProductPage() {
               </div>
             </div>
 
-            <div className="flex flex-row justify-evenly  pr-3">
+            <div className="flex flex-row justify-evenly  pr-3 mb-64">
               <div class="w-1/2 overflow-hidden ml-5 pl-4 text-center">
                 <div className="flex flex-col justify-center w-75 mt-1">
                   <p className="text-xl text-indigo-700 mt-1">Reviews</p>

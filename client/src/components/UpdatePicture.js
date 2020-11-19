@@ -12,7 +12,7 @@ export default function UpdatePicture({
   callback1,
   callback2,
 }) {
-  const showHideClassName = show ? "modal display-block" : "modal display-none";
+  const showHideClassName = show ? "animated fadeIn fixed z-50 pin overflow-auto bg-black-opacity-50 flex block" : "animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex hidden";
 
   const [picture, setPicture] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ export default function UpdatePicture({
 
   return (
     <div className={showHideClassName}>
-      <section className="modal-main">
+      <section className="animated fadeInUp fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
         <p className="text-right" onClick={handleClose}>
           <i
             className="fa fa-times mr-2 text-danger cursor"
@@ -70,16 +70,16 @@ export default function UpdatePicture({
           {loaded && (
             <p className="text-success">Your product was correctly uploaded</p>
           )}
-          <h5>Upload a new picture</h5>
+          <h5 className="text-indigo-600">Upload a new picture</h5>
 
           <input
             type="file"
             onChange={fileSelectedHandler}
             lang="en"
-            className="form-control-file text-center ff mt-3 mb-3"
+            className="form-control-file text-center ff mt-3 mb-3 w-3/5 px-6"
           />
 
-          <button className="btn btn-dark btn-block" onClick={editPicture}>
+          <button className="btn btn-primary text-red-200 w-full btn-block" onClick={editPicture}>
             Update item
           </button>
         </div>

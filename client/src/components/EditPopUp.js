@@ -16,7 +16,7 @@ export default function EditPopUp({
 }) 
 
 {
-  const showHideClassName = show ? "modal display-block" : "modal display-none";
+  const showHideClassName = show ? " animated fadeIn fixed z-50 pin overflow-auto bg-black opacity-50 flex block" : "animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex hidden";
 
   let [item, setItem] = useState("");
   const [productName, setName] = useState("");
@@ -80,7 +80,7 @@ export default function EditPopUp({
 
   return (
     <div className={showHideClassName}>
-      <section className="modal-main">
+      <section className="animated fadeInUp fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
         <p className="text-right" onClick={handleClose}>
           <i class="fa fa-times mr-2 text-danger cursor" aria-hidden="true"></i>
         </p>
