@@ -8,7 +8,7 @@ export default function HowItWorks() {
             <img className="w-full w-50 mb-2" src="/../../../pictures/neighbors-balcony.jpg" />
             <div className="align-center">
                 <h1 className="font-serif text-5xl text-indigo-600 mt-40">Buy less, borrow more!</h1>
-                <h4>From tools and camping equipment to household items and baby or party stuff, "toolshare" helps you borrow stuff from people in your neighborhood. Stop wasting money on something you only need to use once, and who knows, maybe you'll make new friends in the process!</h4>     
+                <h4>From tools and camping equipment to household items and baby or party stuff, shareIt helps you borrow stuff from people in your neighborhood. Stop wasting money on something you only need to use once, and who knows, maybe you'll make new friends in the process!</h4>     
             </div>
             </div>
            <hr />
