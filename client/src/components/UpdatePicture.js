@@ -12,7 +12,10 @@ export default function UpdatePicture({
   callback1,
   callback2,
 }) {
-  const showHideClassName = show ? "modal display-block" : "modal display-none";
+
+  
+
+  const showHideClassName = show ? "relative inset-0 h-full w-full cursor-default bg-indigo-300 block" : "relative inset-0 h-full w-full cursor-default bg-black hidden";
 
   const [picture, setPicture] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,7 +56,7 @@ export default function UpdatePicture({
 
   return (
     <div className={showHideClassName}>
-      <section className="modal-main">
+      <section className="  mr-4 relative z-10 ">
         <p className="text-right" onClick={handleClose}>
           <i
             className="fa fa-times mr-2 text-danger cursor"
@@ -70,7 +73,7 @@ export default function UpdatePicture({
           {loaded && (
             <p className="text-success">Your product was correctly uploaded</p>
           )}
-          <h5>Upload a new picture</h5>
+          <h5 className="font-semibold">Upload a new picture</h5>
 
           <input
             type="file"
@@ -79,7 +82,7 @@ export default function UpdatePicture({
             className="form-control-file text-center ff mt-3 mb-3"
           />
 
-          <button className="btn btn-dark btn-block" onClick={editPicture}>
+          <button className="btn btn-primary btn-block ml-3" onClick={editPicture}>
             Update item
           </button>
         </div>
