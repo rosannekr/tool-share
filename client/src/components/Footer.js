@@ -3,7 +3,7 @@ import React from 'react'
 export default function Footer() {
    return (
 <div>
- <div class="bg-indigo-100 mt-10">
+ <div class="bg-indigo-100 mt-16">
   <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
      <div class="p-5 w-48 ">
         <div class="text-xs uppercase text-indigo-700 font-medium">Home</div>

@@ -5,7 +5,7 @@ const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const mapStyles = {
   width: "510px",
-  height: "400px",
+  height: "380px",
   display: "inline-block",
   overflow: "hidden",
 };
