@@ -19,7 +19,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="bg-gray-100 h-screen text-gray-900">
+    <div className="h-screen">
       <div
         className="w-screen overflow-hidden relative"
         style={{ height: "400px" }}
