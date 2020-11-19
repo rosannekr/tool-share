@@ -55,6 +55,7 @@ export default function DateRange(props) {
           minDate={new Date()}
           excludeDates={excludedDates}
           placeholderText="from"
+          className="border-2 rounded p-1 focus:outline-none focus:border-gray-500"
         />
         <DatePicker
           selected={endDate}
@@ -68,6 +69,7 @@ export default function DateRange(props) {
           maxDate={addDays(startDate, props.maxAvailableDays)}
           excludeDates={excludedDates}
           placeholderText="to"
+          className="border-2 rounded p-1 focus:outline-none focus:border-gray-500"
         />
       </div>
     </div>
