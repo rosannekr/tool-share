@@ -3,7 +3,12 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Search from "./components/Search";
 import Header from "./components/Header";
+<<<<<<< HEAD
 import Home from "./components/Home";
+||||||| parent of f50aa22... styling
+// import Home from "./components/Home";
+=======
+>>>>>>> f50aa22... styling
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
@@ -46,7 +51,12 @@ function App() {
             <Login login={login} />
           </Route>
 
+<<<<<<< HEAD
           <Route path="/home" component={Home} />
+||||||| parent of f50aa22... styling
+          {/* <Route path="/home" component={Home} /> */}
+=======
+>>>>>>> f50aa22... styling
           <Route path="/search" component={Search} />
           <Route path="/product/:id" component={ProductPage} />
 
