@@ -40,7 +40,7 @@ export default function HowItWorks() {
 
             </div>
 
-            <h3 className="text-warning text-center mt-4 mb-5">Share your stuff and earn <i className="fas fa-coins    ">!</i></h3>
+            <h3 className="text-indigo-700 font-serif text-center text-3xl mt-6 mb-5">Share your stuff and earn <i className="fas fa-coins    ">!</i></h3>
 <div className="flex flex-row justify-center gap-2">
 
 <div className="flex flex-col items-center justify-self-center">
