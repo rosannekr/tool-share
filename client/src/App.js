@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Search from "./components/Search";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import Test from "./components/Test.js";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Messages from "./components/Messages";
@@ -47,8 +46,8 @@ function App() {
           </Route>
 
           <Route path="/home" component={Home} />
-          <Route path="/test/:id" component={Test} />
-          <Route path="/search" component={Search} />
+         
+         <Route path="/search" component={Search} />
           <Route path="/product/:id" component={ProductPage} />
 
           <Route path="/" exact component={LandingPage} />
