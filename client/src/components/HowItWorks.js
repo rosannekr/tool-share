@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function HowItWorks() {
     return (
-        <div className="container mt-4 mb-5">
+        <div className="ml-16 mt-4 mb-5">
 
             <div className="flex flex-row justify-center gap-2 ">
             <img className="w-full w-50 mb-2" src="/../../../pictures/neighbors-balcony.jpg" />
