@@ -13,6 +13,7 @@ export default function ProfilePage(props) {
  const [address, setAddress] = useState("");
  const [location, setLocation] = useState({});
  const [editMode, setEditMode] = useState(false);
+ const [load, setLoad] = useState();
  
  // Fetch user data when component mounts
  useEffect(() => {
@@ -86,7 +87,7 @@ export default function ProfilePage(props) {
        handleClose={hidePopUp}
        userID={user.id}
        callback1={hidePopUp}
-       callback2={() => setUpdate(true)}
+       callback2={setLoad}
      />
  
      {user && (

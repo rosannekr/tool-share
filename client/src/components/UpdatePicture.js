@@ -41,8 +41,10 @@ export default function UpdatePicture({
 
     axios
       .put(`http://localhost:5000/users/${id}/pic`, data)
+      .then((res) => window.location.reload())
       .then((res) => setLoading(false))
-      .then((res) => setLoaded(true))
+      //.then((res) => callback2(true))
+      //.then((res) => window.location.reload())
       .catch((err) => console.log(err));
 
     notification("your profile picture was updated correctly");

@@ -48,7 +48,7 @@ export default function Chat({ sender, receiver, name, photo, close }) {
 
   return (
     <div className="d-flex flex-col h-100 w-64 border rounded-md pt-4">
-      <div className="absolute top-0 bg-indigo-700 w-100 py-2 flex justify-between">
+      <div className="absolute top-0 bg-indigo-700 w-100 py-2 flex justify-between mb-5">
         <div className="flex text-white items-center gap-1 px-3">
           <img
             alt="Placeholder"
@@ -63,19 +63,20 @@ export default function Chat({ sender, receiver, name, photo, close }) {
           aria-hidden="true" onClick={close}
         ></i>
       </div>
-      <div className="flex-grow-1 px-3 pt-6">
+      <div className="flex-grow-1 px-3 pt-20">
         {messages.map((message, index) => (
           <div
+          
             key={index}
             className={
               message.sender_id == sender ? "text-right mt-3" : "text-left mt-3"
             }
           >
-            <div className="">
+            <div >
               <span
-                className={`py-2 px-1 mt-3 rounded text-white ${
+                className={`py-2 px-1 mt-9 rounded text-white ${
                   message.sender_id == sender
-                    ? "bg-indigo-400"
+                    ? "bg-indigo-400 "
                     : "bg-gray-500"
                 }`}
               >
