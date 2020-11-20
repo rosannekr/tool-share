@@ -61,7 +61,7 @@ export default function Inbox(props) {
  
  return (
  
-         <div className="d-flex flex-column h-100 border border-gray-700 bg-gray-200 mx-64 rounded-md mt-32">
+         <div className="d-flex flex-column h-100 border border-gray-700 bg-gray-200  mx-64 rounded-md mt-32">
  
              <div className="absolute w-auto py-2 flex justify-between">
        <div className="flex text-indigo-700 items-center gap-1 px-3">
@@ -77,7 +77,7 @@ export default function Inbox(props) {
  
  
  
-         <div className="flex-grow-1 p-3">
+         <div className="flex-grow-1 p-3 pt-12">
            {messages.map((message, index) => (
              <div
                key={index}
@@ -88,7 +88,7 @@ export default function Inbox(props) {
                <div className="">
                  <span
                    className={`px-2 py-1 rounded text-white ${
-                     message.sender_id == sender ? "bg-indigo-400" : "bg-bg-gray-300"
+                     message.sender_id == sender ? "bg-indigo-400" : "bg-gray-500"
                    }`}
                  >
                    {message.text}
