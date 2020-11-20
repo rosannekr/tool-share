@@ -44,7 +44,7 @@ export default function Requests() {
     ));
 
   return (
-    <div className="w-full md:w-3/4 lg:w-2/5 mx-auto pt-8">
+    <div className="w-full h-screen md:w-3/4 lg:w-2/5 mx-auto pt-8">
       <h2 className="font-medium text-3xl mb-3 text-center">My Requests</h2>
       {pending.length ? (
         <div>{pending}</div>

@@ -46,7 +46,11 @@ function App() {
           </Route>
 
           <Route path="/search" component={Search} />
-          <Route path="/product/:id" component={ProductPage} />
+
+          <PrivateRoute path="/product/:id">
+            <ProductPage />
+          </PrivateRoute>
+          {/* <Route path="/product/:id" component={ProductPage} /> */}
 
           <Route path="/" exact component={LandingPage} />
           <Route path="/how-it-works" component={HowItWorks} />
