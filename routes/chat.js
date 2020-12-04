@@ -18,7 +18,7 @@ router.post("/:sender_id/:receiver_id", (req, res) => {
   let { sender_id, receiver_id } = req.params;
   let text = req.body.data.message;
 
-  //store in database
+  // Store message in database
 
   try {
     models.Message.create({ text, sender_id, receiver_id });
@@ -43,23 +43,25 @@ router.post("/:sender_id/:receiver_id", (req, res) => {
 //get all messages a user has received
 
 router.get("/messages/:id", async (req, res) => {
-  let {id} = req.params;
+  let { id } = req.params;
   let messages = await models.Message.findAll({
     where: {
-      receiver_id: id
-     
+      receiver_id: id,
     },
     include: ["sender", "receiver"],
     limit: 10,
     order: [["id", "DESC"]],
   });
 
-  const filteredArray = Object.values(messages.reduce((unique, o) => {
-    if(!unique[o.sender_id] || +o.date > +unique[o.sender_id].date) unique[o.sender_id] = o;
-    
-    return unique;
-  }, {}));
-  
+  const filteredArray = Object.values(
+    messages.reduce((unique, o) => {
+      if (!unique[o.sender_id] || +o.date > +unique[o.sender_id].date)
+        unique[o.sender_id] = o;
+
+      return unique;
+    }, {})
+  );
+
   console.log(filteredArray);
 
   res.send(filteredArray.reverse());
@@ -92,7 +94,7 @@ router.get("/:id1/:id2", async (req, res) => {
   //     uniqueMessages.push({
   //       sender_id: item.sender_id,
   //       text: item_text
-      
+
   //     })
   //   }
   // }
@@ -101,10 +103,4 @@ router.get("/:id1/:id2", async (req, res) => {
   res.send(messages.reverse());
 });
 
-
-
-
 module.exports = router;
-
-
-
