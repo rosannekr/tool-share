@@ -61,7 +61,7 @@ export default function AddProduct(props) {
     data.append("picture", picture);
 
     axios
-      .post("http://localhost:5000/products", data)
+      .post("/products", data)
       .then((res) => setLoading(false))
       .then((res) => setLoaded(true))
       .then((res) => notification("your product was correctly uploaded"))

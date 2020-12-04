@@ -40,7 +40,7 @@ export default function UpdatePicture({
     data.append("picture", picture);
 
     axios
-      .put(`http://localhost:5000/users/${id}/pic`, data)
+      .put(`/users/${id}/pic`, data)
       .then((res) => window.location.reload())
       .then((res) => setLoading(false))
       //.then((res) => callback2(true))
