@@ -68,8 +68,8 @@ export default function UpdatePicture({
 
         <div className="form text-center">
           {loading && (
-            <div class="spinner-border text-success" role="status">
-              <span class="sr-only">Loading...</span>
+            <div className="spinner-border text-success" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
           )}
           {loaded && (

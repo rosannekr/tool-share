@@ -106,13 +106,11 @@ export default function AddProduct(props) {
   return (
     <div className="from-blue-300 to-purple-300 bg-gradient-to-r text-center mt-20 mx-64 py-3 border rounded-lg">
       {loading && (
-        <div class="spinner-border text-success" role="status">
-          <span class="sr-only">Loading...</span>
+        <div className="spinner-border text-success" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       )}
-      {/* {loaded && (
-        <p className="text-success">Your product was correctly uploaded</p>
-      )} */}
+    
       <h3>Add a new product...</h3>
       <p className="text-white">
         ...and get 20 free <i className="fas fa-coins"></i>!{" "}
@@ -120,9 +118,9 @@ export default function AddProduct(props) {
 
       <form className="w-25 mx-auto mt-2 flex flex-col justify-center">
 
-      <div class="flex flex-wrap -mx-2 overflow-hidden">
+      <div className="flex flex-wrap -mx-2 overflow-hidden">
 
-<div class="my-2 px-2 w-full overflow-hidden">
+<div className="my-2 px-2 w-full overflow-hidden">
 <div className="flex flex-row justify-center gap-2">
         <div className="flex flex-col items-bottom mt-2">
         <label>What is it?</label>
@@ -148,7 +146,7 @@ export default function AddProduct(props) {
         </div>
 </div>
 
-<div class="my-2 px-2 w-full overflow-hidden">
+<div className="my-2 px-2 w-full overflow-hidden">
  
 <div className="flex flex-row justify-center gap-2">
         <div className="flex flex-col">
@@ -188,7 +186,7 @@ export default function AddProduct(props) {
         </div>
 </div>
 
-<div class="my-2 px-2 w-full overflow-hidden">
+<div className="my-2 px-2 w-full overflow-hidden">
 <div className="flex flex-row justify-center gap-2">
   <div className="flex flex-col">
 
@@ -224,7 +222,7 @@ export default function AddProduct(props) {
 
 </div>
 
-<div class="my-2 px-2 w-full overflow-hidden">
+<div className="my-2 px-2 w-full overflow-hidden">
 <div className="flex flex-col justify-center">
         <label className="mt-2">Upload a nice picture!</label>
         <input

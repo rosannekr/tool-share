@@ -49,12 +49,12 @@ export default function Messages() {
  
      <ul className="px-5 py-5">
        <li className="border list-none rounded-sm px-3 py-3 bg-indigo-400 text-white text-center cursor ">
-         Inbox <i class="fa fa-inbox" aria-hidden="true"></i>
+         Inbox <i className="fa fa-inbox" aria-hidden="true"></i>
        </li>
        {messages &&
          messages.map((message) => (
          <Link to={`/inbox/${message.sender_id}/${user.id}`}>
-           <li className="border list-none rounded-sm px-3 py-3 mb-64" onClick={managePopUp}>
+           <li className="border list-none rounded-sm px-3 py-3" onClick={managePopUp}>
              <div className="flex flex-row justify-center gap-2">
                {" "}
               

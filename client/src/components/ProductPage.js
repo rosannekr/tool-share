@@ -177,29 +177,36 @@ export default function ProductPage() {
             <div className="flex flex-row justify-around gap-1">
               <img
                 alt="product"
-                class=" lg:w-1/2 w-64 object-cover object-center rounded border border-gray-200 mt-36"
-                src={`/../../../${item.picture.substring(
-                  7,
-                  item.picture.length
-                )}`}
+                className=" lg:w-1/2 w-64 object-cover object-center rounded border border-gray-200 mt-36"
+                src={
+                  item.picture.substring(0, 5) === "https"
+                    ? item.picture
+                    : `/../../../${item.picture.substring(
+                        7,
+                        item.picture.length
+                      )}`
+                }
               />
+
               <div className="flex flex-col text-center border rounded-md border-gray-700 w-50 pt-5">
                 <div className="flex flex-row justify-center items-center gap-1 mb-1">
                   <img
                     alt="Placeholder"
                     className="block rounded-full h-8 w-8 object-cover"
-                    src={`/../../../${item.User.picture.substring(
+                    src={ item.User.picture.substring(0, 5) === "https"
+                    ? item.User.picture
+                    : `/../../../${item.User.picture.substring(
                       7,
                       item.User.picture.length
                     )}`}
                   />
 
-                  <h2 class="text-sm title-font text-gray-500 tracking-widest">
+                  <h2 className="text-sm title-font text-gray-500 tracking-widest">
                     {item.User.name}
                   </h2>
                 </div>
 
-                <h1 class="text-indigo-700 text-3xl title-font font-medium">
+                <h1 className="text-indigo-700 text-3xl title-font font-medium">
                   {item.name}{" "}
                   <span className="text-sm text-black">
                     | {item.pricePerDay} <i className="fas fa-coins    "></i> /
@@ -224,7 +231,7 @@ export default function ProductPage() {
                 <small className="text-muted mb-1">
                   added on {item.createdAt.substring(0, 10)}
                 </small>
-                <p class="leading-relaxed px-48 ">{item.description}</p>
+                <p className="leading-relaxed px-48 ">{item.description}</p>
                 <p className="text-capitalize">Condition: {item.condition}</p>
                 <div className="d-flex justify-content-center">
                   {item.UserId !== user?.id && !reserved && (
@@ -245,7 +252,7 @@ export default function ProductPage() {
                   )}
                 </div>
                 <div className="flex flex-row justify-around mt-3">
-                  <span class="title-font font-medium text-xl text-gray-900">
+                  <span className="title-font font-medium text-xl text-gray-900">
                     Total: {pointTotal} <i className="fas fa-coins    "></i>
                   </span>
                   <div className="flex">
@@ -268,7 +275,7 @@ export default function ProductPage() {
             </div>
 
             <div className="flex flex-row justify-evenly  pr-3">
-              <div class="w-1/2 overflow-hidden ml-1 pl-4 text-center">
+              <div className="w-1/2 overflow-hidden ml-1 pl-4 text-center">
                 <div className="flex flex-col justify-center w-75 mt-1">
                   <p className="text-xl text-indigo-700 mt-1">Reviews</p>
                   {requests
@@ -280,7 +287,7 @@ export default function ProductPage() {
               </div>
 
               <div
-                class="w-1/2 overflow-hidden"
+                className="w-1/2 overflow-hidden"
                 style={{ marginBottom: "300px" }}
               >
                 <div className="mt-3">

@@ -30,7 +30,7 @@ export default function Inbox(props) {
  
    var channel = pusher.subscribe(channelName);
    channel.bind("message", function (data) {
-     console.log(data);
+     
      setMessages((messages) => [...messages, data]);
    });
  
@@ -56,7 +56,7 @@ export default function Inbox(props) {
    let { data } = await axios(`/chat/${sender}/${receiver}`);
  
    setMessages((messages) => [...messages, ...data]);
-   console.log(messages[0])
+   
  };
  
  return (

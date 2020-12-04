@@ -31,7 +31,7 @@ export default function Header(props) {
           className="w-24 landing-picture"
           src="/../../../pictures/logo.png"
         />
-        <i class="fa fa-wrench ml-2 mt-2" aria-hidden="true"></i>
+        <i className="fa fa-wrench ml-2 mt-2" aria-hidden="true"></i>
         </div>
         </Link>
 

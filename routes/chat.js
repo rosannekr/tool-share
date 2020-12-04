@@ -60,8 +60,6 @@ router.get("/messages/:id", async (req, res) => {
     return unique;
   }, {}));
   
-  console.log(filteredArray);
-
   res.send(filteredArray.reverse());
 });
 

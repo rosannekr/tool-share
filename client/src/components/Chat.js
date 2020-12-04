@@ -23,7 +23,6 @@ export default function Chat({ sender, receiver, name, photo, close }) {
 
     var channel = pusher.subscribe(channelName);
     channel.bind("message", function (data) {
-      console.log(data);
       setMessages((messages) => [...messages, data]);
     });
 

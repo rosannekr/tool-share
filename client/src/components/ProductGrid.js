@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Filters from "./Filters";
 
 export default function ProductGrid(props) {
+  const [error, setError] = useState(false);
+
+  let onImageError = () => {
+    setError(true);
+  };
+
   return (
     <div>
       <Filters />
@@ -23,10 +29,14 @@ export default function ProductGrid(props) {
                     <img
                       alt="Placeholder"
                       className="h-56 w-full object-cover"
-                      src={`/../../../${item.picture.substring(
-                        7,
-                        item.picture.length
-                      )}`}
+                      src={
+                        item.picture.substring(0, 5) === "https"
+                          ? item.picture
+                          : `/../../../${item.picture.substring(
+                              7,
+                              item.picture.length
+                            )}`
+                      }
                     />
 
                     <header className="text-center leading-tight p-2 md:p-4">
@@ -45,11 +55,16 @@ export default function ProductGrid(props) {
                         <img
                           alt="Placeholder"
                           className="block rounded-full h-8 w-8 object-cover"
-                          src={`/../../../${item.User.picture.substring(
-                            7,
-                            item.User.picture.length
-                          )}`}
+                          src={
+                            item.User.picture.substring(0, 5) === "https"
+                              ? item.User.picture
+                              : `/../../../${item.User.picture.substring(
+                                  7,
+                                  item.User.picture.length
+                                )}`
+                          }
                         />
+
                         <p className="ml-2 text-sm">{item.User.name}</p>
                       </div>
                       <p className="text-grey-darker text-sm">
