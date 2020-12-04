@@ -84,7 +84,6 @@ router.get("/messages/:id", isLoggedIn, async (req, res) => {
       },
     },
     include: ["sender", "receiver"],
-    limit: 10,
     order: [["id", "DESC"]],
   });
 
