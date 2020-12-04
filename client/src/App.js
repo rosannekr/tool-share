@@ -50,16 +50,11 @@ function App() {
           <PrivateRoute path="/product/:id">
             <ProductPage />
           </PrivateRoute>
-          {/* <Route path="/product/:id" component={ProductPage} /> */}
 
           <Route path="/" exact component={LandingPage} />
           <Route path="/how-it-works" component={HowItWorks} />
 
-          <PrivateRoute path="/inbox/:sender/:receiver">
-            <Inbox />
-          </PrivateRoute>
-
-          <PrivateRoute path="/messages/:id">
+          <PrivateRoute path="/messages">
             <Messages />
           </PrivateRoute>
 
@@ -74,7 +69,7 @@ function App() {
           </PrivateRoute>
         </Switch>
       </Router>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

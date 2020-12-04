@@ -1,9 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 require("dotenv").config();
-var models = require("../models");
+const models = require("../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const isLoggedIn = require("../guards/isLoggedIn");
 const Pusher = require("pusher");
 
 const pusher = new Pusher({
@@ -14,22 +15,23 @@ const pusher = new Pusher({
   useTLS: true,
 });
 
-router.post("/:sender_id/:receiver_id", (req, res) => {
-  let { sender_id, receiver_id } = req.params;
-  let text = req.body.data.message;
+router.post("/messages/:id", isLoggedIn, (req, res) => {
+  const receiver_id = req.params.id;
+  const sender_id = req.userId;
+  const text = req.body.message;
 
   // Store message in database
-
   try {
     models.Message.create({ text, sender_id, receiver_id });
   } catch (err) {
     res.status(500).send(err);
   }
 
+  // Define channel name
   const ids = [sender_id, receiver_id].sort();
-  let channel = `chat-${ids[0]}-${ids[1]}`;
+  const channel = `chat-${ids[0]}-${ids[1]}`;
 
-  //Your code to trigger an event to Pusher here
+  // Trigger an event to Pusher
 
   pusher.trigger(channel, "message", {
     sender_id,
@@ -40,45 +42,45 @@ router.post("/:sender_id/:receiver_id", (req, res) => {
   res.send({ msg: "Sent" });
 });
 
-//get all messages a user has received
+// Get all conversations
 
-router.get("/messages/:id", async (req, res) => {
-  let { id } = req.params;
-  let messages = await models.Message.findAll({
-    where: {
-      receiver_id: id,
-    },
-    include: ["sender", "receiver"],
-    limit: 10,
-    order: [["id", "DESC"]],
-  });
+router.get("/messages", isLoggedIn, async (req, res) => {
+  const { userId } = req;
 
-  const filteredArray = Object.values(
-    messages.reduce((unique, o) => {
-      if (!unique[o.sender_id] || +o.date > +unique[o.sender_id].date)
-        unique[o.sender_id] = o;
+  try {
+    const data = await models.Message.findAll({
+      where: {
+        [Op.or]: [{ sender_id: userId }, { receiver_id: userId }],
+      },
+      group: ["sender_id", "receiver_id"],
+      attributes: ["sender_id", "receiver_id"],
+      include: ["sender", "receiver"],
+    });
 
-      return unique;
-    }, {})
-  );
+    const conversations = data.map((e) => {
+      if (e.receiver.id !== userId) return e.receiver;
+      if (e.sender.id !== userId) return e.sender;
+    });
 
-  console.log(filteredArray);
-
-  res.send(filteredArray.reverse());
+    res.send(conversations);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-//get all messages between two users;
+// Get all messages between two users
 
-router.get("/:id1/:id2", async (req, res) => {
-  let { id1, id2 } = req.params;
+router.get("/messages/:id", isLoggedIn, async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req;
 
-  let messages = await models.Message.findAll({
+  const messages = await models.Message.findAll({
     where: {
       sender_id: {
-        [Op.in]: [id1, id2],
+        [Op.in]: [userId, id],
       },
       receiver_id: {
-        [Op.in]: [id1, id2],
+        [Op.in]: [userId, id],
       },
     },
     include: ["sender", "receiver"],
@@ -86,20 +88,6 @@ router.get("/:id1/:id2", async (req, res) => {
     order: [["id", "DESC"]],
   });
 
-  // let uniqueMessages = [];
-  // const map = new Map();
-  // for (const item of messages) {
-  //   if(!map.has(sender_id)) {
-  //     map.set(item.id, true);
-  //     uniqueMessages.push({
-  //       sender_id: item.sender_id,
-  //       text: item_text
-
-  //     })
-  //   }
-  // }
-
-  // res.send(uniqueMessages.reverse());
   res.send(messages.reverse());
 });
 
