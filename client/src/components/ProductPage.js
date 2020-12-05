@@ -13,6 +13,7 @@ import ChatWindow from "./ChatWindow";
 import Noty from "noty";
 import "../../node_modules/noty/lib/noty.css";
 import "../../node_modules/noty/lib/themes/relax.css";
+import Footer from "./Footer";
 
 export default function ProductPage() {
   let { id } = useParams();
@@ -299,6 +300,7 @@ export default function ProductPage() {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 }
