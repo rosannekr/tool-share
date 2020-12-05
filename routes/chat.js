@@ -8,9 +8,9 @@ const isLoggedIn = require("../guards/isLoggedIn");
 const Pusher = require("pusher");
 
 const pusher = new Pusher({
-  appId: "1108081",
-  key: "2985b7ef897701726d64",
-  secret: "11dbeb549e59bd3fae6e",
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_KEY,
+  secret: process.env.PUSHER_SECRET,
   cluster: "eu",
   useTLS: true,
 });
@@ -57,10 +57,13 @@ router.get("/messages", isLoggedIn, async (req, res) => {
       include: ["sender", "receiver"],
     });
 
-    const conversations = data.map((e) => {
-      if (e.receiver.id !== userId) return e.receiver;
-      if (e.sender.id !== userId) return e.sender;
-    });
+    const conversations = data
+      .map((e) => (e.receiver.id !== userId ? e.receiver : e.sender))
+      .reduce(
+        (unique, item) =>
+          unique.some((e) => e.id === item.id) ? unique : [...unique, item],
+        []
+      );
 
     res.send(conversations);
   } catch (error) {
@@ -84,6 +87,7 @@ router.get("/messages/:id", isLoggedIn, async (req, res) => {
       },
     },
     include: ["sender", "receiver"],
+    limit: 10,
     order: [["id", "DESC"]],
   });
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function AccountDropdown(props) {
@@ -34,7 +34,7 @@ export default function AccountDropdown(props) {
           </Link>
           <Link
             className="block px-3 py-2 hover:bg-indigo-700 hover:text-white"
-            to={`/messages/${props.id}`}
+            to={`/inbox`}
           >
             My messages
           </Link>

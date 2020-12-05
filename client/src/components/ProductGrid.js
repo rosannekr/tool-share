@@ -6,7 +6,7 @@ export default function ProductGrid(props) {
   return (
     <div>
       <Filters />
-      <div className="container my-10 mx-auto px-4 md:px-12">
+      <div className="container mt-10 mx-auto px-4 md:px-12">
         <div className="flex items-center justify-center flex-wrap mx-5 my-4 lg:-mx-4">
           {props.products &&
             props.products.length > 0 &&

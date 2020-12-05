@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import Pusher from "pusher-js";
-import axios from "axios";
+import { getMessages, sendMessage } from "../services/requests";
 
 export default function Chat({ sender, receiver, name, photo, close }) {
   let [messages, setMessages] = useState([]);
@@ -9,9 +8,9 @@ export default function Chat({ sender, receiver, name, photo, close }) {
 
   useEffect(() => {
     setMessages([]);
-    getMessages();
+    fetchData();
 
-    // Pusher.logToConsole = true;
+    Pusher.logToConsole = true;
 
     var pusher = new Pusher("2985b7ef897701726d64", {
       cluster: "eu",
@@ -32,19 +31,23 @@ export default function Chat({ sender, receiver, name, photo, close }) {
     };
   }, [receiver, sender]);
 
-  const sendMessage = async () => {
-    console.log("in chat component");
-    axios.post(`/chat/${sender}/${receiver}`, {
-      data: { message: input },
-    });
+  const send = async () => {
+    try {
+      await sendMessage(input, receiver);
+    } catch (error) {
+      console.log(error);
+    }
 
     setInput("");
   };
 
-  const getMessages = async () => {
-    let { data } = await axios(`/chat/${sender}/${receiver}`);
-
-    setMessages((messages) => [...messages, ...data]);
+  const fetchData = async () => {
+    try {
+      const res = await getMessages(receiver);
+      setMessages((messages) => [...messages, ...res.data]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -66,9 +69,9 @@ export default function Chat({ sender, receiver, name, photo, close }) {
         ></i>
       </div>
       <div className="flex-grow-1 px-3 pt-6">
-        {messages.map((message, index) => (
+        {messages.map((message) => (
           <div
-            key={index}
+            key={message.id}
             className={
               message.sender_id == sender ? "text-right mt-3" : "text-left mt-3"
             }
@@ -96,11 +99,11 @@ export default function Chat({ sender, receiver, name, photo, close }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => {
-                if (e.key === "Enter") sendMessage();
+                if (e.key === "Enter") send();
               }}
             />
 
-            <button onClick={sendMessage} className="btn btn-primary">
+            <button onClick={send} className="btn btn-primary">
               <i className="fa fa-paper-plane" aria-hidden="true"></i>
             </button>
           </div>
