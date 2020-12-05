@@ -23,16 +23,16 @@ export default function Header(props) {
   };
 
   return (
-    <div>
+    <div className="relative z-10">
       <nav className="py-2 px-4 flex justify-between items-center w-screen bg-indigo-700 text-white">
         <Link className="px-5 text-lg font-semibold hover:text-gray-400" to="/">
           <div className="flex flex-row ">
-        <img
-          className="w-24 landing-picture"
-          src="/../../../pictures/logo.png"
-        />
-        <i className="fa fa-wrench ml-2 mt-2" aria-hidden="true"></i>
-        </div>
+            <img
+              className="w-24 landing-picture"
+              src="/../../../pictures/logo.png"
+            />
+            <i class="fa fa-wrench ml-2 mt-2" aria-hidden="true"></i>
+          </div>
         </Link>
 
         <SearchBar />

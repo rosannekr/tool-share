@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import Pusher from "pusher-js";
-import axios from "axios";
- 
+import { getMessages, sendMessage } from "../services/requests";
+
 export default function Chat({ sender, receiver, name, photo, close }) {
   let [messages, setMessages] = useState([]);
   let [input, setInput] = useState("");
 
   useEffect(() => {
     setMessages([]);
-    getMessages();
+    fetchData();
 
     Pusher.logToConsole = true;
 
@@ -23,6 +22,7 @@ export default function Chat({ sender, receiver, name, photo, close }) {
 
     var channel = pusher.subscribe(channelName);
     channel.bind("message", function (data) {
+      console.log(data);
       setMessages((messages) => [...messages, data]);
     });
 
@@ -31,18 +31,23 @@ export default function Chat({ sender, receiver, name, photo, close }) {
     };
   }, [receiver, sender]);
 
-  const sendMessage = async () => {
-    axios.post(`/chat/${sender}/${receiver}`, {
-      data: { message: input },
-    });
+  const send = async () => {
+    try {
+      await sendMessage(input, receiver);
+    } catch (error) {
+      console.log(error);
+    }
 
     setInput("");
   };
 
-  const getMessages = async () => {
-    let { data } = await axios(`/chat/${sender}/${receiver}`);
-
-    setMessages((messages) => [...messages, ...data]);
+  const fetchData = async () => {
+    try {
+      const res = await getMessages(receiver);
+      setMessages((messages) => [...messages, ...res.data]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -52,31 +57,31 @@ export default function Chat({ sender, receiver, name, photo, close }) {
           <img
             alt="Placeholder"
             className="block rounded-full h-8 w-8 object-cover"
-            src={`/../../../${photo.substring(7, photo.length)}`}
+            src={photo.substring(0, 5) === "https"
+            ? photo
+            : `/../../../${photo.substring(7, photo.length)}`}
           />
           {name}
         </div>
 
         <i
           className="fa fa-times text-white pr-2 items-center cursor pl-40 pt-1"
-          aria-hidden="true" onClick={close}
+          aria-hidden="true"
+          onClick={close}
         ></i>
       </div>
       <div className="flex-grow-1 px-3 pt-20">
-        {messages.map((message, index) => (
+        {messages.map((message) => (
           <div
-          
-            key={index}
+            key={message.id}
             className={
               message.sender_id == sender ? "text-right mt-3" : "text-left mt-3"
             }
           >
-            <div >
+            <div className="">
               <span
-                className={`py-2 px-1 mt-9 rounded text-white ${
-                  message.sender_id == sender
-                    ? "bg-indigo-400 "
-                    : "bg-gray-500"
+                className={`py-2 px-1 mt-3 rounded text-white ${
+                  message.sender_id == sender ? "bg-indigo-400" : "bg-gray-500"
                 }`}
               >
                 {message.text}
@@ -88,29 +93,26 @@ export default function Chat({ sender, receiver, name, photo, close }) {
 
       <div className="bg-light p-4 border-top">
         <div className="flex flex-column space-evenly">
-        
-        <div className="flex flex-row">
+          <div className="flex flex-row">
+            <input
+              id="title"
+              type="text"
+              className="form-control mr-1 border border-gray-500 rounded"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") send();
+              }}
+            />
 
-        <input 
-            id="title"
-            type="text"
-            className="form-control mr-1 border border-gray-500 rounded"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") sendMessage();
-            }}
-          />
-       
-            <button onClick={sendMessage} className="btn btn-primary">
+            <button onClick={send} className="btn btn-primary">
               <i className="fa fa-paper-plane" aria-hidden="true"></i>
             </button>
-         
+          </div>
         </div>
-       </div>
-     </div>
-   </div>
-
- );
+      </div>
+    </div>
+  );
 }
+
 

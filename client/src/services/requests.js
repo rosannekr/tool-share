@@ -71,6 +71,8 @@ export const getCategories = async () => {
   return await axios.get("/categories");
 };
 
+/* Products */
+
 // Get a product
 export const getProduct = async (id) => {
   return await axios.get(`/products/${id}`);
@@ -90,6 +92,8 @@ export const getFilteredProducts = async (paramsObj) => {
 export const updateProduct = async (id, reqbody) => {
   return await axios.put(`/products/${id}`, reqbody);
 };
+
+/* Requests */
 
 // Get all requests for current user
 export const getRequests = async () => {
@@ -125,4 +129,21 @@ export const deleteRequest = async (id) => {
 // Update request
 export const updateRequest = async (id, reqbody) => {
   return await axios.put(`/requests/${id}`, reqbody);
+};
+
+/* Messages */
+
+// Get conversations of current user
+export const getConversations = async () => {
+  return await axios.get(`/chat/messages`);
+};
+
+// Get messages of current user
+export const getMessages = async (receiver_id) => {
+  return await axios.get(`/chat/messages/${receiver_id}`);
+};
+
+// Send a message
+export const sendMessage = async (message, receiver_id) => {
+  return await axios.post(`/chat/messages/${receiver_id}`, { message });
 };

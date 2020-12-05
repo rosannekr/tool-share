@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import ProductGrid from "./ProductGrid";
 import { getFilteredProducts } from "../services/requests";
 import queryString from "query-string";
+import Footer from "./Footer";
 
 export default function Search() {
   const [products, setProducts] = useState([]);
@@ -50,20 +51,23 @@ export default function Search() {
 
   return (
     <div>
-      <ProductGrid isLoading={isLoading} products={products} />
-      {loadMore && (
-        <button
-          onClick={loadMoreProducts}
-          className="btn btn-primary mx-auto mb-5 block"
-        >
-          Load more
-        </button>
-      )}
-      {isLoading && (
-        <div className="text-center">
-          <i className="fas fa-spinner fa-pulse fa-3x"></i>
-        </div>
-      )}
+      <div className="mb-10 min-h-screen">
+        <ProductGrid isLoading={isLoading} products={products} />
+        {loadMore && (
+          <button
+            onClick={loadMoreProducts}
+            className="btn btn-primary mx-auto mb-5 block"
+          >
+            Load more
+          </button>
+        )}
+        {isLoading && (
+          <div className="text-center">
+            <i className="fas fa-spinner fa-pulse fa-3x"></i>
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }
