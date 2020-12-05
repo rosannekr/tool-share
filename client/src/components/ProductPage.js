@@ -288,7 +288,7 @@ export default function ProductPage() {
 
               <div
                 className="w-1/2 overflow-hidden"
-                style={{ marginBottom: "300px" }}
+                style={{ marginBottom: "500px" }}
               >
                 <div className="mt-3">
                   {item.User && (

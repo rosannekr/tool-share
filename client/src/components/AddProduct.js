@@ -20,7 +20,7 @@ export default function AddProduct(props) {
   const [picture, setPicture] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [progress, setProgress] = useState(0);
+
 
   useEffect(() => {
     fetchData();
@@ -62,11 +62,7 @@ export default function AddProduct(props) {
     data.append("picture", picture);
 
     axios
-      .post("/products", data, {
-        onUploadProgress: ProgressEvent => {
-          setProgress(Math.round(ProgressEvent.loaded / ProgressEvent.total) * 100)
-        }
-      })
+      .post("/products", data)
       .then((res) => setLoading(false))
       .then((res) => setLoaded(true))
       .then((res) => notification("your product was correctly uploaded"))
@@ -241,10 +237,9 @@ export default function AddProduct(props) {
 
 </div>
 
-{loading && <div className="w-full bg-grey-light">
-  
- <div className="bg-indigo-700 text-xs leading-none mx-5 mb-2 py-1 text-center text-white" style={{width: `${progress} + "%"`}}>{progress}%</div>
-  </div>}
+{loading && <div className="text-center flex flex-row justify-center mb-3">
+ <img src="/../../../pictures/Ripple-1s-200px.gif" alt="loading" className="w-20 h-20" />
+ </div>}
         <button className="btn btn-primary block my-auto mx-auto " onClick={send}>
           Add item
         </button>
