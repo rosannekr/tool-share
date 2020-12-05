@@ -63,7 +63,9 @@ export default function RequestCard(props) {
             <div>{borrower.name}</div>
             {borrower.picture && (
               <img
-                src={`/../../../${borrower.picture.substring(
+                src={borrower.picture.substring(0, 5) === "https"
+                ? borrower.picture
+                :`/../../../${borrower.picture.substring(
                   7,
                   borrower.picture.length
                 )}`}

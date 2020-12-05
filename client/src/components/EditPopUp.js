@@ -82,7 +82,7 @@ export default function EditPopUp({
     <div className={showHideClassName}>
       <section className="  mr-4 w-full relative z-10 text-black border border-gray-400 rounded">
         <p className="text-right" onClick={handleClose}>
-          <i class="fa fa-times mr-2 text-danger cursor" aria-hidden="true"></i>
+          <i className="fa fa-times mr-2 text-danger cursor" aria-hidden="true"></i>
         </p>
         <p></p>
         <div className="flex flex-col items-center">

@@ -13,8 +13,7 @@ export default function PrivateRoute({ children, ...rest }) {
           // else redirect user to login page
           <Redirect
             to={{
-              pathname: "/login",
-              // state: { from: props.location },
+              pathname: "/login"    
             }}
           />
         );

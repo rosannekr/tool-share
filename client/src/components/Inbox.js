@@ -44,7 +44,9 @@ export default function Inbox() {
                     <img
                       alt="Placeholder"
                       className="block border rounded-full mr-6 h-10 w-10 object-cover text-center"
-                      src={`/../../../${user.picture.substring(
+                      src={user.picture.substring(0, 5) === "https"
+                      ? user.picture
+                      : `/../../../${user.picture.substring(
                         7,
                         user.picture.length
                       )}`}
