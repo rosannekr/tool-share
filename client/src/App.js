@@ -5,8 +5,6 @@ import Search from "./components/Search";
 import Header from "./components/Header";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Footer from "./components/Footer";
-import Messages from "./components/Messages";
 import Inbox from "./components/Inbox";
 import ProductPage from "./components/ProductPage";
 import LandingPage from "./components/LandingPage";
@@ -50,17 +48,12 @@ function App() {
           <PrivateRoute path="/product/:id">
             <ProductPage />
           </PrivateRoute>
-          {/* <Route path="/product/:id" component={ProductPage} /> */}
 
           <Route path="/" exact component={LandingPage} />
           <Route path="/how-it-works" component={HowItWorks} />
 
-          <PrivateRoute path="/inbox/:sender/:receiver">
+          <PrivateRoute path="/inbox">
             <Inbox />
-          </PrivateRoute>
-
-          <PrivateRoute path="/messages/:id">
-            <Messages />
           </PrivateRoute>
 
           <PrivateRoute path="/profile">
@@ -74,7 +67,6 @@ function App() {
           </PrivateRoute>
         </Switch>
       </Router>
-      <Footer />
     </div>
   );
 }
