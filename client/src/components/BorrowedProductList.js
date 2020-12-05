@@ -34,8 +34,7 @@ export default function BorrowedProductList(props) {
   };
 
   const handleSubmit = async (id) => {
-    console.log(id, review);
-
+   
     await updateRequest(id, { review });
     fetchData();
   };

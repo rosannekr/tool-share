@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 const multer = require("multer");
+const { Storage } = require('@google-cloud/storage');
 
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -228,30 +229,77 @@ router.delete("/", isLoggedIn, async (req, res) => {
 
 //update profile pic
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/pictures");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
+const storage = new Storage({
+  projectId: process.env.GCLOUD_PROJECT_ID,
+  keyFilename: process.env.GCLOUD_APPLICATION_CREDENTIALS,
+});
+
+const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET_URL);
+
+// Initiating a memory storage engine to store files as Buffer objects
+const uploader = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // limiting files size to 5 MB
   },
 });
-const upload = multer({ storage });
 
-router.put("/:id/pic", upload.single("picture"), function (req, res) {
+router.put("/:id/pic", uploader.single("picture"), function (req, res) {
   const { id } = req.params;
 
+
+try {
+  if (!req.file) {
+    res.status(400).send('Error, could not upload file');
+    return;
+  }
+
+  // Create new blob in the bucket referencing the file
+  const blob = bucket.file(req.file.originalname);
+
+  // Create writable stream and specifying file mimetype
+  const blobWriter = blob.createWriteStream({
+    metadata: {
+      contentType: req.file.mimetype,
+    },
+  });
+
+  blobWriter.on('error', (err) => next(err));
+
+  blobWriter.on('finish', () => {
+    // Assembling public URL for accessing the file via HTTP
+    const picture = `https://firebasestorage.googleapis.com/v0/b/${
+      bucket.name
+    }/o/${encodeURI(blob.name)}?alt=media`;
+
  models.User.update({
-  picture: req.file.path,
+  picture: picture,
 }, {
   where: {id},
 })
-.then(function (result) {
-  console.log(result);   
+.then((data) => res.send(data))
+.catch((error) => {
+  res.status(500).send(error);
+});
+
+
+
+// Return the file name and its public URL
+res
+.status(200)
+.send({ fileName: req.file.originalname, fileLocation: picture });
 
 });
 
-})
+// When there is no more data to be consumed from the stream
+blobWriter.end(req.file.buffer);
+} catch (error) {
+res.status(400).send(`Error, could not upload file: ${error}`);
+return;
+}
+
+});
+
 
 
 

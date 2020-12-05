@@ -5,6 +5,8 @@ const sequelize = require("sequelize");
 const { QueryTypes, where } = require("sequelize");
 const Op = sequelize.Op;
 const multer = require("multer");
+const { Storage } = require('@google-cloud/storage');
+
 
 //GET all available products
 
@@ -95,19 +97,23 @@ router.get("/:id", async function (req, res) {
 
 //Adds a new product
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/pictures");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
+const storage = new Storage({
+  projectId: process.env.GCLOUD_PROJECT_ID,
+  keyFilename: process.env.GCLOUD_APPLICATION_CREDENTIALS,
+});
+
+const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET_URL);
+
+// Initiating a memory storage engine to store files as Buffer objects
+const uploader = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // limiting files size to 5 MB
   },
 });
-const upload = multer({ storage });
 
-router.post("/", upload.single("picture"), function (req, res) {
-  let picture = req.file.path;
-  let rating = 0;
+// Upload endpoint to send file to Firebase storage bucket
+router.post('/', uploader.single('picture'), async (req, res, next) => {
 
   const {
     name,
@@ -119,24 +125,71 @@ router.post("/", upload.single("picture"), function (req, res) {
     numOfDaysAvailable,
   } = req.body;
 
-  models.Product.create({
-    name,
-    pricePerDay,
-    description,
-    UserId,
-    CategoryId,
-    condition,
-    picture,
-    numOfDaysAvailable,
-    rating,
-  })
-    .then((data) => res.send(data))
-    .catch((error) => {
-      res.status(500).send(error);
+
+  try {
+    if (!req.file) {
+      res.status(400).send('Error, could not upload file');
+      return;
+    }
+
+    // Create new blob in the bucket referencing the file
+    const blob = bucket.file(req.file.originalname);
+
+    // Create writable stream and specifying file mimetype
+    const blobWriter = blob.createWriteStream({
+      metadata: {
+        contentType: req.file.mimetype,
+      },
     });
 
-  console.log(req.file.path);
+    blobWriter.on('error', (err) => next(err));
+
+    blobWriter.on('finish', () => {
+      // Assembling public URL for accessing the file via HTTP
+      const picture = `https://firebasestorage.googleapis.com/v0/b/${
+        bucket.name
+      }/o/${encodeURI(blob.name)}?alt=media`;
+
+
+//save rest of information plus firebase picture url 
+
+let rating = 0;
+
+models.Product.create({
+      name,
+      pricePerDay,
+      description,
+      UserId,
+      CategoryId,
+      condition,
+      picture,
+      numOfDaysAvailable,
+      rating,
+    })
+      .then((data) => res.send(data))
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+
+
+
+  // Return the file name and its public URL
+  res
+  .status(200)
+  .send({ fileName: req.file.originalname, fileLocation: picture });
+  
 });
+
+// When there is no more data to be consumed from the stream
+blobWriter.end(req.file.buffer);
+} catch (error) {
+res.status(400).send(`Error, could not upload file: ${error}`);
+return;
+}
+
+});
+
+
 
 //search products by name
 

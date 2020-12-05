@@ -40,9 +40,11 @@ export default function UpdatePicture({
     data.append("picture", picture);
 
     axios
-      .put(`http://localhost:5000/users/${id}/pic`, data)
+      .put(`/users/${id}/pic`, data)
+      .then((res) => window.location.reload())
       .then((res) => setLoading(false))
-      .then((res) => setLoaded(true))
+      //.then((res) => callback2(true))
+      //.then((res) => window.location.reload())
       .catch((err) => console.log(err));
 
     notification("your profile picture was updated correctly");
@@ -66,8 +68,8 @@ export default function UpdatePicture({
 
         <div className="form text-center">
           {loading && (
-            <div class="spinner-border text-success" role="status">
-              <span class="sr-only">Loading...</span>
+            <div className="spinner-border text-success" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
           )}
           {loaded && (
@@ -79,7 +81,7 @@ export default function UpdatePicture({
             type="file"
             onChange={fileSelectedHandler}
             lang="en"
-            className="form-control-file text-center ff mt-3 mb-3"
+            className="form-control-file text-center ff mt-3 mb-3 w-3/5 px-6"
           />
 
           <button className="btn btn-primary btn-block ml-3" onClick={editPicture}>

@@ -60,12 +60,39 @@ export default function HowItWorks() {
               src="/../../../pictures/calendar.jpeg"
             />
             <h5 className="font-semibold">Return it</h5>
-            <p className="w-50 text-center">
-              Please, always make sure to return the product on time so the
-              owner (or other users) can use it. Then borrow something else!{" "}
-            </p>
-          </div>
-        </div>
+            <p className="w-50 text-center">Please, always make sure to return the product on time so the owner (or other users) can use it. Then borrow something else! </p>
+
+            </div>
+
+            </div>
+
+            <h3 className="text-indigo-700 font-serif text-center text-3xl mt-6 mb-5">Share your stuff and earn <i className="fas fa-coins    ">!</i></h3>
+<div className="flex flex-row justify-center gap-2">
+
+<div className="flex flex-col items-center justify-self-center">
+<img className=" mb-2 object-cover h-64 w-64" src="/../../../pictures/takephoto.png" />
+<h5 className="font-semibold">Upload your product</h5>
+<p className="w-50 text-center">Take a picture, tell us about it and choose its borrowing conditions . </p>
+
+</div>
+
+<div className="flex flex-col items-center justify-self-center">
+<img className="mb-2 object-cover h-64 w-64" src="/../../../pictures/andre-ouellet-zU3xcg52df0-unsplash.jpg" />
+<h5 className="font-semibold">Lend your product</h5>
+<p className="w-50 text-center">Check your requests and give the item to a neighbor</p>
+
+</div>
+
+<div className="flex flex-col items-center justify-self-center">
+<img className="mb-2 object-cover h-64 w-64" src="/../../../pictures/thumbsup.jpg" />
+<h5 className="font-semibold">Earn credit!</h5>
+<p className="w-50 text-center">With every product you upload you will earn <i className="fas fa-coins"></i> that you can use to borrow more stuff! </p>
+
+</div>
+
+</div>
+
+         
 
         <h3 className="text-indigo-700 font-serif text-center text-3xl mt-6 mb-5">
           Share your stuff and earn <i className="fas fa-coins    ">!</i>

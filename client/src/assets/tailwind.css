@@ -23,4 +23,6 @@
   .title {
     @apply font-serif text-4xl text-indigo-800;
   }
+
+
 }
