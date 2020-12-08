@@ -1,7 +1,7 @@
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import React from "react";
 
-const apiKey = "AIzaSyCY5W1P8DPRt-14tjH8O4jiLsFxxRp2Jl8";
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const mapStyles = {
   width: "510px",
