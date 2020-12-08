@@ -53,9 +53,9 @@ SUPER_SECRET=YOUR_SECRET
 
 Pusher API is used to enable realtime messaging.
 
-1 Get a key by creating a free account at https://pusher.com/.
-2 Go to your dashboard and click on "Create New App".
-3 Go to "App Keys", copy your keys and add to your `.env` file in the project folder:
+1. Get a key by creating a free account at https://pusher.com/.
+2. Go to your dashboard and click on "Create New App".
+3. Go to "App Keys", copy your keys and add to your `.env` file in the project folder:
 
 ```
 PUSHER_APP_ID=******
@@ -63,7 +63,7 @@ PUSHER_KEY=*******************
 PUSHER_SECRET==*******************
 ```
 
-4 Create another `.env` file in the client folder and add the key there as well (prefixed by REACT_APP):
+4. Create another `.env` file in the client folder and add the key there as well (prefixed by REACT_APP):
 
 ```
 REACT_APP_PUSHER_KEY=*******************
@@ -73,8 +73,8 @@ REACT_APP_PUSHER_KEY=*******************
 
 Google Maps API is used for geocoding to calculate distances and displaying locations on the map.
 
-1 Get a key here: https://developers.google.com/places/web-service/get-api-key
-2 Add the key to the `.env` file in the client folder (prefixed by REACT_APP):
+1. Get a key here: https://developers.google.com/places/web-service/get-api-key
+2. Add the key to the `.env` file in the client folder (prefixed by REACT_APP):
 
 ```
 REACT_APP_GOOGLE_API_KEY=**********
