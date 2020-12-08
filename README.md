@@ -82,6 +82,19 @@ REACT_APP_GOOGLE_API_KEY=**********
 
 ### Firebase
 
+- Connect to or create a Firebase account here: https://firebase.google.com
+- Create a new project and click on 'Storage' and then on 'Start'.
+- Select your bucket's rules and the location of your data (one that is close to where you are). 
+- Click on the settings button at the top of the left menu and and select "Service accounts". 
+- Click on “Generate new private key”. This will generate and download a JSON file with all the Firebase keys. Store this file in your project but make sure to add it to the `.gitignore` file so it's not commited to the remote repository. 
+- Add the following environment variables to the `.env` file in the root folder:
+
+```
+GCLOUD_PROJECT_ID: (your firebase project ID)
+GCLOUD_APPLICATION_CREDENTIALS: (path to your firebase JSON file)
+GCLOUD_STORAGE_BUCKET_URL: [YOUR_GCLOUD_PROJECT_ID].appspot.com
+```
+
 ### Development
 
 - Run `npm start` in the project directory to start the Express server on port 5000.
