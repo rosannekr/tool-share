@@ -84,7 +84,7 @@ REACT_APP_GOOGLE_API_KEY=**********
 
 - Connect to or create a Firebase account here: https://firebase.google.com
 - Create a new project and click on 'Storage' and then on 'Start'.
-- Select your bucket's rules and the location of your data (one that it's close to where you are). 
+- Select your bucket's rules and the location of your data (one that is close to where you are). 
 - Click on the settings button at the top of the left menu and and select "Service accounts". 
 - Click on “Generate new private key”. This will generate and download a JSON file with all the Firebase keys. Store this file in your project but make sure to add it to the `.gitignore` file so it's not commited to the remote repository. 
 - Add the following environment variables to the `.env` file in the root folder:
