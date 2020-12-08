@@ -108,4 +108,3 @@ Test the frontend on http://localhost:3000/ and the backend on http://localhost:
 ![Database Schema](/db_schema.png)
 
 _This is a student project that was created at [CodeOp](http://codeop.tech), a full stack development bootcamp in Barcelona._
-
