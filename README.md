@@ -6,6 +6,10 @@ Technologies used: React, Node/Express, Sequelize, MySQL, Tailwind CSS and more!
 
 See the app live on Heroku: https://shareitapp.herokuapp.com/
 
+Or watch a demo:
+
+https://www.loom.com/share/38a9322267054843adb08ec95c7e5e87
+
 ## Features
 
 - Create a profile and upload photos of products you want to lend out
