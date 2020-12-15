@@ -94,9 +94,9 @@ REACT_APP_GOOGLE_API_KEY=**********
 - Add the following environment variables to the `.env` file in the root folder:
 
 ```
-GCLOUD_PROJECT_ID: (your firebase project ID)
-GCLOUD_APPLICATION_CREDENTIALS: (path to your firebase JSON file)
-GCLOUD_STORAGE_BUCKET_URL: [YOUR_GCLOUD_PROJECT_ID].appspot.com
+GCLOUD_PROJECT_ID=(your firebase project ID)
+GCLOUD_APPLICATION_CREDENTIALS=(path to your firebase JSON file)
+GCLOUD_STORAGE_BUCKET_URL=[YOUR_GCLOUD_PROJECT_ID].appspot.com
 ```
 
 ### Development
